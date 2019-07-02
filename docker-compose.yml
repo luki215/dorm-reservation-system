@@ -1,0 +1,42 @@
+version: '3.5'
+services:
+  app:
+    build: .
+    command: rails s -b 0.0.0.0 -p 3000
+    ports:
+    - 3000:3000
+    volumes:
+    - .:/app
+    env_file: .env
+    environment:
+    - DEV_DATABASE_HOST=db
+    - DEV_MAIL_HOST=mailcatcher
+    depends_on:
+    - db
+    stdin_open: true
+    tty: true
+  db:
+    image: postgres:latest
+    ports:
+    - 5432:5432
+    environment:
+    - POSTGRES_DB=database-dev
+    - POSTGRES_USER=root
+  delayed_job:
+    build: .
+    command: rake jobs:work
+    volumes:
+    - .:/app 
+    env_file: .env
+    environment:
+    - DEV_DATABASE_HOST=db
+    - DEV_MAIL_HOST=mailcatcher
+    depends_on:
+    - db
+    stdin_open: true
+    tty: true
+  mailcatcher:
+    image: zolweb/docker-mailcatcher:latest
+    ports:
+    - "1025:1025" 
+    - "1080:1080"

@@ -1,0 +1,23 @@
+version: '3.5'
+
+services:
+  app:
+    volumes:
+      # Mounts the project folder to '/workspace'. The target path inside the container
+      # should match what your application expects. In this case, the compose file is
+      # in a sub-folder, so we will mount '..'. We'll then reference this as the
+      # workspaceFolder in '.devcontainer/devcontainer.json' so VS Code starts here.
+      - ..:/workspace
+
+      # This lets you avoid setting up Git again in the container
+      - ~/.gitconfig:/root/.gitconfig
+      - ~/.ssh:/root/.ssh
+
+    # [Optional] Required for ptrace-based debuggers like C++, Go, and Rust
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
