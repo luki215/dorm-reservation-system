@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Fullname:</strong>
+  <%= @user.fullname %>
+</p>
+
+<p>
+  <strong>Allow alliance:</strong>
+  <%= @user.allow_alliance %>
+</p>
+
+<p>
+  <strong>Allow room switch:</strong>
+  <%= @user.allow_room_switch %>
+</p>
+
+<p>
+  <strong>Move with alliance:</strong>
+  <%= @user.move_with_alliance %>
+</p>
+
+<p>
+  <strong>Male:</strong>
+  <%= @user.male %>
+</p>
+
+<p>
+  <strong>Same sex room:</strong>
+  <%= @user.same_sex_room %>
+</p>
+
+<p>
+  <strong>Same sex cell:</strong>
+  <%= @user.same_sex_cell %>
+</p>
+
+<p>
+  <strong>Allow share info:</strong>
+  <%= @user.allow_share_info %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @user.note %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

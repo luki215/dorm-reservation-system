@@ -1,0 +1,62 @@
+<%= form_with(model: user, local: true) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :fullname %>
+    <%= form.text_field :fullname %>
+  </div>
+
+  <div class="field">
+    <%= form.label :allow_alliance %>
+    <%= form.check_box :allow_alliance %>
+  </div>
+
+  <div class="field">
+    <%= form.label :allow_room_switch %>
+    <%= form.check_box :allow_room_switch %>
+  </div>
+
+  <div class="field">
+    <%= form.label :move_with_alliance %>
+    <%= form.check_box :move_with_alliance %>
+  </div>
+
+  <div class="field">
+    <%= form.label :male %>
+    <%= form.check_box :male %>
+  </div>
+
+  <div class="field">
+    <%= form.label :same_sex_room %>
+    <%= form.check_box :same_sex_room %>
+  </div>
+
+  <div class="field">
+    <%= form.label :same_sex_cell %>
+    <%= form.check_box :same_sex_cell %>
+  </div>
+
+  <div class="field">
+    <%= form.label :allow_share_info %>
+    <%= form.check_box :allow_share_info %>
+  </div>
+
+  <div class="field">
+    <%= form.label :note %>
+    <%= form.text_area :note %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
