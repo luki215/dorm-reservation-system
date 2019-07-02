@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @aliance.name %>
+</p>
+
+<p>
+  <strong>Founder:</strong>
+  <%= @aliance.founder %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @aliance.note %>
+</p>
+
+<%= link_to 'Edit', edit_aliance_path(@aliance) %> |
+<%= link_to 'Back', aliances_path %>
