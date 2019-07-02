@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Building:</strong>
+  <%= @place.building %>
+</p>
+
+<p>
+  <strong>Floor:</strong>
+  <%= @place.floor %>
+</p>
+
+<p>
+  <strong>Cell:</strong>
+  <%= @place.cell %>
+</p>
+
+<p>
+  <strong>Room:</strong>
+  <%= @place.room %>
+</p>
+
+<p>
+  <strong>Bed:</strong>
+  <%= @place.bed %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @place.user %>
+</p>
+
+<%= link_to 'Edit', edit_place_path(@place) %> |
+<%= link_to 'Back', places_path %>

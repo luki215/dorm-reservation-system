@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_02_212310) do
+ActiveRecord::Schema.define(version: 2019_07_02_213220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,23 @@ ActiveRecord::Schema.define(version: 2019_07_02_212310) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["founder_id"], name: "index_aliances_on_founder_id"
+  end
+
+  create_table "places", force: :cascade do |t|
+    t.string "building"
+    t.string "floor"
+    t.string "cell"
+    t.string "room"
+    t.string "bed"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bed"], name: "index_places_on_bed"
+    t.index ["building"], name: "index_places_on_building"
+    t.index ["cell"], name: "index_places_on_cell"
+    t.index ["floor"], name: "index_places_on_floor"
+    t.index ["room"], name: "index_places_on_room"
+    t.index ["user_id"], name: "index_places_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -48,4 +65,5 @@ ActiveRecord::Schema.define(version: 2019_07_02_212310) do
   end
 
   add_foreign_key "aliances", "users", column: "founder_id"
+  add_foreign_key "places", "users"
 end
