@@ -4,7 +4,14 @@ class PlacesController < ApplicationController
   # GET /places
   # GET /places.json
   def index
-    @places = Place.all
+    @params = params.permit(:building, :floor)
+    
+    @buildings = Place.distinct.pluck(:building)
+    @floors = Place.where(building:params[:building]).distinct.order(:floor).pluck(:floor) if @params[:building]
+
+
+    @places = Place.where(building: @params[:building], floor: @params[:floor]).order(:room)
+    
   end
 
   # GET /places/1

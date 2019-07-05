@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :places
+  resources :places, path: 'reservations'
   resources :aliances
   
   devise_for :users, path: '', only: :sessions
