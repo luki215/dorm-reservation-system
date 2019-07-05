@@ -26,17 +26,22 @@ namespace :generators do
 
     task :generate_users => :environment do
         puts "Gnerating users..."
-        User.create!(
-            email: "admin@example.com",
-            password: "123456",
-            admin: true,
-        )
-
-        User.create!(
-            email: "user@example.com",
-            password: "123456"
-        )
-
+       
+        (1..1000).each do |i| 
+            puts "generated #{i/10}%" 
+            User.create!(
+                {
+                    email: "user#{i}@example.com", 
+                    password: "123456",
+                    fullname: "User #{i}" 
+                }
+            )
+        end
+        
+        email: "admin@example.com",
+        password: "123456",
+        admin: true,
+    
         puts "Gnerated successfully"
     end
 

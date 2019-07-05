@@ -3,40 +3,42 @@
     <div class="col-12">
       <h1>Users</h1>
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Fullname</th>
-            <th>Allow alliance</th>
-            <th>Allow room switch</th>
-            <th>Move with alliance</th>
-            <th>Male</th>
-            <th>Same sex room</th>
-            <th>Same sex cell</th>
-            <th>Allow share info</th>
-            <th>Note</th>
-            <th colspan="3"></th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @users.each do |user| %>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
             <tr>
-              <td><%= user.fullname %></td>
-              <td><%= user.allow_alliance %></td>
-              <td><%= user.allow_room_switch %></td>
-              <td><%= user.move_with_alliance %></td>
-              <td><%= user.male %></td>
-              <td><%= user.same_sex_room %></td>
-              <td><%= user.same_sex_cell %></td>
-              <td><%= user.allow_share_info %></td>
-              <td><%= user.note %></td>
-              <td><%= link_to 'Show', user %></td>
-              <td><%= link_to 'Edit', edit_user_path(user) %></td>
+              <th>Fullname</th>
+              <th>Allow alliance</th>
+              <th>Allow room switch</th>
+              <th>Move with alliance</th>
+              <th>Male</th>
+              <th>Same sex room</th>
+              <th>Same sex cell</th>
+              <th>Allow share info</th>
+              <th>Note</th>
+              <th colspan="3"></th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            <% @users.each do |user| %>
+              <tr>
+                <td><%= user.fullname %></td>
+                <td><%= user.allow_alliance %></td>
+                <td><%= user.allow_room_switch %></td>
+                <td><%= user.move_with_alliance %></td>
+                <td><%= user.male %></td>
+                <td><%= user.same_sex_room %></td>
+                <td><%= user.same_sex_cell %></td>
+                <td><%= user.allow_share_info %></td>
+                <td><%= user.note %></td>
+                <td><%= link_to 'Edit', edit_user_path(user), class:"btn btn-info" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <%= paginate @users %>
     </div>
   </div>
 </div>

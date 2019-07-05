@@ -1,6 +1,6 @@
 <%= form_with(model: user, local: true) do |form| %>
   <% if user.errors.any? %>
-    <div id="error_explanation">
+    <div id="alert alert-danger alert-dismissible fade show" role="alert">
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
       <ul>
@@ -8,55 +8,60 @@
         <li><%= message %></li>
       <% end %>
       </ul>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :fullname %>
-    <%= form.text_field :fullname %>
+    <%= form.text_field :fullname, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :allow_alliance %>
-    <%= form.check_box :allow_alliance %>
+  <div class="form-group form-check">
+    <%= form.check_box :allow_alliance, class: "form-check-input" %>
+    <%= form.label :allow_alliance, class: "form-check-label" %>
   </div>
 
-  <div class="field">
-    <%= form.label :allow_room_switch %>
-    <%= form.check_box :allow_room_switch %>
+  <div class="form-group form-check">
+    <%= form.check_box :allow_room_switch, class: "form-check-input" %>
+    <%= form.label :allow_room_switch, class: "form-check-label" %>
   </div>
 
-  <div class="field">
-    <%= form.label :move_with_alliance %>
-    <%= form.check_box :move_with_alliance %>
+  <div class="form-group form-check">
+    <%= form.check_box :move_with_alliance, class: "form-check-input" %>
+    <%= form.label :move_with_alliance, class: "form-check-label" %>
   </div>
 
-  <div class="field">
-    <%= form.label :male %>
-    <%= form.check_box :male %>
+  <div class="form-group">
+    <%= form.label :male do %> Pohlaví <%end%>
+    <%= form.select :male, [["Male", true], ["Female", false]], {}, {class: "form-control" } %>
   </div>
 
-  <div class="field">
-    <%= form.label :same_sex_room %>
-    <%= form.check_box :same_sex_room %>
+  <div class="form-group form-check">
+    <%= form.check_box :same_sex_room, class: "form-check-input" %>
+    <%= form.label :same_sex_room, class: "form-check-label" %>
   </div>
 
-  <div class="field">
-    <%= form.label :same_sex_cell %>
-    <%= form.check_box :same_sex_cell %>
+  <div class="form-group form-check">
+    <%= form.check_box :same_sex_cell, class: "form-check-input" %>
+    <%= form.label :same_sex_cell, class: "form-check-label" %>
   </div>
 
-  <div class="field">
-    <%= form.label :allow_share_info %>
-    <%= form.check_box :allow_share_info %>
+  <div class="form-group form-check">
+    <%= form.check_box :allow_share_info, class: "form-check-input" %>
+    <%= form.label :allow_share_info, class: "form-check-label" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :note %>
-    <%= form.text_area :note %>
+    <%= form.text_area :note, class: "form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= link_to 'Back', users_path, class: "btn btn-outline-secondary"  if current_user.admin %>
+    <%= form.submit class: "btn btn-primary" %>
+
   </div>
 <% end %>
