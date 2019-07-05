@@ -5,60 +5,30 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+    admin_only
     @users = User.all
-  end
-
-  # GET /users/1
-  # GET /users/1.json
-  def show
-  end
-
-  # GET /users/new
-  def new
-    @user = User.new
   end
 
   # GET /users/1/edit
   def edit
-  end
-
-  # POST /users
-  # POST /users.json
-  def create
-    @user = User.new(user_params)
-
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
+    self_or_admin_only
   end
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    self_or_admin_only
+    
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        red = current_user.admin ? users_path : "/"
+        target = current_user.admin ? "Uživatel" : "Váš profil"
+        format.html { redirect_to red, notice: target + ' byl úspěšně změněn.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /users/1
-  # DELETE /users/1.json
-  def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -72,4 +42,11 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:fullname, :allow_alliance, :allow_room_switch, :move_with_alliance, :male, :same_sex_room, :same_sex_cell, :allow_share_info, :note)
     end
+
+    def self_or_admin_only
+      unless(current_user.admin || current_user.id == @user.id)
+          unauthorized
+      end
+    end
+
 end
