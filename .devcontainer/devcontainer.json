@@ -10,7 +10,6 @@
   "shutdownAction": "stopCompose",
   "extensions": [
     "bung87.rails",
-    "hjleochen.rails-nav",
     "aki77.rails-partial",
     "aki77.rails-routes",
     "rebornix.ruby",

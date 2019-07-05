@@ -1,4 +1,5 @@
 class AliancesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_aliance, only: [:show, :edit, :update, :destroy]
 
   # GET /aliances
