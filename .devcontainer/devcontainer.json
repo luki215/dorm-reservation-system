@@ -1,5 +1,5 @@
 {    
-  "name": "Prusa back",
+  "name": "Rezervace",
   // The order of the files is important since later files override previous ones
   "dockerComposeFile": [
       "../docker-compose.yml",

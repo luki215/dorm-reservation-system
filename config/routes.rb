@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :places, path: 'reservations'
+  resources :places, path: 'reservations' do 
+    post 'reservations/create'
+    delete 'reservations/destroy'
+  end
+
   resources :aliances
   
   devise_for :users, path: '', only: :sessions

@@ -28,41 +28,64 @@
       </div>
     </div>
   </div>
-
+<% if @cells %>
   <div class="row">
     <div class="col-12">
       <h1>Places</h1>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Building</th>
-              <th>Floor</th>
-              <th>Cell</th>
-              <th>Room</th>
-              <th>Bed</th>
-              <th>User</th>
-              <th colspan="3"></th>
-            </tr>
-          </thead>
 
-          <tbody>
-            <% @places.each do |place| %>
-              <tr>
-                <td><%= place.building %></td>
-                <td><%= place.floor %></td>
-                <td><%= place.cell %></td>
-                <td><%= place.building + place.floor.to_s + place.room %></td>
-                <td><%= place.bed %></td>
-                <td><%= place.user %></td>
-                <td><%= link_to 'Show', place %></td>
-                <td><%= link_to 'Edit', edit_place_path(place) %></td>
-                <td><%= link_to 'Destroy', place, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+      <div class="row">
+        <% @cells.each do |cell, places| %>
+          <div class="col-lg-4 col-sm-6">
+            <div class="card mb-4">
+              <h5 class="card-header"><%= cell %></h5>
+              <ul class="list-group list-group-flush">
+                <% places.each do |place| %>
+                  <li class="list-group-item">
+                    <%= room_full(place) %>
+                    <!-- USER -->
+                    <% if !current_user.admin %>
+                      <!-- available -->
+                      <% if place.available? %>
+                        <%= link_to "Make a reservation", 
+                            place_reservations_create_path(place_id: place.id), 
+                            class: "btn btn-success",
+                            method: :post,
+                            data: current_user.place.nil? ? nil : {confirm: "You have other place reserved. Are you sure to change it?" } 
+                        %>
+                      <!-- reserved by me -->                     
+                      <% elsif place.user === current_user %>
+                        <%= link_to "Cancel reservation", 
+                            place_reservations_destroy_path(place_id: place.id), 
+                            class: "btn btn-warning",
+                            method: :delete,
+                            data: { confirm: 'Are you sure?' }
+                        %>
+                      <!-- reserved by someone else / unavailable -->                     
+                      <% else %>
+                        <%= link_to "Unavailable", 
+                            place_reservations_create_path(place_id: place.id), 
+                            class: "btn btn-danger disabled" 
+                        %>
+                      <% end %>
+
+                    <!-- ADMIN -->
+                    <% else %>
+                      <%= link_to 'Edit', edit_place_path(place), class:"btn btn-primary" %>
+                      <%= link_to 'Destroy', place, 
+                          method: :delete,
+                          data: { confirm: 'Are you sure?' }, 
+                          class:"btn btn-danger disabled"
+                      %>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
+<% end %>
+
 </div>
