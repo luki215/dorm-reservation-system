@@ -4,6 +4,9 @@
 <li class="nav-item <%= 'active' if controller_name == "places" %>">
     <%= link_to "Reservations", places_path, class: "nav-link" %>
 </li>
+<li class="nav-item <%= 'active' if controller_name == "places" %>">
+    <%= link_to "My profile", edit_user_path(current_user), class: "nav-link" %>
+</li>
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Dropdown

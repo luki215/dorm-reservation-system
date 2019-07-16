@@ -50,7 +50,7 @@
                             place_reservations_create_path(place_id: place.id), 
                             class: "btn btn-success",
                             method: :post,
-                            data: current_user.place.nil? ? nil : {confirm: "You have other place reserved. Are you sure to change it?" } 
+                            data: current_user.place.nil? ? nil : {confirm: "You have already reserved room #{room_full(current_user.place)}. Are you sure to change it?" } 
                         %>
                       <!-- reserved by me -->                     
                       <% elsif place.user === current_user %>
