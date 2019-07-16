@@ -1,19 +1,58 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <div class="card">
+        <div class="card-header">
+          Alliance
+        </div>
+        <table class="table mb-0">
+          <tbody>
+            <tr><td><strong>Name</strong></td><td><%= @aliance.name %></td></tr>
+            <tr><td><strong>Note</strong></td> <td><%= @aliance.note %></td> </tr>
+            <tr><td><strong>Founder</strong></td> <td><%= @aliance.founder.fullname %></td> </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card">
+        <div class="card-header">Aliance members</div>
+         <table class="table">
+          <thead><th>Name</th><th>Email</th></thead>
+          <tbody>
+            <% @aliance.users.each do |user| %>
+              <tr>
+                <td>user.fullname</td>
+                <td><%= user.email %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @aliance.name %>
-</p>
+      <div class="card mt-4">
+        <div class="card-header">Aliance membership requests</div>
+         <table class="table">
+          <thead><th>Name</th><th>Email</th><th></th></thead>
+          <tbody>
+            <% @aliance.users.each do |user| %>
+              <tr>
+                <td>user.fullname</td>
+                <td><%= user.email %></td>
+                <td><%= link_to "Accept", "#", class:"btn btn-primary" %> </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
 
-<p>
-  <strong>Founder:</strong>
-  <%= @aliance.founder %>
-</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <%= link_to 'Back', aliances_path, class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Note:</strong>
-  <%= @aliance.note %>
-</p>
 
-<%= link_to 'Edit', edit_aliance_path(@aliance) %> |
-<%= link_to 'Back', aliances_path %>

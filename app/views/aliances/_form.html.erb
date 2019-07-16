@@ -11,22 +11,23 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :founder_id %>
-    <%= form.text_field :founder_id %>
+    <input name="founder-placeholder" class="form-control" disabled="true" value="<%=current_user.fullname %>">
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :note %>
-    <%= form.text_area :note %>
+    <%= form.text_area :note, class: "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="d-flex justify-content-between">
+    <%= link_to 'Back', aliances_path, class: "btn btn-outline-secondary" %>
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>

@@ -1,31 +1,49 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
 
-<h1>Aliances</h1>
+      <h1>Alliances</h1>
+      <p>
+      If you want to move in with your friends, alliances is a way to go. 
+      All the people in alliance can be moved at once by any of the members. </p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Founder</th>
-      <th>Note</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+      <% if !current_user.allow_alliance %>
+        <div class="alert alert-danger">
+          You have alliances module disabled. You can allow it in 
+          <%= link_to "Profile", edit_user_path(current_user) %> section.
+        </div>
+      <% else %>
+        <hr>
+        <p>If you have a friend who already created an alliance, you can join it by clicking the button in the following table.</p>
+        <p>You can also 
+          <div class="text-center">
+            <%= link_to 'Create new alliance', new_aliance_path, class:"btn btn-primary btn-lg" %>
+          </div>
+        </p>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Founder</th>
+              <th>Note</th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
 
-  <tbody>
-    <% @aliances.each do |aliance| %>
-      <tr>
-        <td><%= aliance.name %></td>
-        <td><%= aliance.founder %></td>
-        <td><%= aliance.note %></td>
-        <td><%= link_to 'Show', aliance %></td>
-        <td><%= link_to 'Edit', edit_aliance_path(aliance) %></td>
-        <td><%= link_to 'Destroy', aliance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Aliance', new_aliance_path %>
+          <tbody>
+            <% @aliances.each do |aliance| %>
+              <tr>
+                <td><%= aliance.name %></td>
+                <td><%= aliance.founder.fullname %></td>
+                <td><%= aliance.note %></td>
+                <td><%= link_to 'Show', aliance %></td>
+                <td><%= link_to 'Edit', edit_aliance_path(aliance) %></td>
+                <td><%= link_to 'Destroy', aliance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>

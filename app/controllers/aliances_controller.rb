@@ -15,7 +15,7 @@ class AliancesController < ApplicationController
 
   # GET /aliances/new
   def new
-    @aliance = Aliance.new
+    @aliance = Aliance.new()
   end
 
   # GET /aliances/1/edit
@@ -26,6 +26,7 @@ class AliancesController < ApplicationController
   # POST /aliances.json
   def create
     @aliance = Aliance.new(aliance_params)
+    @aliance.founder = current_user
 
     respond_to do |format|
       if @aliance.save
@@ -70,6 +71,6 @@ class AliancesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def aliance_params
-      params.require(:aliance).permit(:name, :founder_id, :note)
+      params.require(:aliance).permit(:name, :note)
     end
 end
