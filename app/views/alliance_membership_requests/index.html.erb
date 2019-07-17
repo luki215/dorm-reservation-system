@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Alliance Membership Requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Alliance</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @alliance_membership_requests.each do |alliance_membership_request| %>
+      <tr>
+        <td><%= alliance_membership_request.user %></td>
+        <td><%= alliance_membership_request.alliance %></td>
+        <td><%= link_to 'Show', alliance_membership_request %></td>
+        <td><%= link_to 'Edit', edit_alliance_membership_request_path(alliance_membership_request) %></td>
+        <td><%= link_to 'Destroy', alliance_membership_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Alliance Membership Request', new_alliance_membership_request_path %>

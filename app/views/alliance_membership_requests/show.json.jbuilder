@@ -1,0 +1,1 @@
+json.partial! "alliance_membership_requests/alliance_membership_request", alliance_membership_request: @alliance_membership_request

@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
+  resources :alliance_membership_requests, only: [:create, :destroy] do 
+    post "accept", on: :member
+  end
+
   resources :places, path: 'reservations' do 
     post 'reservations/create'
     delete 'reservations/destroy'
   end
 
-  resources :aliances
+  resources :aliances do 
+    post "remove_member", on: :member
+  end
   
   devise_for :users, path: '', only: :sessions
 

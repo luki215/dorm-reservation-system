@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_05_210253) do
+ActiveRecord::Schema.define(version: 2019_07_16_173927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 2019_07_05_210253) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["founder_id"], name: "index_aliances_on_founder_id"
+  end
+
+  create_table "alliance_membership_requests", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "aliance_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["aliance_id"], name: "index_alliance_membership_requests_on_aliance_id"
+    t.index ["user_id"], name: "index_alliance_membership_requests_on_user_id"
   end
 
   create_table "places", force: :cascade do |t|
@@ -66,5 +75,7 @@ ActiveRecord::Schema.define(version: 2019_07_05_210253) do
   end
 
   add_foreign_key "aliances", "users", column: "founder_id"
+  add_foreign_key "alliance_membership_requests", "aliances"
+  add_foreign_key "alliance_membership_requests", "users"
   add_foreign_key "places", "users"
 end

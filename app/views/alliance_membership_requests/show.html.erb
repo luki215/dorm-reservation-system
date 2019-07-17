@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @alliance_membership_request.user %>
+</p>
+
+<p>
+  <strong>Alliance:</strong>
+  <%= @alliance_membership_request.alliance %>
+</p>
+
+<%= link_to 'Edit', edit_alliance_membership_request_path(@alliance_membership_request) %> |
+<%= link_to 'Back', alliance_membership_requests_path %>

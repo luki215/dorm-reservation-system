@@ -1,16 +1,22 @@
 class AliancesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_aliance, only: [:show, :edit, :update, :destroy]
+  before_action :set_aliance, only: [:edit, :update, :destroy]
 
   # GET /aliances
   # GET /aliances.json
   def index
+    
+    redirect_to aliance_path(current_user.aliance) if current_user.aliance 
+    redirect_to aliance_path(current_user.alliance_membership_request.aliance) if current_user.alliance_membership_request
+    
     @aliances = Aliance.all
   end
 
   # GET /aliances/1
   # GET /aliances/1.json
   def show
+    @aliance = Aliance.includes(:alliance_membership_requests).find(params[:id])
+    unauthorized unless (current_user.aliance == @aliance || current_user.pending_alliance == @aliance)
   end
 
   # GET /aliances/new
@@ -20,6 +26,7 @@ class AliancesController < ApplicationController
 
   # GET /aliances/1/edit
   def edit
+    unauthorized unless @aliance.founder == current_user
   end
 
   # POST /aliances
@@ -27,6 +34,7 @@ class AliancesController < ApplicationController
   def create
     @aliance = Aliance.new(aliance_params)
     @aliance.founder = current_user
+    @aliance.users.push(current_user)
 
     respond_to do |format|
       if @aliance.save

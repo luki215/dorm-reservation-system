@@ -17,7 +17,7 @@
         <p>If you have a friend who already created an alliance, you can join it by clicking the button in the following table.</p>
         <p>You can also 
           <div class="text-center">
-            <%= link_to 'Create new alliance', new_aliance_path, class:"btn btn-primary btn-lg" %>
+            <%= link_to 'Create new alliance', new_aliance_path, class:"btn btn-success btn-lg" %>
           </div>
         </p>
         <table class="table table-striped">
@@ -36,9 +36,7 @@
                 <td><%= aliance.name %></td>
                 <td><%= aliance.founder.fullname %></td>
                 <td><%= aliance.note %></td>
-                <td><%= link_to 'Show', aliance %></td>
-                <td><%= link_to 'Edit', edit_aliance_path(aliance) %></td>
-                <td><%= link_to 'Destroy', aliance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <td><%= link_to 'Join', alliance_membership_requests_path(aliance_id:  aliance.id), method: :post, class: "btn btn-primary" if current_user.aliance.nil? %></td>
               </tr>
             <% end %>
           </tbody>
