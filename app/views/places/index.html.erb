@@ -4,23 +4,31 @@
       <div class="card">
         <div class="card-header">Select place</div>
         <div class="card-body">
-          <div>
+          <div class="mb-3">
             Building: 
             <% for building in @buildings do %>
-              <%= link_to building, 
-                  @params.merge(building: building), 
-                  class: "btn btn#{'-outline' unless @params[:building] == building}-info"
+              <%= link_to(
+                    @params.merge(building: building), 
+                    {class: "btn btn#{'-outline' unless @params[:building] == building}-info mb-2"}
+                  ) do 
               %>
+                <%= building %>
+                <%= render partial: "places_count", locals: {places_count: Place.places_count(building)} %>
+              <% end %>
             <% end %>
           </div>
           <% if @params[:building] %>
             <div>
               Floor: 
               <% for floor in @floors do %>
-                <%= link_to floor, 
-                    @params.merge(floor: floor), 
-                    class: "btn btn#{'-outline' unless @params[:floor].to_i == floor}-info"
+                <%= link_to( 
+                      @params.merge(floor: floor), 
+                      class: "btn btn#{'-outline' unless @params[:floor].to_i == floor}-info mb-2"
+                    ) do
                 %>
+                  <%= floor %>
+                  <%= render partial: "places_count", locals: {places_count: Place.places_count(@params[:building], floor)} %>
+                <% end %>
               <% end %>
             </div>
           <% end %>
@@ -37,7 +45,9 @@
         <% @cells.each do |cell, places| %>
           <div class="col-lg-4 col-sm-6">
             <div class="card mb-4">
-              <h5 class="card-header"><%= cell %></h5>
+              <h5 class="card-header"><%= cell %>
+                  <%= render partial: "places_count", locals: {places_count: Place.places_count(@params[:building], @params[:floor], cell)} %>
+              </h5>
               <ul class="list-group list-group-flush">
                 <% places.each do |place| %>
                   <li class="list-group-item">
