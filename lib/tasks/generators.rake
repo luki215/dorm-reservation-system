@@ -1,6 +1,6 @@
 namespace :generators do
     task :create_rooms => :environment do
-        puts "Gnerating rooms..."
+        puts "Generating rooms..."
 
         floors = {A: 20, B: 16}
         roomsCount = {A: 26, B: 16}
@@ -37,12 +37,14 @@ namespace :generators do
         puts "Gnerating users..."
        
         (1..1000).each do |i| 
-            puts "generated #{i/10}%" 
+            puts "generated #{i/10}%" if i % 10 == 0
+
             User.create!(
                 {
                     email: "user#{i}@example.com", 
                     password: "123456",
-                    fullname: "User #{i}" 
+                    fullname: "User #{i}",
+                    male: rand() > 0.5
                 }
             )
         end

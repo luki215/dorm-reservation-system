@@ -1,6 +1,19 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
+      <h1>Reservations</h1>
+
+      <% if current_user.place %>
+        <div class="alert alert-success" role="alert">
+          You have reservation for room <%= room_full current_user.place %>.
+        </div>
+      <% else %>
+        <div class="alert alert-warning" role="alert">
+          You don't have any place reserved yet. Choose one of the available places below.
+        </div>
+      <% end %>
+    </div>
+    <div class="col-12">
       <div class="card">
         <div class="card-header">Select place</div>
         <div class="card-body">
@@ -13,7 +26,7 @@
                   ) do 
               %>
                 <%= building %>
-                <%= render partial: "places_count", locals: {places_count: Place.places_count(building)} %>
+                <%= render partial: "places_count", locals: {places_count: Place.places_count(current_user, building)} %>
               <% end %>
             <% end %>
           </div>
@@ -27,7 +40,7 @@
                     ) do
                 %>
                   <%= floor %>
-                  <%= render partial: "places_count", locals: {places_count: Place.places_count(@params[:building], floor)} %>
+                  <%= render partial: "places_count", locals: {places_count: Place.places_count(current_user, @params[:building], floor.to_s)} %>
                 <% end %>
               <% end %>
             </div>
@@ -40,13 +53,12 @@
   <div class="row">
     <div class="col-12">
       <h1>Places</h1>
-
       <div class="row">
         <% @cells.each do |cell, places| %>
           <div class="col-lg-4 col-sm-6">
             <div class="card mb-4">
               <h5 class="card-header"><%= cell %>
-                  <%= render partial: "places_count", locals: {places_count: Place.places_count(@params[:building], @params[:floor], cell)} %>
+                  <%= render partial: "places_count", locals: {places_count: Place.places_count(current_user, @params[:building], @params[:floor], cell)} %>
               </h5>
               <ul class="list-group list-group-flush">
                 <% places.each do |place| %>
@@ -55,7 +67,7 @@
                     <!-- USER -->
                     <% if !current_user.admin %>
                       <!-- available -->
-                      <% if place.available? %>
+                      <% if place.available?(current_user) %>
                         <%= link_to "Make a reservation", 
                             place_reservations_create_path(place_id: place.id), 
                             class: "btn btn-success",
@@ -70,12 +82,17 @@
                             method: :delete,
                             data: { confirm: 'Are you sure?' }
                         %>
-                      <!-- reserved by someone else / unavailable -->                     
+                      <!-- reserved by someone else / not matching sex -->                     
                       <% else %>
-                        <%= link_to "Unavailable", 
-                            place_reservations_create_path(place_id: place.id), 
-                            class: "btn btn-danger disabled" 
-                        %>
+                        <% if place.availability_status(current_user) == :unavailable_different_sex %>
+                          <%= button_tag "Sex mismatch", 
+                              class: "btn btn-danger",
+                              disabled: true %>
+                        <% else %>
+                            <%= button_tag "Reserved", 
+                              class: "btn btn-danger",
+                              disabled: true %>
+                        <%end%>
                       <% end %>
 
                     <!-- ADMIN -->

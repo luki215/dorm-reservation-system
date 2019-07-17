@@ -18,9 +18,13 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     self_or_admin_only
-    
+
+    attrs = user_params
+    attrs[:same_sex_room] = attrs[:same_sex_cell] if attrs[:same_sex_cell] == "1"
+    @user.place&.touch if attrs[:same_sex_room] || attrs[:same_sex_cell]
+
     respond_to do |format|
-      if @user.update(user_params)
+      if @user.update(attrs)
         red = current_user.admin ? users_path : "/"
         target = current_user.admin ? "Uživatel" : "Váš profil"
         format.html { redirect_to red, notice: target + ' byl úspěšně změněn.' }
@@ -40,7 +44,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:fullname, :allow_alliance, :allow_room_switch, :move_with_alliance, :male, :same_sex_room, :same_sex_cell, :allow_share_info, :note)
+      params.require(:user).permit(:allow_alliance, :allow_room_switch, :move_with_alliance, :male, :same_sex_room, :same_sex_cell, :allow_share_info, :note)
     end
 
     def self_or_admin_only

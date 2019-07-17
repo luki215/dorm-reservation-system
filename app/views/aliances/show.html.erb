@@ -29,7 +29,7 @@
         You have pending membership request to this alliance. Please ask one of the alliance members to accept it. 
         To join a different alliance first you have to  
         <%= link_to "Cancel the membership request", 
-            alliance_membership_request_path(@aliance.id), 
+            alliance_membership_request_path(current_user.alliance_membership_request), 
             method: :delete, 
             data: {confirm: "Are you sure to cancel the membership request?"},
             class: "btn btn-danger mt-2"

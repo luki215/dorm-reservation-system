@@ -17,7 +17,7 @@ class AllianceMembershipRequestsController < ApplicationController
   # DELETE /alliance_membership_requests/1
   # DELETE /alliance_membership_requests/1.json
   def destroy
-    @alliance_membership_request = AllianceMembershipRequest.find_by(aliance_id: params[:id])
+    @alliance_membership_request = AllianceMembershipRequest.find(params[:id])
     @alliance_membership_request.destroy
     respond_to do |format|
       format.html { redirect_to aliances_path, notice: 'Alliance membership request was successfully cancelled.' }
