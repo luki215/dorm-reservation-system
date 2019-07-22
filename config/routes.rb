@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :places, path: 'reservations' do 
     post 'reservations/create'
+    post 'reservations/create_for_alliance', on: :collection
     delete 'reservations/destroy'
   end
 

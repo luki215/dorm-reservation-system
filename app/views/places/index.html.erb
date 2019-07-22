@@ -59,6 +59,11 @@
             <div class="card mb-4">
               <h5 class="card-header"><%= cell %>
                   <%= render partial: "places_count", locals: {places_count: Place.places_count(current_user, @params[:building], @params[:floor], cell)} %>
+                  <%= link_to "Move alliance here", 
+                      reservations_create_for_alliance_places_path(aliance_id: current_user.aliance.id, cell: cell), 
+                      class: "btn btn-success",
+                      method: :post if current_user.aliance
+                  %>
               </h5>
               <ul class="list-group list-group-flush">
                 <% places.each do |place| %>
