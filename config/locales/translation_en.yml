@@ -1,0 +1,52 @@
+en:
+  activerecord:
+    models:
+      aliance: Aliance  #g
+      alliance_membership_request: Alliance membership request  #g
+      place: Place  #g
+      user: User  #g
+
+    attributes:
+      aliance:
+        alliance_membership_requests: Alliance membership requests  #g
+        founder: :activerecord.models.founder  #g
+        name: Name  #g
+        note: Note  #g
+        users: Users  #g
+
+      alliance_membership_request:
+        aliance: :activerecord.models.aliance  #g
+        user: :activerecord.models.user  #g
+
+      place:
+        bed: Bed  #g
+        building: Building  #g
+        cell: Cell  #g
+        floor: Floor  #g
+        primary_claim: :activerecord.models.primary_claim  #g
+        room: Room  #g
+        secondary_claim: :activerecord.models.secondary_claim  #g
+        user: :activerecord.models.user  #g
+
+      user:
+        admin: Admin  #g
+        aliance: :activerecord.models.aliance  #g
+        alliance_membership_request: :activerecord.models.alliance_membership_request  #g
+        allow_alliance: Allow alliance  #g
+        allow_room_switch: Allow room switch  #g
+        allow_share_info: Allow share info  #g
+        email: Email  #g
+        encrypted_password: Encrypted password  #g
+        fullname: Fullname  #g
+        male: Male  #g
+        move_with_alliance: Move with alliance  #g
+        note: Note  #g
+        owned_alliance: :activerecord.models.owned_alliance  #g
+        place: :activerecord.models.place  #g
+        primary_claim: :activerecord.models.primary_claim  #g
+        remember_created_at: Remember created at  #g
+        reset_password_sent_at: Reset password sent at  #g
+        reset_password_token: Reset password token  #g
+        same_sex_cell: Same sex cell  #g
+        same_sex_room: Same sex room  #g
+        secondary_claim: :activerecord.models.secondary_claim  #g

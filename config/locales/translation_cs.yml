@@ -1,0 +1,66 @@
+cs:
+  activerecord:
+    models:
+      aliance: Aliance  #g
+      alliance_membership_request: Žádost o členství v Alianci  #g
+      place: Místo  #g
+      user: Uživatel  #g
+
+    attributes:
+      aliance:
+        alliance_membership_requests: Žádosti o členství v Alianci  #g
+        founder: :activerecord.models.founder  #g
+        name: název  #g
+        note: Poznámka  #g
+        users: Uživatelé  #g
+
+      alliance_membership_request:
+        aliance: :activerecord.models.aliance  #g
+        user: :activerecord.models.user  #g
+
+      place:
+        bed: Lůžko  #g
+        building: Budova  #g
+        cell: Buňka  #g
+        floor: Podlaha  #g
+        primary_claim: :activerecord.models.primary_claim  #g
+        room: Pokoj, místnost  #g
+        secondary_claim: :activerecord.models.secondary_claim  #g
+        user: :activerecord.models.user  #g
+
+      user:
+        admin: Správce  #g
+        aliance: :activerecord.models.aliance  #g
+        alliance_membership_request: :activerecord.models.alliance_membership_request  #g
+        allow_alliance: Povolit modul aliance  #g
+        allow_room_switch: Povolit prohazování pokojů  #g
+        allow_share_info: Povolit informace o sdílení  #g
+        email: Email  #g
+        encrypted_password: Šifrované heslo  #g
+        fullname: Celé jméno  #g
+        male: mužský  #g
+        move_with_alliance: Pohybujte se s aliancí  #g
+        note: Poznámka  #g
+        owned_alliance: :activerecord.models.owned_alliance  #g
+        place: :activerecord.models.place  #g
+        primary_claim: :activerecord.models.primary_claim  #g
+        remember_created_at: Nezapomeňte vytvořit na  #g
+        reset_password_sent_at: Obnovit heslo zaslané na  #g
+        reset_password_token: Reset tokenu hesla  #g
+        same_sex_cell: Na buňce pouze stejné pohlaví  #g
+        same_sex_room: Na pokoji pouze stejné pohlaví  #g
+        secondary_claim: :activerecord.models.secondary_claim  #g
+
+
+  general:
+    sex:
+      male: "Můž"
+      female: "Žena"
+
+  users:
+    edit: 
+      edit_user: "Úprava uživatele"
+      edit_profile: "Úprava profilu"
+    
+    update:
+      your_profile: "Váš profil"

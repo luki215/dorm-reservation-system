@@ -26,7 +26,7 @@
 
   <div class="form-group">
     <%= form.label :male do %> Pohlaví <%end%>
-    <%= form.select :male, [["Male", true], ["Female", false]], {}, {class: "form-control", disabled: true } %>
+    <%= form.select :male, [[t("general.sex.male"), true], [t("general.sex.female"), false]], {}, {class: "form-control", disabled: true } %>
   </div>
 
   <div class="form-group form-check">

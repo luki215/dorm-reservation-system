@@ -47,7 +47,7 @@ group :development do
   gem 'solargraph'
   gem 'ruby-debug-ide'
   gem 'debase'
-
+  gem 'i18n_generators'
 
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'

@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update(attrs)
         red = current_user.admin ? users_path : "/"
-        target = current_user.admin ? "Uživatel" : "Váš profil"
+        target = current_user.admin ? t("activerecord.models.user") : t(".your_profile")
         format.html { redirect_to red, notice: target + ' byl úspěšně změněn.' }
         format.json { render :show, status: :ok, location: @user }
       else
