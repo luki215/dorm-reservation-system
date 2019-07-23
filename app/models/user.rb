@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   has_one :place, dependent: :nullify
   has_one :owned_alliance, foreign_key: "founder_id", class_name: :Aliance, dependent: :destroy
+  has_one :primary_claim, foreign_key: "primary_claim_id", class_name: :Place, dependent: :nullify
+  has_one :secondary_claim, foreign_key: "secondary_claim_id", class_name: :Place, dependent: :nullify
   belongs_to :aliance, optional: true
 
   has_one :alliance_membership_request, dependent: :destroy

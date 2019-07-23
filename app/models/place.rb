@@ -1,5 +1,7 @@
 class Place < ApplicationRecord
   belongs_to :user, optional: true
+  belongs_to :primary_claim, class_name: :User, optional: true
+  belongs_to :secondary_claim, class_name: :User, optional: true
 
   scope :places_not_colliding_with_restriction, ->(current_user) do 
     # no place on same cell/room with user having same sex as in parameter

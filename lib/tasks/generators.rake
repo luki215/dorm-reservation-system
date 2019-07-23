@@ -44,7 +44,9 @@ namespace :generators do
                     email: "user#{i}@example.com", 
                     password: "123456",
                     fullname: "User #{i}",
-                    male: rand() > 0.5
+                    male: rand() > 0.5,
+                    primary_claim: Place.first,
+                    secondary_claim: Place.where(building: "A", floor:"12", room: "01").first
                 }
             )
         end

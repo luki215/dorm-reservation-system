@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_16_173927) do
+ActiveRecord::Schema.define(version: 2019_07_23_191046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,11 +42,15 @@ ActiveRecord::Schema.define(version: 2019_07_16_173927) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "primary_claim_id"
+    t.bigint "secondary_claim_id"
     t.index ["bed"], name: "index_places_on_bed"
     t.index ["building"], name: "index_places_on_building"
     t.index ["cell"], name: "index_places_on_cell"
     t.index ["floor"], name: "index_places_on_floor"
+    t.index ["primary_claim_id"], name: "index_places_on_primary_claim_id"
     t.index ["room"], name: "index_places_on_room"
+    t.index ["secondary_claim_id"], name: "index_places_on_secondary_claim_id"
     t.index ["user_id"], name: "index_places_on_user_id"
   end
 
@@ -78,4 +82,6 @@ ActiveRecord::Schema.define(version: 2019_07_16_173927) do
   add_foreign_key "alliance_membership_requests", "aliances"
   add_foreign_key "alliance_membership_requests", "users"
   add_foreign_key "places", "users"
+  add_foreign_key "places", "users", column: "primary_claim_id"
+  add_foreign_key "places", "users", column: "secondary_claim_id"
 end
