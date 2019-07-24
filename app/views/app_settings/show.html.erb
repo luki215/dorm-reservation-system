@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>First round start:</strong>
+  <%= @app_setting.first_round_start %>
+</p>
+
+<p>
+  <strong>Second round start:</strong>
+  <%= @app_setting.second_round_start %>
+</p>
+
+<p>
+  <strong>Third round start:</strong>
+  <%= @app_setting.third_round_start %>
+</p>
+
+<p>
+  <strong>Fourth round start:</strong>
+  <%= @app_setting.fourth_round_start %>
+</p>
+
+<p>
+  <strong>Is running:</strong>
+  <%= @app_setting.is_running %>
+</p>
+
+<%= link_to 'Edit', edit_app_setting_path(@app_setting) %> |
+<%= link_to 'Back', app_settings_path %>

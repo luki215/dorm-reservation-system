@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  
+  resources :not_running, only: [:index]
+  resources :app_settings, only: [:index, :update]
+
   resources :alliance_membership_requests, only: [:create, :destroy] do 
     post "accept", on: :member
   end

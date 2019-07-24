@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_23_191046) do
+ActiveRecord::Schema.define(version: 2019_07_24_184835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,16 @@ ActiveRecord::Schema.define(version: 2019_07_23_191046) do
     t.datetime "updated_at", null: false
     t.index ["aliance_id"], name: "index_alliance_membership_requests_on_aliance_id"
     t.index ["user_id"], name: "index_alliance_membership_requests_on_user_id"
+  end
+
+  create_table "app_settings", force: :cascade do |t|
+    t.datetime "first_round_start"
+    t.datetime "second_round_start"
+    t.datetime "third_round_start"
+    t.datetime "fourth_round_start"
+    t.boolean "is_running"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "places", force: :cascade do |t|
