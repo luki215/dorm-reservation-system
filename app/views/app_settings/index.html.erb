@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>App Settings</h1>
+
+      <%= form_with(model: @app_settings, local: true) do |form| %>
+        <% if @app_settings.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(app_setting.errors.count, "error") %> prohibited this app_setting from being saved:</h2>
+
+            <ul>
+            <% @app_settings.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="field">
+          <%= form.label :first_round_start %>
+          <%= form.datetime_select :first_round_start %>
+        </div>
+
+        <div class="field">
+          <%= form.label :second_round_start %>
+          <%= form.datetime_select :second_round_start %>
+        </div>
+
+        <div class="field">
+          <%= form.label :third_round_start %>
+          <%= form.datetime_select :third_round_start %>
+        </div>
+
+        <div class="field">
+          <%= form.label :fourth_round_start %>
+          <%= form.datetime_select :fourth_round_start %>
+        </div>
+
+        <div class="field">
+          <%= form.label :is_running %>
+          <%= form.check_box :is_running %>
+        </div>
+
+        <div class="actions">
+          <%= form.submit class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+
+
+    </div>
+  </div>
+</div>
+

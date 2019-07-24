@@ -7,6 +7,10 @@
 <li class="nav-item <%= 'active' if controller_name == "users" %>">
     <%= link_to "Reservations", places_path, class: "nav-link" %>
 </li>
+<li class="nav-item <%= 'active' if controller_name == "app_settings" %>">
+    <%= link_to "App settings", app_settings_path, class: "nav-link" %>
+</li>
+
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Dropdown
