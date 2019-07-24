@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     post "remove_member", on: :member
   end
   
-  devise_for :users, path: '', only: :sessions
+  devise_for :users, path: '', only: [:sessions, :password]
 
   devise_scope :user do
     authenticated :user do
