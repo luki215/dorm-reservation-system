@@ -12,22 +12,22 @@
   <% end %>
 
   <div class="form-group">
-    <%= form.label :name %>
+    <%= form.label t("alliance.name")+" "+t("general.public") %>
     <%= form.text_field :name, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :founder_id %>
+    <%= form.label t("alliance.founder") %>
     <input name="founder-placeholder" class="form-control" disabled="true" value="<%=current_user.fullname %>">
   </div>
 
   <div class="form-group">
-    <%= form.label :note %>
+    <%= form.label t("alliance.description")+" "+t("general.public") %>
     <%= form.text_area :note, class: "form-control" %>
   </div>
 
   <div class="d-flex justify-content-between">
-    <%= link_to 'Back', aliances_path, class: "btn btn-outline-secondary" %>
-    <%= form.submit class: "btn btn-primary" %>
+    <%= link_to t("general.cancel"), aliances_path, class: "btn btn-outline-secondary" %>
+    <%= form.submit t("general.submit"),class: "btn btn-primary" %>
   </div>
 <% end %>
