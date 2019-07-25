@@ -9,8 +9,8 @@ cs:
     attributes:
       aliance:
         alliance_membership_requests: Žádosti o členství v Alianci  #g
-        founder: :activerecord.models.founder  #g
-        name: název  #g
+        founder: Zakladatel  #g
+        name: Název  #g
         note: Poznámka  #g
         users: Uživatelé  #g
 
@@ -22,11 +22,11 @@ cs:
         bed: Lůžko  #g
         building: Budova  #g
         cell: Buňka  #g
-        floor: Podlaha  #g
-        primary_claim: :activerecord.models.primary_claim  #g
-        room: Pokoj, místnost  #g
-        secondary_claim: :activerecord.models.secondary_claim  #g
-        user: :activerecord.models.user  #g
+        floor: Patro  #g
+        primary_claim: Primární právo  #g
+        room: Pokoj  #g
+        secondary_claim: Sekundární právo  #g
+        user: Uživatel  #g
 
       user:
         admin: Správce  #g
@@ -35,7 +35,7 @@ cs:
         allow_alliance: Povolit modul aliance  #g
         allow_room_switch: Povolit prohazování pokojů  #g
         allow_share_info: Povolit informace o sdílení  #g
-        email: Email  #g
+        email: E-mail  #g
         encrypted_password: Šifrované heslo  #g
         fullname: Celé jméno  #g
         male: mužský  #g
@@ -51,11 +51,69 @@ cs:
         same_sex_room: Na pokoji pouze stejné pohlaví  #g
         secondary_claim: :activerecord.models.secondary_claim  #g
 
+  header:
+    appname: Rezervace pokojů
+    home: Domů
+    reservations: Rezervace
+    profile: Můj profil
+    alliance: Aliance
+    users: Uživatelé
+
+  alliance:
+    alliance: Aliance
+    name: Název aliance
+    description: Popis
+    join: Přidat se
+    edit: Editovat alianci
+    editing: Editace aliance
+    destroy: Rozpustit alianci
+    destroy_confirmation: Skutečně chcete rozpustit alianci?
+    pending_request_info: Máte podanou žádost o členství v této alianci. Požádejte některého z jejích členů, aby ji přijal. Chcete-li podat jinou žádost, musíte nejprve
+    cancel_request: Zrušit stávající žádost o členství
+    cancel_request_confirm: Skutečně chcete zrušit žádost o členství v alianci?
+    member_name: Jméno
+    remove_member: Vyhodit z aliance
+    members: Členové aliance
+    requests: Žádosti o členství
+    no_requests: Žádné čekající žádosti
+    accept: Přijmout
+    dismiss: Odmítnout
+    
+    purpose_info: Pokud se chcete sestěhovat se svými kamarády, využijte alianci. Každý člen aliance může přestěhovat ostatní členy na svůj pokoj či buňku.
+    disabled_alert: Modul aliancí máte zakázaný. Pro jeho používání ho nejprve povolte ve
+    your_profile: vašem profilu.
+    you_can_join: Pokud máte kamaráda, který již založil alianci, můžete se k ní přidat kliknutím na tlačítko níže. 
+    you_can_also: Můžete také
+    create: Založit novou alianci
+
+    creation: Založení aliance
+    founder: Zakladatel
+
+  reservation:
+    reservation: Rezervace
+    building: Budova
+    floor: Patro
+    cells: Buňky
+    existing_reservation: Máte zarezervované místo na pokoji
+    no_reservation: V současnosti nemáte zarezervované žádné místo.
+    reserve: Zarezervovat
+    cancel: Zrušit rezervaci
+    wrong_sex: Určeno opačnému pohlaví
+    taken: Obsazeno
+    confirm_change: Skutečně chcete vaši rezervaci změnit?
+    confirm_cancel: Skutečně chcete vaši rezervaci zrušit?
+    move_alliance: Přestěhovat alianci sem
 
   general:
     sex:
-      male: "Můž"
+      gender: Pohlaví
+      male: "Muž"
       female: "Žena"
+
+    save: Uložit změny
+    public: (veřejné)
+    cancel: Zrušit
+    submit: Potvrdit
 
   users:
     edit: 

@@ -3,18 +3,17 @@
     <div class="col-md-6 mb-4">
       <div class="card">
         <div class="card-header">
-          Alliance
+          <%=t("alliance.alliance") %>
         </div>
         <table class="table mb-0">
           <tbody>
-            <tr><td><strong>Name</strong></td><td><%= @aliance.name %></td></tr>
-            <tr><td><strong>Note</strong></td> <td><%= @aliance.note %></td> </tr>
-            <tr><td><strong>Founder</strong></td> <td><%= @aliance.founder.fullname %></td> </tr>
+            <tr><td><strong><%=t("alliance.name")%></strong></td><td><%= @aliance.name %></td></tr>
+            <tr><td><strong><%=t("alliance.description")%></strong></td> <td><%= @aliance.note %></td> </tr>
             <% if @aliance.founder == current_user %>
               <tr>
                 <td colspan="2" class="text-center">
-                  <%= link_to "Edit aliance", edit_aliance_path(@aliance), class: "btn btn-warning"  %>
-                  <%= link_to "Destroy aliance", @aliance, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger"  %>
+                  <%= link_to t("alliance.edit"), edit_aliance_path(@aliance), class: "btn btn-warning"  %>
+                  <%= link_to t("alliance.destroy"), @aliance, method: :delete, data: {confirm: t("alliance.destroy_confirmation")}, class: "btn btn-danger"  %>
                 </td> 
               </tr>
             <% end %>
@@ -26,12 +25,11 @@
     <!-- START pending request to alliance -->
     <div class="col-md-6">
       <div class="alert alert-warning">
-        You have pending membership request to this alliance. Please ask one of the alliance members to accept it. 
-        To join a different alliance first you have to  
-        <%= link_to "Cancel the membership request", 
+	<%= t("alliance.pending_request_info")%>
+        <%= link_to t("alliance.cancel_request"), 
             alliance_membership_request_path(current_user.alliance_membership_request), 
             method: :delete, 
-            data: {confirm: "Are you sure to cancel the membership request?"},
+            data: {confirm: t("alliance.cancel_request_confirm")},
             class: "btn btn-danger mt-2"
         %> 
       </div>
@@ -41,10 +39,10 @@
     <!-- START inside alliance -->
     <div class="col-md-6">
       <div class="card">
-        <div class="card-header">Aliance members</div>
+        <div class="card-header"><%=t("alliance.members")%></div>
         <div class="table-responsive">
           <table class="table mb-0">
-            <thead><th>Name</th><th>Email</th><th></th></thead>
+            <thead><th><%=t("alliance.member_name")%></th><th><%=t("activerecord.attributes.user.email")%></th><th></th></thead>
             <tbody>
               <% @aliance.users.each do |user| %>
                 <tr>
@@ -52,7 +50,7 @@
                   <td><%= user.email %></td>
                   <td>
                     <% unless user == @aliance.founder %>
-                      <%= link_to "Remove member", 
+                      <%= link_to t("alliance.remove_member"), 
                           remove_member_aliance_path(@aliance, {user_id: user.id }), 
                           method: :post,
                           class: "btn btn-danger" 
@@ -67,22 +65,22 @@
       </div>
 
       <div class="card mt-4">
-        <div class="card-header">Aliance membership requests</div>
+        <div class="card-header"><%=t("alliance.requests")%></div>
         <% if @aliance.alliance_membership_requests.blank? %>
           <div class="card-body">
-            No membership requests
+            <%=t("alliance.no_requests")%>
           </div>
         <% else %>
           <div class="table-responsive">
             <table class="table mb-0">
-              <thead><th>Name</th><th>Email</th><th colspan="2"></th></thead>
+              <thead><th><%=t("alliance.member_name")%></th><th><%=t("activerecord.attributes.user.email")%></th><th colspan="2"></th></thead>
               <tbody>
                 <% @aliance.alliance_membership_requests.each do |membership| %>
                   <tr>
                     <td><%= membership.user.fullname %></td>
                     <td><%= membership.user.email %></td>
-                    <td><%= link_to "Accept", accept_alliance_membership_request_path(membership), class:"btn btn-primary", method: :post %> </td>
-                    <td><%= link_to "Remove", membership, method: :delete, class:"btn btn-danger" %> </td>
+                    <td><%= link_to t("alliance.accept"), accept_alliance_membership_request_path(membership), class:"btn btn-primary", method: :post %> </td>
+                    <td><%= link_to t("alliance.dismiss"), membership, method: :delete, class:"btn btn-danger" %> </td>
                   </tr>
                 <% end %>
               </tbody>

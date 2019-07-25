@@ -1,15 +1,15 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <h1>Reservations</h1>
+      <h1><%=t("reservation.reservation")%></h1>
 
       <% if current_user.place %>
         <div class="alert alert-success" role="alert">
-          You have reservation for room <%= room_full current_user.place %>.
+          <%=t("reservation.existing_reservation")%> <%= room_full current_user.place %>.
         </div>
       <% else %>
         <div class="alert alert-warning" role="alert">
-          You don't have any place reserved yet. Choose one of the available places below.
+          <%=t("reservation.no_reservation")%>
         </div>
       <% end %>
     </div>
@@ -18,7 +18,7 @@
         <div class="card-header">Select place</div>
         <div class="card-body">
           <div class="mb-3">
-            Building: 
+            <%=t("reservation.building")%>:
             <% for building in @buildings do %>
               <%= link_to(
                     @params.merge(building: building), 
@@ -32,7 +32,7 @@
           </div>
           <% if @params[:building] %>
             <div>
-              Floor: 
+              <%=t("reservation.floor")%>: 
               <% for floor in @floors do %>
                 <%= link_to( 
                       @params.merge(floor: floor), 
@@ -52,14 +52,14 @@
 <% if @cells %>
   <div class="row">
     <div class="col-12">
-      <h1>Places</h1>
+      <h1><%=t("reservation.cells")%></h1>
       <div class="row">
         <% @cells.each do |cell, places| %>
           <div class="col-lg-4 col-sm-6">
             <div class="card mb-4">
               <h5 class="card-header"><%= cell %>
                   <%= render partial: "places_count", locals: {places_count: Place.places_count(current_user, @params[:building], @params[:floor], cell)} %>
-                  <%= link_to "Move alliance here", 
+                  <%= link_to t("reservation.move_alliance"), 
                       reservations_create_for_alliance_places_path(aliance_id: current_user.aliance.id, cell: cell), 
                       class: "btn btn-success",
                       method: :post if current_user.aliance
@@ -73,28 +73,28 @@
                     <% if !current_user.admin %>
                       <!-- available -->
                       <% if place.available?(current_user) %>
-                        <%= link_to "Make a reservation", 
+                        <%= link_to t("reservation.reserve"), 
                             place_reservations_create_path(place_id: place.id), 
                             class: "btn btn-success",
                             method: :post,
-                            data: current_user.place.nil? ? nil : {confirm: "You have already reserved room #{room_full(current_user.place)}. Are you sure to change it?" } 
+                            data: current_user.place.nil? ? nil : {confirm: t("reservation.existing_reservation")+" #{room_full(current_user.place)}. "+ t("reservation.confirm_change") } 
                         %>
                       <!-- reserved by me -->                     
                       <% elsif place.user === current_user %>
-                        <%= link_to "Cancel reservation", 
+                        <%= link_to t("reservation.cancel"), 
                             place_reservations_destroy_path(place_id: place.id), 
                             class: "btn btn-warning",
                             method: :delete,
-                            data: { confirm: 'Are you sure?' }
+                            data: { confirm: t("reservation.confirm_cancel") }
                         %>
                       <!-- reserved by someone else / not matching sex -->                     
                       <% else %>
                         <% if place.availability_status(current_user) == :unavailable_different_sex %>
-                          <%= button_tag "Sex mismatch", 
+                          <%= button_tag t("reservation.wrong_sex"), 
                               class: "btn btn-danger",
                               disabled: true %>
                         <% else %>
-                            <%= button_tag "Reserved", 
+                            <%= button_tag t("reservation.taken"), 
                               class: "btn btn-danger",
                               disabled: true %>
                         <%end%>
