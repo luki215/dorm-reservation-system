@@ -1,11 +1,11 @@
 <li class="nav-item <%= 'active' if controller_name == "dashboard" %>">
-    <%= link_to "/", class: "nav-link"  do %> Home <%end %>
+    <%= link_to "/", class: "nav-link"  do %> <%=t("header.home") %> <%end %>
 </li>
 <li class="nav-item <%= 'active' if controller_name == "users" %>">
-    <%= link_to "Users", users_path, class: "nav-link" %>
+    <%= link_to t("header.users"), users_path, class: "nav-link" %>
 </li>
 <li class="nav-item <%= 'active' if controller_name == "users" %>">
-    <%= link_to "Reservations", places_path, class: "nav-link" %>
+    <%= link_to t("header.reservations"), places_path, class: "nav-link" %>
 </li>
 <li class="nav-item <%= 'active' if controller_name == "app_settings" %>">
     <%= link_to "App settings", app_settings_path, class: "nav-link" %>

@@ -2,31 +2,30 @@
   <div class="row">
     <div class="col-12">
 
-      <h1>Alliances</h1>
+      <h1><%=t("alliance.alliance")%></h1>
       <p>
-      If you want to move in with your friends, alliances is a way to go. 
-      All the people in alliance can be moved at once by any of the members. </p>
+      <%=t("alliance.purpose_info")%>
+      </p>
 
       <% if !current_user.allow_alliance %>
         <div class="alert alert-danger">
-          You have alliances module disabled. You can allow it in 
-          <%= link_to "Profile", edit_user_path(current_user) %> section.
+          <%=t("alliance.disabled_alert")%> 
+          <%= link_to t("alliance.your_profile"), edit_user_path(current_user) %> section.
         </div>
       <% else %>
         <hr>
-        <p>If you have a friend who already created an alliance, you can join it by clicking the button in the following table.</p>
-        <p>You can also 
+        <p><%=t("alliance.you_can_join")%></p>
+        <p><%=t("alliance.you_can_also")%>
           <div class="text-center">
-            <%= link_to 'Create new alliance', new_aliance_path, class:"btn btn-success btn-lg" %>
+            <%= link_to t("alliance.create"), new_aliance_path, class:"btn btn-success btn-lg" %>
           </div>
         </p>
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Founder</th>
-              <th>Note</th>
-              <th colspan="3"></th>
+              <th><%=t("alliance.name")%></th>
+              <th><%=t("alliance.description")%></th>
+              <th colspan="2"></th>
             </tr>
           </thead>
 
@@ -34,9 +33,8 @@
             <% @aliances.each do |aliance| %>
               <tr>
                 <td><%= aliance.name %></td>
-                <td><%= aliance.founder.fullname %></td>
                 <td><%= aliance.note %></td>
-                <td><%= link_to 'Join', alliance_membership_requests_path(aliance_id:  aliance.id), method: :post, class: "btn btn-primary" if current_user.aliance.nil? %></td>
+                <td><%= link_to t("alliance.join"), alliance_membership_requests_path(aliance_id:  aliance.id), method: :post, class: "btn btn-primary" if current_user.aliance.nil? %></td>
               </tr>
             <% end %>
           </tbody>

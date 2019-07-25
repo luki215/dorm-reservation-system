@@ -25,7 +25,7 @@
   </div>
 
   <div class="form-group">
-    <%= form.label :male do %> Pohlaví <%end%>
+    <%= form.label :male do %> <%=t("general.sex.gender") %> <%end%>
     <%= form.select :male, [[t("general.sex.male"), true], [t("general.sex.female"), false]], {}, {class: "form-control", disabled: true } %>
   </div>
 
@@ -67,7 +67,7 @@
 
   <div class="actions">
     <%= link_to 'Back', users_path, class: "btn btn-outline-secondary"  if current_user.admin %>
-    <%= form.submit class: "btn btn-primary" %>
+    <%= form.submit t("general.save"), class: "btn btn-primary" %>
 
   </div>
 <% end %>
