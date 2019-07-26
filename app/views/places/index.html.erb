@@ -102,8 +102,8 @@
 
                     <!-- ADMIN -->
                     <% else %>
-                      <%= link_to 'Edit', edit_place_path(place), class:"btn btn-primary" %>
-                      <%= link_to 'Destroy', place, 
+                      <%= link_to t("general.edit"), edit_place_path(place), class:"btn btn-primary" %>
+                      <%= link_to t("general.destroy"), place, 
                           method: :delete,
                           data: { confirm: 'Are you sure?' }, 
                           class:"btn btn-danger disabled"

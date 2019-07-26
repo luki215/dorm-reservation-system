@@ -38,7 +38,7 @@ cs:
         email: E-mail  #g
         encrypted_password: Šifrované heslo  #g
         fullname: Celé jméno  #g
-        male: mužský  #g
+        male: Muž #g
         move_with_alliance: Pohybujte se s aliancí  #g
         note: Poznámka  #g
         owned_alliance: :activerecord.models.owned_alliance  #g
@@ -58,6 +58,7 @@ cs:
     profile: Můj profil
     alliance: Aliance
     users: Uživatelé
+    app_settings: Nastavení aplikace
 
   alliance:
     alliance: Aliance
@@ -103,6 +104,8 @@ cs:
     confirm_change: Skutečně chcete vaši rezervaci změnit?
     confirm_cancel: Skutečně chcete vaši rezervaci zrušit?
     move_alliance: Přestěhovat alianci sem
+    edit_bed: Editace lůžka
+    guest: Ubytovaný
 
   general:
     sex:
@@ -114,6 +117,10 @@ cs:
     public: (veřejné)
     cancel: Zrušit
     submit: Potvrdit
+    ano: Ano
+    ne: Ne
+    edit: Editovat
+    destroy: Odstranit
 
   users:
     edit: 
@@ -122,3 +129,10 @@ cs:
     
     update:
       your_profile: "Váš profil"
+  
+  settings:
+    first_round: Začátek prvního kola
+    second_round: Začátek druhého kola
+    third_round: Začátek třetího kola
+    fourth_round: Začátek čtvrtého kola
+    running: Aplikace je spuštěna
