@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>Switch Rooms</h1>
+    </div>
+  </div>
+  <div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        Requests made
+      </div>
+      <ul class="list-group list-group-flush">
+        <% if @requests_made.length > 0  %>
+          <% @requests_made.each do |req| %>
+            <li class="list-group-item"> 
+              <%= req.user_requested.place.name %> 
+              <%= link_to t("general.cancel"), 
+                  switch_room_path(req), 
+                  class: "btn btn-danger",
+                  method: :delete,
+                  data: {confirm: "Are you sure?" }
+              %>
+            </li>
+          <% end %>
+        <% else %>
+          <li class="list-group-item">
+            You have made no requests for room switch. You can do so in <%= link_to t("header.reservations"), places_path %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        Incoming requests
+      </div>
+      <table class="table">
+        <tr><th>Place</th><th>Note from requesting user</th><th></th>
+        <% if @requests_incoming.length > 0  %>
+          <% @requests_incoming.each do |req| %>
+            <tr> 
+              <td>
+                <%= link_to places_path({building: req.user_requested.place.building, floor: req.user_requested.place.floor}) do %>
+                <strong><%= req.user_requested.place.name %></strong>
+                <% end %>
+              </td>
+              <td><%= req.note %></td>
+              <td>
+                <%= link_to t("switch_rooms.accept"), 
+                            accept_switch_room_path(req), 
+                            class: "btn btn-primary",
+                            method: :post,
+                            data: { confirm: "Are you sure?"}
+                %>
+                <%= link_to t("switch_rooms.cancel"), 
+                    switch_room_path(req), 
+                    class: "btn btn-danger",
+                    method: :delete,
+                    data: {confirm: "Are you sure?" }
+                %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr><td colspan="3">You have no incoming requests for room switch.</td></tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+    
+</div>

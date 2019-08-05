@@ -1,0 +1,28 @@
+<%= form_with(model: switch_room, local: true) do |form| %>
+  <% if switch_room.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(switch_room.errors.count, "error") %> prohibited this switch_room from being saved:</h2>
+
+      <ul>
+      <% switch_room.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= hidden_field_tag :place_id, @place.id, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :note %>
+    <%= form.text_area :note, class: "form-control" %>
+    <p class="note">recommend change some contact information for communication</p>
+  </div>
+
+  <div class="actions">
+    <%= link_to t("general.cancel"), :back, class: "btn btn-outline-secondary" %>  
+    <%= form.submit class: "btn btn-success" %>
+  </div>
+<% end %>
