@@ -1,7 +1,7 @@
 en:
   activerecord:
     models:
-      aliance: Aliance  #g
+      aliance: Alliance  #g
       alliance_membership_request: Alliance membership request  #g
       place: Place  #g
       user: User  #g

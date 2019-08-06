@@ -17,32 +17,32 @@
         <% end %>
 
         <div class="field">
-          <%= form.label :first_round_start %>
+          <%= form.label t("settings.first_round") %>
           <%= form.datetime_select :first_round_start %>
         </div>
 
         <div class="field">
-          <%= form.label :second_round_start %>
+          <%= form.label t("settings.fourth_round") %>
           <%= form.datetime_select :second_round_start %>
         </div>
 
         <div class="field">
-          <%= form.label :third_round_start %>
+          <%= form.label t("settings.third_round") %>
           <%= form.datetime_select :third_round_start %>
         </div>
 
         <div class="field">
-          <%= form.label :fourth_round_start %>
+          <%= form.label t("settings.fourth_round") %>
           <%= form.datetime_select :fourth_round_start %>
         </div>
 
         <div class="field">
-          <%= form.label :is_running %>
+          <%= form.label t("settings.running") %>
           <%= form.check_box :is_running %>
         </div>
 
         <div class="actions">
-          <%= form.submit class: 'btn btn-primary' %>
+          <%= form.submit t("general.save"), class: 'btn btn-primary' %>
         </div>
       <% end %>
 
