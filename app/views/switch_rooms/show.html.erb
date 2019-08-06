@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User requesting:</strong>
+  <%= @switch_room.user_requesting %>
+</p>
+
+<p>
+  <strong>User requested:</strong>
+  <%= @switch_room.user_requested %>
+</p>
+
+<%= link_to 'Edit', edit_switch_room_path(@switch_room) %> |
+<%= link_to 'Back', switch_rooms_path %>

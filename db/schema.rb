@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_24_184835) do
+ActiveRecord::Schema.define(version: 2019_07_25_205520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,16 @@ ActiveRecord::Schema.define(version: 2019_07_24_184835) do
     t.index ["user_id"], name: "index_places_on_user_id"
   end
 
+  create_table "switch_rooms", force: :cascade do |t|
+    t.bigint "user_requesting_id"
+    t.bigint "user_requested_id"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_requested_id"], name: "index_switch_rooms_on_user_requested_id"
+    t.index ["user_requesting_id"], name: "index_switch_rooms_on_user_requesting_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "fullname"
     t.boolean "allow_alliance"
@@ -94,4 +104,6 @@ ActiveRecord::Schema.define(version: 2019_07_24_184835) do
   add_foreign_key "places", "users"
   add_foreign_key "places", "users", column: "primary_claim_id"
   add_foreign_key "places", "users", column: "secondary_claim_id"
+  add_foreign_key "switch_rooms", "users", column: "user_requested_id"
+  add_foreign_key "switch_rooms", "users", column: "user_requesting_id"
 end

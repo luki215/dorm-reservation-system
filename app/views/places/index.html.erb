@@ -97,6 +97,7 @@
                             <%= button_tag t("reservation.taken"), 
                               class: "btn btn-danger",
                               disabled: true %>
+                            <%= link_to t("reservation.switch_room_request"), new_switch_room_path({place_id: place.id}), class: 'btn btn-info' %>
                         <%end%>
                       <% end %>
 

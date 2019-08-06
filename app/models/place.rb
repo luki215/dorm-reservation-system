@@ -51,6 +51,11 @@ class Place < ApplicationRecord
       count
     end
   end
+
+
+  def name 
+    return self.building + self.floor.to_s + self.room + "#" + self.bed
+  end
 end
 
 class PlacesCount

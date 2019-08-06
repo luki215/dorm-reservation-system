@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   
+  resources :switch_rooms, only: [:index, :create, :destroy, :new] do 
+    post "accept", on: :member
+  end
   resources :not_running, only: [:index]
   resources :app_settings, only: [:index, :update]
 
