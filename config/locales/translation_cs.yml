@@ -59,6 +59,7 @@ cs:
     alliance: Aliance
     users: Uživatelé
     app_settings: Nastavení aplikace
+    switch_rooms: Prohození pokoje
 
   alliance:
     alliance: Aliance
@@ -106,6 +107,7 @@ cs:
     move_alliance: Přestěhovat alianci sem
     edit_bed: Editace lůžka
     guest: Ubytovaný
+    send_switch_room_request: Požádat o výměnu pokoje
 
   general:
     sex:
