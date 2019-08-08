@@ -3,7 +3,7 @@ cs:
     models:
       aliance: Aliance  #g
       alliance_membership_request: Žádost o členství v Alianci  #g
-      place: Místo  #g
+      place: :activerecord.attributes.place.bed  #g
       user: Uživatel  #g
 
     attributes:
@@ -123,6 +123,7 @@ cs:
     ne: Ne
     edit: Editovat
     destroy: Odstranit
+    are_you_sure: Jste si jistí?
 
   users:
     edit: 
@@ -138,3 +139,11 @@ cs:
     third_round: Začátek třetího kola
     fourth_round: Začátek čtvrtého kola
     running: Aplikace je spuštěna
+
+  switch:
+    requests_made: Vaše čekající žádosti o prohození
+    no_outgoing_requests: Nevytvořili jste žádnou žádost o prohození. Můžete ji vytvořit v modulu
+    incoming_requests: Příchozí žádosti
+    note: Poznámka od odesilatele
+    no_incoming_requests: Nemáte žádné příchozí čekající žádosti o prohození.
+    accept: Přijmout

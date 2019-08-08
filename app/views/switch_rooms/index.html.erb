@@ -1,14 +1,14 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <h1>Switch Rooms</h1>
+      <h1><%=t("header.switch_rooms")%></h1>
     </div>
   </div>
   <div class="row">
   <div class="col-md-6">
     <div class="card">
       <div class="card-header">
-        Requests made
+        <%= t("switch.requests_made") %>
       </div>
       <ul class="list-group list-group-flush">
         <% if @requests_made.length > 0  %>
@@ -19,13 +19,13 @@
                   switch_room_path(req), 
                   class: "btn btn-danger",
                   method: :delete,
-                  data: {confirm: "Are you sure?" }
+                  data: {confirm: t("general.are_you_sure") }
               %>
             </li>
           <% end %>
         <% else %>
           <li class="list-group-item">
-            You have made no requests for room switch. You can do so in <%= link_to t("header.reservations"), places_path %>
+            <%= t("switch.no_outgoing_requests") %> <%= link_to t("header.reservations"), places_path %>
           </li>
         <% end %>
       </ul>
@@ -34,10 +34,10 @@
   <div class="col-md-6">
     <div class="card">
       <div class="card-header">
-        Incoming requests
+        <%= t("switch.incoming_requests") %>
       </div>
       <table class="table">
-        <tr><th>Place</th><th>Note from requesting user</th><th></th>
+        <tr><th><%= t("activerecord.models.place")%></th><th><%=t("switch.note")%></th><th></th>
         <% if @requests_incoming.length > 0  %>
           <% @requests_incoming.each do |req| %>
             <tr> 
@@ -48,23 +48,23 @@
               </td>
               <td><%= req.note %></td>
               <td>
-                <%= link_to t("switch_rooms.accept"), 
+                <%= link_to t("switch.accept"), 
                             accept_switch_room_path(req), 
                             class: "btn btn-primary",
                             method: :post,
-                            data: { confirm: "Are you sure?"}
+                            data: { confirm: t("general.are_you_sure")}
                 %>
-                <%= link_to t("switch_rooms.cancel"), 
+                <%= link_to t("switch.decline"), 
                     switch_room_path(req), 
                     class: "btn btn-danger",
                     method: :delete,
-                    data: {confirm: "Are you sure?" }
+                    data: {confirm: t("general.are_you_sure") }
                 %>
               </td>
             </tr>
           <% end %>
         <% else %>
-          <tr><td colspan="3">You have no incoming requests for room switch.</td></tr>
+          <tr><td colspan="3"><%=t("switch.no_incoming_requests")%></td></tr>
         <% end %>
       </table>
     </div>
