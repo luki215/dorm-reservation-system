@@ -46,12 +46,13 @@ class SwitchRoomsController < ApplicationController
         SwitchRoom.transaction do 
           @switch_room.user_requested.place, @switch_room.user_requesting.place = @switch_room.user_requested.place, @switch_room.user_requesting.place
 
-          unless @switch_room.user_requested.save && @switch_room.user_requesting.save
+          unless @switch_room.user_requested.place.save && @switch_room.user_requesting.place.save
             @errors << @switch_room.user_requested.errors
             @errors << @switch_room.user_requesting.errors
             raise ActiveRecord::Rollback
           else
-            requests_to_destroy = SwitchRoom.where(user_requesting: @switch_room.user_requested).or(
+            requests_to_destroy = 
+            SwitchRoom.where(user_requesting: @switch_room.user_requested).or(
               SwitchRoom.where(user_requesting: @switch_room.user_requesting)
             ).or(
               SwitchRoom.where(user_requested: @switch_room.user_requesting)
