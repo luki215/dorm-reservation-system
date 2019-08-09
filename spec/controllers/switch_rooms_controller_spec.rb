@@ -5,7 +5,7 @@ RSpec.describe SwitchRoomsController, type: :controller do
         AppSetting.create(is_running: true)
     end
     describe "POST accept" do
-        it "switches rooms" do
+        it "swaps rooms and prints notice" do
             place1 = create(:place)
             user1 = place1.user
             place2 = create(:place)
@@ -18,18 +18,44 @@ RSpec.describe SwitchRoomsController, type: :controller do
             place2.reload
             expect(place1.user.id).to eq user2.id
             expect(place2.user.id).to eq user1.id
-        end
-
-        it "notice on successfull switch" do
-            get :index
-            expect(response).to render_template("index")
+            expect(response).to redirect_to(switch_rooms_url)
+            expect(flash[:notice]).not_to be_empty
         end
 
 
-        it "sex invalid returns alert" do
-          team = Team.create
-          get :index
-          expect(assigns(:teams)).to eq([team])
+        it "can be accepted only by requested user" do
+            place1 = create(:place)
+            user1 = place1.user
+            place2 = create(:place)
+            user2 = place2.user
+
+            switch_request = SwitchRoom.create!(user_requesting: user2, user_requested: user1)
+
+            post :accept, params: {id: switch_request.id}
+            expect_unauthorized(response)
+
+            login_user(user2)
+
+            post :accept, params: {id: switch_request.id}
+            expect_unauthorized(response)
+
+        end
+
+        it "sex invalid prints alert" do 
+            place1 = create(:place_male_only_room)
+            user1 = place1.user
+            place2 = create(:place_female_only_room)
+            user2 = place2.user
+
+            switch_request = SwitchRoom.create!(user_requesting: user2, user_requested: user1)
+            login_user(user1)
+            post :accept, params: {id: switch_request.id}
+            place1.reload
+            place2.reload
+            expect(place1.user.id).to eq user2.id
+            expect(place2.user.id).to eq user1.id
+            expect(response).to redirect_to(switch_rooms_url)
+            expect(flash[:alert]).not_to be_empty
         end
     
 
