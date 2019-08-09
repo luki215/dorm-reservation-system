@@ -2,11 +2,22 @@ class ReservationsController < ApplicationController
   before_action :set_place, only: [:create, :destroy]
 
   def create
-    current_user.place&.touch
-    current_user.place = @place
-    current_user.save!
+    existing_place = current_user.place
+    begin
+    Place.transaction do 
+      existing_place.user = nil if existing_place
+      @place.user = current_user
+      existing_place.save! if existing_place
+      @place.save!
+    end
+    rescue ActiveRecord::RecordInvalid
+      errors = @place.errors 
+    end
+    
+    # current_user.save!
     @place.touch
-    redirect_back(fallback_location: places_path)
+    err_to_render = "Reservation not successfull - sex mismatch" if errors && errors[:sex]
+    redirect_back(fallback_location: places_path, alert: err_to_render)
   end
 
   def create_for_alliance
