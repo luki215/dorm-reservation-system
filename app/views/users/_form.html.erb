@@ -29,6 +29,17 @@
     <%= form.select :male, [[t("general.sex.male"), true], [t("general.sex.female"), false]], {}, {class: "form-control", disabled: !current_user.admin } %>
   </div>
 
+  <div class="form-group">
+    <%= form.label :primary_claim %>
+    <%= form.text_field :primary_claim, class: "form-control", disabled: true%>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :secondary_claim %>
+    <%= form.text_field :secondary_claim, class: "form-control", disabled: true%>
+  </div>
+
+
   <div class="form-group form-check">
     <%= form.check_box :allow_alliance, class: "form-check-input" %>
     <%= form.label :allow_alliance, class: "form-check-label" %>

@@ -43,13 +43,13 @@ cs:
         note: Poznámka  #g
         owned_alliance: :activerecord.models.owned_alliance  #g
         place: :activerecord.models.place  #g
-        primary_claim: :activerecord.models.primary_claim  #g
+        primary_claim: Primární právo  #g
         remember_created_at: Nezapomeňte vytvořit na  #g
         reset_password_sent_at: Obnovit heslo zaslané na  #g
         reset_password_token: Reset tokenu hesla  #g
         same_sex_cell: Na buňce pouze stejné pohlaví  #g
         same_sex_room: Na pokoji pouze stejné pohlaví  #g
-        secondary_claim: :activerecord.models.secondary_claim  #g
+        secondary_claim: Sekundární právo  #g
 
   header:
     appname: Rezervace pokojů
@@ -147,3 +147,17 @@ cs:
     note: Poznámka od odesilatele
     no_incoming_requests: Nemáte žádné příchozí čekající žádosti o prohození.
     accept: Přijmout
+    decline: Odmítnout
+
+  dashboard:
+    headers:
+      roundstarts: Začátky jednotlivých kol zámluv
+    dashboard: Rezervační systém
+    welcome_html: Vítejte v rezervačním systému. Tento systém je určen k rezervaci konkrétního místa na dané koleji. Pokud je vám tedy jedno, kde, či s kým budete bydlet, můžete ho směle ignorovat &ndash; vaše místo na koleji vám nikdo nevezme. Na této domovské stránce naleznete návod k použití systému, popis koleje a další důležité informace.
+    round: Kolo
+    start: Začátek
+    first: První
+    second: Druhé
+    third: Třetí
+    fourth: Čtvrté
+
