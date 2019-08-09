@@ -31,7 +31,7 @@
           </tbody>
         </table>
 
-Current round: <%= AppSetting.first.current_round %>
+ <%=t("dashboard.current_round")+": "+t("dashboard."+ AppSetting.first.current_round.to_s) %>
 
 <% if AppSetting.first.current_round == :fourth %>
 Je čtvrté kolo
