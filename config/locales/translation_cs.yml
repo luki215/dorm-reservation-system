@@ -152,12 +152,23 @@ cs:
   dashboard:
     headers:
       roundstarts: Začátky jednotlivých kol zámluv
+      rounds: Kola zámluv
+      alliance: Aliance
+      profile: Nastavení profilu
+      dormitory_description: Popis koleje
+      faq: FAQ
     dashboard: Rezervační systém
     welcome_html: Vítejte v rezervačním systému. Tento systém je určen k rezervaci konkrétního místa na dané koleji. Pokud je vám tedy jedno, kde, či s kým budete bydlet, můžete ho směle ignorovat &ndash; vaše místo na koleji vám nikdo nevezme. Na této domovské stránce naleznete návod k použití systému, popis koleje a další důležité informace.
     round: Kolo
     start: Začátek
+    before: Před začátkem prvního
     first: První
     second: Druhé
     third: Třetí
     fourth: Čtvrté
-
+    current_round: Aktuálně probíhající kolo
+    rounds_explanation: Zámluvy jsou rozděleny do 4 kol. První kolo je určeno pouze ubytovaným, co bydleli na této koleji přes léto (letos konkrétně k 6. srpnu) a chtějí nadále bydlet na tom samém místě. Ve svém profilu by takoví lidé měli mít nastavené primární právo pro ten pokoj, na kterém bydleli. V prvním kole není možné se nastěhovat na jiný pokoj, než na který máte primární právo. Podobně je druhé kolo určeno lidem, kteří bydleli na koleji k 15. červnu (a podobně zde figuruje sekundární právo). Třetí kolo je spesiální, máte v něm navíc možnost nastěhovat na svůj pokoj svoji alianci (k aliancím dále). V posledním čtvrtém kole si konečně může kdokoli zamluvit jakýkoli pokoj (jedná-li se o typ pokoje, který má zaplacený a neporušuje-li tím pohlavní omezení.
+    alliance_explanation_html: V zámluvovém systému existuje možnost tvořit aliance. Aliance je modul, který využijete, pokud chcete bydlet se svými kamarády. Aliance umožňuje svým členům nastěhovat na daný pokoj či buňku rovnou celou alianci. <b>Pozor, v rámci aliance nejsou respektována pohlavní omezení, může se tedy stát, že při využití této funkcionality budete bydlet na pokoji s osobou opačného pohlaví, přestože jinak máte tuto možnost zakázanou.</b> 
+    dormitory_description: Kolej 17. listopadu má dvě budovy, budovu A a budovu B. Na obou budovách platí, že první znak čísla pokoje je označení budovy, poslední dva jsou číslo pokoje v rámci patra a prostřední jeden či dva jsou číslo patra. Pokoje se stejným posledním dvojčíslím jsou tedy nad sebou. Budova A má 20 pater a na každém z nich 24 pokojů, budova B má 16 pater a na každém 16 pokojů. Budova A je vybavena čtyřmi výtahy, budova B třemi, ale vzhledem k rozdílu ve velikosti stále jezdí výtahy častěji na budově B. Budova B obsahuje kolejní obchůdek a malou klubovnu, v jejím suterénu je pak posilovna a klavírní místnost. Budova A pak studovnu, lab (který je však právě v procesu rušení), ekumenickou místnost, kancelář ubytovatelek a její suterén obsahuje tělocvičnu, pingpongárnu a vstup do menzy. Některé sloupce a některá patra mají svá specifika. Spodních 5 pater na obou budovách se v době letních prázdnin využívá jako hotel, nelze tam tedy v tomto období bydlet (pokud budete chtít zůstat na koleji přes léto, budete se muset někam přestěhovat). Většina tohoto prostoru je však stejně přes rok vyhrazena erasmákům, takže tento bod se většiny studentů příliš nedotkne. Přesto však může být okolí těchto pater hlučnější než zbytek koleje. Do nejvyššího patra na každé budově zajíždí pouze jeden výtah. Obzvláště 20. patro budovy A má pověst party patra,ta je však poslední dobou poněkud neoprávněná. Na budově B sloupce (tedy čísla v rámci pater) 01 až 08 a na budově A 01 až 12 mají okna na západ, od května do října je v nich tedy po odpoledních vedro; ostatní pokoje mají podobný problém dopoledne. Sloupce 14 a 15 na budově B a 18 a 19 na budově A jsou za výtahy. Mezi výtahem a pokojem vznikla trocha nevyužitelného místa, tak byly tyto pokoje vybaveny druhou předsíní, kterou se chodí do standardní kolejní předsíně. Do druhé předsíně se dá s drobným nepohodlím umístit například jedna středně velká skříň nebo dva bicykly. 
+    profile: Ve vašem profilu najdete nastavení a informace o vás. Doporučujeme zkontrolovat, zda máte správně nastavené pohlaví a primární a sekundární práva. Také je zde možnost nastavit, zda umožníte osobám opačného pohlaví nastěhovat se k vám do pokoje či na buňku. Pozor, tato nastavení ale omezují i vás (například pokud máte nastaveno, že nechcete bydlet na buňce s osobou opačného pohlaví, systém vám nedovolí nastěhovat se na buňku, kde již taková osoba bydlí.)
+    faq_html: TODO
