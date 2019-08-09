@@ -3,6 +3,8 @@ class Place < ApplicationRecord
   belongs_to :primary_claim, class_name: :User, optional: true
   belongs_to :secondary_claim, class_name: :User, optional: true
 
+  validate :sex_validation
+
   scope :places_not_colliding_with_restriction, ->(current_user) do 
     # no place on same cell/room with user having same sex as in parameter
     query = "NOT EXISTS (
@@ -42,6 +44,14 @@ class Place < ApplicationRecord
     return :available
   end
 
+  def places_on_same_room
+    return Place.where(building: self.building, floor: self.floor, room: self.room).preload(:user)
+  end
+
+  def places_on_same_cell
+    return Place.where(building: self.building, floor: self.floor, cell: self.cell).preload(:user)
+  end
+
   def self.places_count(current_user, building, floor = nil, cell = nil)
     places = self.where(building: building)
     places = places.where(floor: floor) if floor
@@ -55,6 +65,24 @@ class Place < ApplicationRecord
 
   def name 
     return self.building + self.floor.to_s + self.room + "#" + self.bed
+  end
+
+  private 
+  def sex_validation
+    if self.user 
+      res = 
+      # not violating mine preferences
+      self.user.same_sex_cell && places_on_same_cell.all? {|place| place.user.nil? || place.user.male == self.user.male} &&
+      self.user.same_sex_room && places_on_same_room.all? {|place| place.user.nil? || place.user.male == self.user.male} &&
+      # not violationg others preferences
+      places_on_same_cell.all? {|place| place.user.nil? || place.user.same_sex_cell && place.user.male == self.user.male } &&
+      places_on_same_room.all? {|place| place.user.nil? || place.user.same_sex_room && place.user.male == self.user.male }
+      self.errors.add(:sex, "Sex mismatch") unless res
+      res
+    else 
+      true
+    end
+
   end
 end
 
