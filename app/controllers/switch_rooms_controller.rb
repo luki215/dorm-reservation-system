@@ -38,20 +38,26 @@ class SwitchRoomsController < ApplicationController
   end
 
   def accept
-    #TODO destroy all requests for both users
-    # swap places
+
+    return unauthorized if !current_user || current_user.id != @switch_room.user_requested.id
+
     @errors = []
+      
     User.transaction do 
       Place.transaction do
         SwitchRoom.transaction do 
-          @switch_room.user_requested.place, @switch_room.user_requesting.place = @switch_room.user_requested.place, @switch_room.user_requesting.place
+          place_requesting = @switch_room.user_requesting.place
+          place_requested = @switch_room.user_requested.place
+          place_requested.user = @switch_room.user_requesting
+          place_requesting.user = @switch_room.user_requested
 
-          unless @switch_room.user_requested.save && @switch_room.user_requesting.save
+          unless place_requested.save && place_requesting.save
             @errors << @switch_room.user_requested.errors
             @errors << @switch_room.user_requesting.errors
             raise ActiveRecord::Rollback
           else
-            requests_to_destroy = SwitchRoom.where(user_requesting: @switch_room.user_requested).or(
+            requests_to_destroy = 
+            SwitchRoom.where(user_requesting: @switch_room.user_requested).or(
               SwitchRoom.where(user_requesting: @switch_room.user_requesting)
             ).or(
               SwitchRoom.where(user_requested: @switch_room.user_requesting)
