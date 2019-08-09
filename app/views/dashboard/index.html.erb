@@ -1,8 +1,39 @@
-<h1>Dashboard#index</h1>
-<p>Find me in app/views/dashboard/index.html.erb</p>
+<h1><%=t("dashboard.dashboard") %></h1>
+<p><%=t("dashboard.welcome_html")%></p>
+<h2><%=t("dashboard.headers.roundstarts")%></h2>
+   <table class="table table-striped">
+          <thead>
+            <tr>
+              <th><%=t("dashboard.round")%></th>
+              <th><%=t("dashboard.start")%></th>
+            </tr>
+          </thead>
+
+          <tbody>
+        
+              <tr>
+                <td><%= t("dashboard.first") %></td>
+                <td><%= AppSetting.first.first_round_start.strftime("%e. %_m. %Y %R") %></td>
+              </tr>
+              <tr>
+                <td><%= t("dashboard.second") %></td>
+                <td><%= AppSetting.first.second_round_start.strftime("%e. %_m. %Y %R") %></td>
+              </tr>
+              <tr>
+                <td><%= t("dashboard.third") %></td>
+                <td><%= AppSetting.first.third_round_start.strftime("%e. %_m. %Y %R") %></td>
+              </tr>
+              <tr>
+                <td><%= t("dashboard.fourth") %></td>
+                <td><%= AppSetting.first.fourth_round_start.strftime("%e. %_m. %Y %R") %></td>
+              </tr>
+
+          </tbody>
+        </table>
 
 Current round: <%= AppSetting.first.current_round %>
 
 <% if AppSetting.first.current_round == :fourth %>
 Je čtvrté kolo
 <% end %>
+
