@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_07_092055) do
+ActiveRecord::Schema.define(version: 2019_08_09_160529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,8 +80,8 @@ ActiveRecord::Schema.define(version: 2019_08_07_092055) do
     t.boolean "allow_room_switch"
     t.boolean "move_with_alliance"
     t.boolean "male"
-    t.boolean "same_sex_room"
-    t.boolean "same_sex_cell"
+    t.boolean "same_sex_room", default: true
+    t.boolean "same_sex_cell", default: false
     t.boolean "allow_share_info"
     t.text "note"
     t.datetime "created_at", null: false

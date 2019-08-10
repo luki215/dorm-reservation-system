@@ -6,11 +6,11 @@ FactoryBot.define do
         password { Faker::Internet.password }
         admin { false }
 
-        trait :user_male do 
+        factory :user_male do 
             male {true}
         end
 
-        trait :user_female do 
+        factory :user_female do 
             male {false}
         end
             
