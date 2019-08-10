@@ -86,14 +86,16 @@ class Place < ApplicationRecord
 
   private 
   def sex_validation
+    
     if self.user 
       res = 
       # not violating mine preferences
-      self.user.same_sex_cell && places_on_same_cell.all? {|place| place.user.nil? || place.user.male == self.user.male} &&
-      self.user.same_sex_room && places_on_same_room.all? {|place| place.user.nil? || place.user.male == self.user.male} &&
+      (!self.user.same_sex_cell || places_on_same_cell.all? {|place| place.user.nil? || place.user.male == self.user.male}) &&
+      (!self.user.same_sex_room || places_on_same_room.all? {|place| place.user.nil? || place.user.male == self.user.male}) &&
       # not violationg others preferences
-      places_on_same_cell.all? {|place| place.user.nil? || place.user.same_sex_cell && place.user.male == self.user.male } &&
-      places_on_same_room.all? {|place| place.user.nil? || place.user.same_sex_room && place.user.male == self.user.male }
+      places_on_same_cell.all? {|place| place.user.nil? || !place.user.same_sex_cell || place.user.male == self.user.male } &&
+      places_on_same_room.all? {|place| place.user.nil? || !place.user.same_sex_room || place.user.male == self.user.male }
+      
       self.errors.add(:sex, "Sex mismatch") unless res
       res
     else 
