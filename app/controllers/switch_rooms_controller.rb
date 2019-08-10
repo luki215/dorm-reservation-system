@@ -40,38 +40,35 @@ class SwitchRoomsController < ApplicationController
   def accept
 
     return unauthorized if !current_user || current_user.id != @switch_room.user_requested.id
+    
+    requests_to_destroy = 
+    SwitchRoom.where(user_requesting: @switch_room.user_requested).or(
+      SwitchRoom.where(user_requesting: @switch_room.user_requesting)
+    ).or(
+      SwitchRoom.where(user_requested: @switch_room.user_requesting)
+    ).or(
+      SwitchRoom.where(user_requested: @switch_room.user_requested)
+    )
+    place_requesting = @switch_room.user_requesting.place
+    place_requested = @switch_room.user_requested.place
 
-    @errors = []
-      
+    begin 
     User.transaction do 
       Place.transaction do
         SwitchRoom.transaction do 
-          place_requesting = @switch_room.user_requesting.place
-          place_requested = @switch_room.user_requested.place
           place_requested.user = @switch_room.user_requesting
           place_requesting.user = @switch_room.user_requested
-
-          unless place_requested.save && place_requesting.save
-            @errors << @switch_room.user_requested.errors
-            @errors << @switch_room.user_requesting.errors
-            raise ActiveRecord::Rollback
-          else
-            requests_to_destroy = 
-            SwitchRoom.where(user_requesting: @switch_room.user_requested).or(
-              SwitchRoom.where(user_requesting: @switch_room.user_requesting)
-            ).or(
-              SwitchRoom.where(user_requested: @switch_room.user_requesting)
-            ).or(
-              SwitchRoom.where(user_requested: @switch_room.user_requested)
-            )
-
-            unless requests_to_destroy.destroy_all
-              errors << requests_to_destroy.errors
-              raise ActiveRecord::Rollback
-            end
-          end
+          place_requested.save!
+          place_requesting.save!
+          requests_to_destroy.destroy_all
         end
       end
+    end
+    @errors = []
+    rescue ActiveRecord::RecordInvalid
+      @errors = place_requesting.errors[:sex]
+      @errors += place_requested.errors[:sex]
+      @errors << t("general.unknown_error") if @errors.empty? 
     end
 
 
