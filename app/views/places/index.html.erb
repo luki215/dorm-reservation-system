@@ -75,12 +75,19 @@
                     <% if !current_user.admin %>
                       <!-- available -->
                       <% if place.available?(current_user) %>
-                        <%= link_to t("reservation.reserve"), 
-                            place_reservations_create_path(place_id: place.id), 
-                            class: "btn btn-success",
-                            method: :post,
-                            data: current_user.place.nil? ? nil : {confirm: t("reservation.existing_reservation")+" #{room_full(current_user.place)}. "+ t("reservation.confirm_change") } 
-                        %>
+                        <% if place.correct_round(current_user) %>
+                           <%= link_to t("reservation.reserve"), 
+                               place_reservations_create_path(place_id: place.id), 
+                               class: "btn btn-success",
+                               method: :post,
+                               data: current_user.place.nil? ? nil : {confirm: t("reservation.existing_reservation")+" #{room_full(current_user.place)}. "+ t("reservation.confirm_change") } 
+                           %>
+                        <% else %>
+                          <%= button_tag t("reservation.wrong_round"), 
+                              class: "btn btn-danger",
+                              disabled: true %>
+
+                        <% end %>
                       <!-- reserved by me -->                     
                       <% elsif place.user === current_user %>
                         <%= link_to t("reservation.cancel"), 
@@ -96,7 +103,7 @@
                               class: "btn btn-danger",
                               disabled: true %>
                         <% else %>
-                            <%= button_tag t("reservation.taken"), 
+                            <%= button_tag t("reservation.taken_" + (place.user.male ? "male" : "female")), 
                               class: "btn btn-danger",
                               disabled: true %>
 			      <% if current_user.place and current_user.switch_room_requests_made.size === 0%>

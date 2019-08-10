@@ -101,7 +101,10 @@ cs:
     reserve: Zarezervovat
     cancel: Zrušit rezervaci
     wrong_sex: Určeno opačnému pohlaví
+    wrong_round: Nedostupné v tomto kole
     taken: Obsazeno
+    taken_female: Obsazeno ženou
+    taken_male: Obsazeno mužem
     confirm_change: Skutečně chcete vaši rezervaci změnit?
     confirm_cancel: Skutečně chcete vaši rezervaci zrušit?
     move_alliance: Přestěhovat alianci sem
