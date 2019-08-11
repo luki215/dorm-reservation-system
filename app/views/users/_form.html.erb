@@ -30,13 +30,11 @@
   </div>
 
   <div class="form-group">
-    <%= form.label :primary_claim %>
-    <%= form.text_field :primary_claim, class: "form-control", disabled: true%>
+    <%= form.label t("activerecord.attributes.place.primary_claim")+": "+ (current_user.primary_claim ? current_user.primary_claim.room_name : t("general.none")) %>
   </div>
 
   <div class="form-group">
-    <%= form.label :secondary_claim %>
-    <%= form.text_field :secondary_claim, class: "form-control", disabled: true%>
+    <%= form.label t("activerecord.attributes.place.secondary_claim")+": "+ (current_user.secondary_claim ? current_user.secondary_claim.room_name : t("general.none")) %>
   </div>
 
 

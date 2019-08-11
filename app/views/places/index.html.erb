@@ -59,7 +59,7 @@
             <div class="card mb-4">
               <h5 class="card-header"><%= cell %>
                   <%= render partial: "places_count", locals: {places_count: Place.places_count(current_user, @params[:building], @params[:floor], cell)} %>
-                  <% if AppSetting.first.current_round == :fourth or AppSetting.first.current_round == :third && current_user.place.cell.to_s == cell.to_s%>
+                  <% if AppSetting.first.current_round == :fourth or current_user.place && AppSetting.first.current_round == :third && current_user.place.cell.to_s == cell.to_s%>
                     <%= link_to t("reservation.move_alliance"), 
                         reservations_create_for_alliance_places_path(aliance_id: current_user.aliance.id, cell: cell), 
                         class: "btn btn-success",
@@ -75,7 +75,7 @@
                     <% if !current_user.admin %>
                       <!-- available -->
                       <% if place.available?(current_user) %>
-                        <% if place.correct_round(current_user) %>
+                        <% if place.correct_round?(current_user) %>
                            <%= link_to t("reservation.reserve"), 
                                place_reservations_create_path(place_id: place.id), 
                                class: "btn btn-success",

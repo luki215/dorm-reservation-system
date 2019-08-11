@@ -127,6 +127,7 @@ cs:
     edit: Editovat
     destroy: Odstranit
     are_you_sure: Jste si jistí?
+    none: Žádné
 
   users:
     edit: 

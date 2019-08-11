@@ -72,7 +72,7 @@ class Place < ApplicationRecord
     return self.building + self.floor.to_s + self.room
   end
 
-  def correct_round(current_user)
+  def correct_round?(current_user)
     if AppSetting.first.current_round == :fourth
        return true
     elsif  current_user.secondary_claim && AppSetting.first.current_round_numeric > 1 && current_user.secondary_claim.room_name == self.room_name
