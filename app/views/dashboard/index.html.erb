@@ -4,6 +4,7 @@
             <h1><%=t("dashboard.dashboard") %></h1>
             <p><%=t("dashboard.welcome_html")%></p>
             <h2><%=t("dashboard.headers.roundstarts")%></h2>
+            <p>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -30,16 +31,32 @@
                         <td><%= t("dashboard.fourth") %></td>
                         <td><%= AppSetting.first.fourth_round_start.strftime("%e. %_m. %Y %R") %></td>
                     </tr>
+              </table>
+              </p>
 
-                </tbody>
-            </table>
+<%=t("dashboard.current_round")+": "+t("dashboard."+ AppSetting.first.current_round.to_s) %>
 
-            Current round: <%= AppSetting.first.current_round %>
+<h2><%= t("dashboard.headers.rounds") %> </h2>
 
-            <% if AppSetting.first.current_round == :fourth %>
-            Je čtvrté kolo
-            <% end %>
+<p><%= t("dashboard.rounds_explanation") %> </p>
 
+<h2><%= t("dashboard.headers.alliance") %> </h2>
+
+<p><%= t("dashboard.alliance_explanation_html") %></p>
+
+<h2> <%= t("dashboard.headers.profile") %> </h2>
+
+<p> <%= t("dashboard.profile") %> </p>
+
+<h2> <%= t("dashboard.headers.dormitory_description") %> </h2>
+
+<p> <%= t("dashboard.dormitory_description") %> </p>
+
+<h2> <%= t("dashboard.headers.faq") %> </h2>
+
+<p><%= t("dashboard.faq_html") %> </p>
         </div>
     </div>
 </div>
+
+

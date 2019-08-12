@@ -67,6 +67,23 @@ class Place < ApplicationRecord
     return self.building + self.floor.to_s + self.room + "#" + self.bed
   end
 
+  
+  def room_name 
+    return self.building + self.floor.to_s + self.room
+  end
+
+  def correct_round?(current_user)
+    if AppSetting.first.current_round == :fourth
+       return true
+    elsif  current_user.secondary_claim && AppSetting.first.current_round_numeric > 1 && current_user.secondary_claim.room_name == self.room_name
+       return true
+    elsif  current_user.primary_claim && AppSetting.first.current_round_numeric > 0 && current_user.primary_claim.room_name == self.room_name
+       return true
+    else
+       return false
+    end 
+  end
+
   private 
   def sex_validation
     

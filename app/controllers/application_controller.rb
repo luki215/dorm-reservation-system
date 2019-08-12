@@ -24,4 +24,12 @@ class ApplicationController < ActionController::Base
             redirect_to not_running_index_path 
         end
     end
+
+    def nonexistent_user
+        respond_to do |format|
+            format.html { redirect_to "/", alert: "This user doesn't exist!" }
+        end
+    end
+
+
 end

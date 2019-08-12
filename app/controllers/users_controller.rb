@@ -13,16 +13,19 @@ class UsersController < ApplicationController
   def edit
     self_or_admin_only
   end
-
+  
+  def welcome(passwd)
+    @user.password = passwd
+    UserMailer.welcome_email(@user.email,passwd).deliver_now
+  end
+  
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
     self_or_admin_only
-
     attrs = user_params
     attrs[:same_sex_room] = attrs[:same_sex_cell] if attrs[:same_sex_cell] == "1"
     @user.place&.touch if attrs[:same_sex_room] || attrs[:same_sex_cell]
-
     respond_to do |format|
       if @user.update(attrs)
         red = current_user.admin ? users_path : "/"
@@ -39,7 +42,11 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      begin
+        @user = User.find(params[:id])    
+      rescue ActiveRecord::RecordNotFound
+        nonexistent_user
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
