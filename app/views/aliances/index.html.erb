@@ -7,13 +7,7 @@
       <%=t("alliance.purpose_info")%>
       </p>
 
-      <% if !current_user.allow_alliance %>
-        <div class="alert alert-danger">
-          <%=t("alliance.disabled_alert")%> 
-          <%= link_to t("alliance.your_profile"), edit_user_path(current_user) %> section.
-        </div>
-      <% else %>
-        <hr>
+       <hr>
         <p><%=t("alliance.you_can_join")%></p>
         <p><%=t("alliance.you_can_also")%>
           <div class="text-center">
@@ -39,7 +33,6 @@
             <% end %>
           </tbody>
         </table>
-      <% end %>
     </div>
   </div>
 </div>

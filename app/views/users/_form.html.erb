@@ -37,22 +37,11 @@
     <%= form.label t("activerecord.attributes.place.secondary_claim")+": "+ (current_user.secondary_claim ? current_user.secondary_claim.room_name : t("general.none")) %>
   </div>
 
-
-  <div class="form-group form-check">
-    <%= form.check_box :allow_alliance, class: "form-check-input" %>
-    <%= form.label :allow_alliance, class: "form-check-label" %>
-    <p class="note"> By enabling you allow to see all the information inside this form to all the people using the alliance module.</p>
+  <div class="form-group">
+    <%= form.label :room_type %>
+    <%= form.text_field :room_type, class: "form-control", disabled: !current_user.admin%>
   </div>
 
-  <div class="form-group form-check">
-    <%= form.check_box :allow_room_switch, class: "form-check-input" %>
-    <%= form.label :allow_room_switch, class: "form-check-label" %>
-  </div>
-
-  <div class="form-group form-check">
-    <%= form.check_box :move_with_alliance, class: "form-check-input" %>
-    <%= form.label :move_with_alliance, class: "form-check-label" %>
-  </div>
 
   <div class="form-group form-check">
     <%= form.check_box :same_sex_room, class: "form-check-input" %>
@@ -62,11 +51,6 @@
   <div class="form-group form-check">
     <%= form.check_box :same_sex_cell, class: "form-check-input" %>
     <%= form.label :same_sex_cell, class: "form-check-label" %>
-  </div>
-
-  <div class="form-group form-check">
-    <%= form.check_box :allow_share_info, class: "form-check-input" %>
-    <%= form.label :allow_share_info, class: "form-check-label" %>
   </div>
 
   <div class="form-group">

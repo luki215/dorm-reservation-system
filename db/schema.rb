@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_09_160529) do
+ActiveRecord::Schema.define(version: 2019_08_13_010449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2019_08_09_160529) do
     t.datetime "updated_at", null: false
     t.bigint "primary_claim_id"
     t.bigint "secondary_claim_id"
+    t.string "room_type"
     t.index ["bed"], name: "index_places_on_bed"
     t.index ["building"], name: "index_places_on_building"
     t.index ["cell"], name: "index_places_on_cell"
@@ -76,13 +77,9 @@ ActiveRecord::Schema.define(version: 2019_08_09_160529) do
 
   create_table "users", force: :cascade do |t|
     t.string "fullname"
-    t.boolean "allow_alliance"
-    t.boolean "allow_room_switch"
-    t.boolean "move_with_alliance"
     t.boolean "male"
     t.boolean "same_sex_room", default: true
     t.boolean "same_sex_cell", default: false
-    t.boolean "allow_share_info"
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -93,6 +90,7 @@ ActiveRecord::Schema.define(version: 2019_08_09_160529) do
     t.datetime "remember_created_at"
     t.bigint "aliance_id"
     t.boolean "admin", default: false
+    t.string "room_type"
     t.index ["aliance_id"], name: "index_users_on_aliance_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
