@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     admin_only
-    @users = User.students.page params[:page]
+    @users = User.students.order(:fullname).page params[:page]
   end
 
   # GET /users/1/edit
