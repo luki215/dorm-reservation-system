@@ -104,7 +104,8 @@ class Place < ApplicationRecord
   end
 
   def round_validation
-    unless self.correct_round?
+
+    if !self.user.nil? && !self.correct_round?(self.users)
       self.errors.add(:round, "You have not right to reserve this room in this round")
       return false
     else
