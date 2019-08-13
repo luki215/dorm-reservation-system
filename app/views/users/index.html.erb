@@ -19,7 +19,7 @@
           </thead>
 
           <tbody>
-            <% @users.order(:fullname).each do |user| %>
+            <% @users.each do |user| %>
               <tr>
                 <td><%= user.fullname %></td>
                 <td><%= user.male == nil ? "" : user.male ? t("general.sex.male") : t("general.sex.female")%></td>
