@@ -42,8 +42,8 @@
           <% @requests_incoming.each do |req| %>
             <tr> 
               <td>
-                <%= link_to places_path({building: req.user_requested.place.building, floor: req.user_requested.place.floor}) do %>
-                <strong><%= req.user_requested.place.name %></strong>
+                <%= link_to places_path({building: req.user_requesting.place.building, floor: req.user_requesting.place.floor}) do %>
+                <strong><%= req.user_requesting.place.name %></strong>
                 <% end %>
               </td>
               <td><%= req.note %></td>

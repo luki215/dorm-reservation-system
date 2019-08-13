@@ -109,6 +109,7 @@ class Place < ApplicationRecord
       return false
     else
       true
+    end
   end
 
   def room_type_validation
