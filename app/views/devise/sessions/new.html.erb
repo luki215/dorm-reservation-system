@@ -12,7 +12,9 @@
           <%= f.label :password %><br />
           <%= f.password_field :password, autocomplete: "current-password", class:"form-control" %>
         </div>
-      
+        
+        <div class="mb-2"><%= link_to t("devise.passwords.forgotten_password"), new_user_password_path %></div>
+
         <% if devise_mapping.rememberable? %>
           <div class="form-group form-check">
             <%= f.check_box :remember_me, class:"form-check-input" %>
