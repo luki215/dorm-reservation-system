@@ -25,6 +25,12 @@ class UsersController < ApplicationController
     self_or_admin_only
     attrs = user_params
     attrs[:same_sex_room] = attrs[:same_sex_cell] if attrs[:same_sex_cell] == "1"
+
+    if attrs[:password] != attrs[:password_confirmation] 
+      flash.now[:alert] = "Passwords don't match"
+      return (respond_to {|format| format.html {render :edit}}) 
+    end
+
     @user.place&.touch if attrs[:same_sex_room] || attrs[:same_sex_cell]
     respond_to do |format|
       if @user.update(attrs)
@@ -52,9 +58,9 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       if (current_user.admin)
-        params.require(:user).permit(:male, :email, :fullname, :same_sex_room, :same_sex_cell, :note, :room_type)
+        params.require(:user).permit(:male, :email, :fullname, :same_sex_room, :same_sex_cell, :note, :room_type, :password, :password_confirmation)
       else
-        params.require(:user).permit(:same_sex_room, :same_sex_cell, :note)
+        params.require(:user).permit(:same_sex_room, :same_sex_cell, :note, :password, :password_confirmation)
       end
     end
 

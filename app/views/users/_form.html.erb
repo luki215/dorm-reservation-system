@@ -37,6 +37,24 @@
     <%= form.label t("activerecord.attributes.place.secondary_claim")+": "+ (current_user.secondary_claim ? current_user.secondary_claim.room_name : t("general.none")) %>
   </div>
 
+  <hr>
+  <div class="form-group">
+    <%= form.label :password %><br />
+    <%= form.password_field :password, autocomplete: "new-password", class:"form-control" %>
+    <p class="note">
+      (leave blank if you don't want to change it)
+        <br />
+        6 characters minimum
+    </p>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :password_confirmation %><br />
+    <%= form.password_field :password_confirmation, autocomplete: "new-password", class:"form-control" %>
+  </div>
+
+  <hr>
+
   <div class="form-group">
     <%= form.label :room_type %>
     <%= form.text_field :room_type, class: "form-control", disabled: !current_user.admin%>
