@@ -3,7 +3,7 @@ class Place < ApplicationRecord
   belongs_to :primary_claim, class_name: :User, optional: true
   belongs_to :secondary_claim, class_name: :User, optional: true
 
-  validate :sex_validation
+  validate :sex_validation, :room_type_validation, :round_validation
 
   scope :places_not_colliding_with_restriction, ->(current_user) do 
     # no place on same cell/room with user having same sex as in parameter
@@ -87,7 +87,6 @@ class Place < ApplicationRecord
 
   private 
   def sex_validation
-    
     if self.user 
       res = 
       # not violating mine preferences
@@ -102,8 +101,19 @@ class Place < ApplicationRecord
     else 
       true
     end
-
   end
+
+  def round_validation
+    unless self.correct_round?
+      self.errors.add(:round, "You have not right to reserve this room in this round")
+      return false
+    else
+      true
+  end
+
+  def room_type_validation
+  end
+
 end
 
 class PlacesCount
