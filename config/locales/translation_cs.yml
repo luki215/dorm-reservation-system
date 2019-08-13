@@ -50,6 +50,7 @@ cs:
         same_sex_cell: Na buňce pouze stejné pohlaví  #g
         same_sex_room: Na pokoji pouze stejné pohlaví  #g
         secondary_claim: Sekundární právo  #g
+        room_type: Typ pokoje
 
   header:
     appname: Rezervace pokojů
@@ -102,6 +103,7 @@ cs:
     cancel: Zrušit rezervaci
     wrong_sex: Určeno opačnému pohlaví
     wrong_round: Nedostupné v tomto kole
+    wrong_type: Nesprávný typ pokoje
     taken: Obsazeno
     taken_female: Obsazeno ženou
     taken_male: Obsazeno mužem

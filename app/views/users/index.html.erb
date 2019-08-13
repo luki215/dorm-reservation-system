@@ -8,29 +8,25 @@
           <thead>
             <tr>
               <th><%=t("activerecord.attributes.user.fullname") %></th>
-              <th><%=t("activerecord.attributes.user.allow_alliance") %></th>
-              <th><%=t("activerecord.attributes.user.allow_room_switch") %></th>
-              <th><%=t("activerecord.attributes.user.move_with_alliance") %></th>
               <th><%=t("general.sex.gender") %></th>
               <th><%=t("activerecord.attributes.user.same_sex_room") %></th>
               <th><%=t("activerecord.attributes.user.same_sex_cell") %></th>
-              <th><%=t("activerecord.attributes.user.allow_share_info") %></th>
+              <th><%=t("activerecord.attributes.user.primary_claim") %></th>
+              <th><%=t("activerecord.attributes.user.secondary_claim") %></th>
               <th><%=t("activerecord.attributes.user.note") %></th>
               <th colspan="3"></th>
             </tr>
           </thead>
 
           <tbody>
-            <% @users.each do |user| %>
+            <% @users.order(:fullname).each do |user| %>
               <tr>
                 <td><%= user.fullname %></td>
-		<td><%= user.allow_alliance == nil ? "" : user.allow_alliance ? t("general.ano") : t("general.ne")%></td>
-                <td><%= user.allow_room_switch == nil ? "" : user.allow_room_switch ? t("general.ano") : t("general.ne")%></td>
-                <td><%= user.move_with_alliance == nil ? "" : user.move_with_alliance ? t("general.ano") : t("general.ne")%></td>
                 <td><%= user.male == nil ? "" : user.male ? t("general.sex.male") : t("general.sex.female")%></td>
                 <td><%= user.same_sex_room == nil ? "" : user.same_sex_room ? t("general.ano") : t("general.ne")%></td>
                 <td><%= user.same_sex_cell == nil ? "" : user.same_sex_cell ? t("general.ano") : t("general.ne")%></td>
-                <td><%= user.allow_share_info == nil ? "" : user.allow_share_info ? t("general.ano") : t("general.ne")%></td>
+                <td><%= user.primary_claim&.room_name %></td>
+                <td><%= user.secondary_claim&.room_name %></td>
                 <td><%= user.note %></td>
                 <td><%= link_to t("general.edit"), edit_user_path(user), class:"btn btn-info" %></td>
               </tr>

@@ -3,11 +3,11 @@
     <div class="col-12">
       <h1><%=t("reservation.reservation")%></h1>
 
-      <% if current_user.place %>
+      <% if current_user.place and !current_user.admin%>
         <div class="alert alert-success" role="alert">
           <%=t("reservation.existing_reservation")%> <%= room_full current_user.place %>.
         </div>
-      <% else %>
+      <% elsif !current_user.admin %>
         <div class="alert alert-warning" role="alert">
           <%=t("reservation.no_reservation")%>
         </div>
@@ -95,6 +95,12 @@
                             class: "btn btn-warning",
                             method: :delete,
                             data: { confirm: t("reservation.confirm_cancel") }
+                        %>
+                      <!-- wrong room type -->                     
+                      <% elsif place.availability_status(current_user) == :unavailable_wrong_type %>
+                        <%= button_tag t("reservation.wrong_type"),  
+                            class: "btn btn-danger",
+                            disabled: true 
                         %>
                       <!-- reserved by someone else / not matching sex -->                     
                       <% else %>
