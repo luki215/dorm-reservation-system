@@ -70,7 +70,7 @@
               <ul class="list-group list-group-flush">
                 <% places.each do |place| %>
                   <li class="list-group-item">
-                    <%= room_full(place) %>
+                    <strong> <%= link_to_if current_user.admin?, place.name, edit_place_path(place) %> </strong>
                     <!-- USER -->
                     <% if !current_user.admin %>
                       <!-- available -->
@@ -112,7 +112,7 @@
                             <%= button_tag t("reservation.taken_" + (place.user.male ? "male" : "female")), 
                               class: "btn btn-danger",
                               disabled: true %>
-			      <% if current_user.place and current_user.switch_room_requests_made.size === 0%>
+			                        <% if current_user.place and current_user.switch_room_requests_made.size === 0%>
                                   <%= link_to t("reservation.send_switch_room_request"), new_switch_room_path({place_id: place.id}), class: 'btn btn-info' %>
                               <% end %>
                         <%end%>
@@ -120,12 +120,22 @@
 
                     <!-- ADMIN -->
                     <% else %>
-                      <%= link_to t("general.edit"), edit_place_path(place), class:"btn btn-primary" %>
-                      <%= link_to t("general.destroy"), place, 
-                          method: :delete,
-                          data: { confirm: 'Are you sure?' }, 
-                          class:"btn btn-danger disabled"
-                      %>
+                    <%= link_to t("general.edit"), edit_place_path(place), class:"btn btn-primary" %>
+                      <br>
+                      bydlí: 
+                      <% if place.user %>
+                        <%= link_to place.user.fullname, edit_user_path(place.user) %>;
+                        <% if place.user.same_sex_cell %> 
+                          Na buňce pouze
+                        <% elsif place.user.same_sex_room %>
+                          Na pokoj pouze
+                        <% end %>
+                        <%= place.user.male ? "muž" : "žena"%>;
+                      <% else %>
+                        Volno
+                      <% end %>
+
+                      
                     <% end %>
                   </li>
                 <% end %>

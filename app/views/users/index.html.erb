@@ -7,6 +7,7 @@
         <table class="table table-striped">
           <thead>
             <tr>
+              <th><%= t("general.id") %> </th>
               <th><%=t("activerecord.attributes.user.fullname") %></th>
               <th><%=t("general.sex.gender") %></th>
               <th><%=t("activerecord.attributes.user.same_sex_room") %></th>
@@ -21,6 +22,9 @@
           <tbody>
             <% @users.each do |user| %>
               <tr>
+                <td><%= user.id %>
+                   <button onclick="navigator.clipboard.writeText(<%=user.id%>)" class="btn btn-primary">Kopírovat</button>
+                 </td>
                 <td><%= user.fullname %></td>
                 <td><%= user.male == nil ? "" : user.male ? t("general.sex.male") : t("general.sex.female")%></td>
                 <td><%= user.same_sex_room == nil ? "" : user.same_sex_room ? t("general.ano") : t("general.ne")%></td>

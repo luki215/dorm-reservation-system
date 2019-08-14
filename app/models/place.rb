@@ -42,7 +42,14 @@ class Place < ApplicationRecord
   end
 
   def available?(current_user)
-    return self.user.nil? ? self.room_type == current_user.room_type && Place.available(current_user).exists?(id: self.id) : false
+    return false unless self.user.nil? 
+    return false unless self.room_type == current_user.room_type
+
+    place_orig_user = self.user
+    self.user = current_user
+    is_valid = self.valid?
+    self.user = place_orig_user
+    return is_valid
   end
 
   def availability_status(current_user)
@@ -124,7 +131,7 @@ class Place < ApplicationRecord
   end 
 
   def room_type_validation
-    unless self.user.nil? or  self.room_type == self.user.room_type
+    if !self.user.nil? && self.room_type != self.user.room_type
       self.errors.add(:round, "Wrong type of room")
       return false
     else
