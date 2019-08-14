@@ -59,7 +59,7 @@ class ReservationsController < ApplicationController
       i=0
       while i< @places_on_cell.size
         if !@places_on_cell[i].user.nil?
-          user_characteristic = (@places_on_cell.user.same_sex_room ? 5 : 4) * (@places_on_cell.user.male ? 2 : 1) #4 possible values, 4 for male accepting females, 5 for females that do not accept males, 8 for males who accept females and 10 for males who doesnt 
+          user_characteristic = (@places_on_cell[i].user.same_sex_room ? 5 : 4) * (@places_on_cell[i].user.male ? 2 : 1) #4 possible values, 4 for male accepting females, 5 for females that do not accept males, 8 for males who accept females and 10 for males who doesnt 
           j=0
           while j<@places_on_cell.size
             if @places_on_cell[i].room == @places_on_cell[j].room
@@ -67,8 +67,8 @@ class ReservationsController < ApplicationController
             end 
             j = j + 1
           end
-          @places_on_cell.remove_at[i]
-          place_description.remove_at[i]
+          @places_on_cell.delete_at(i)
+          place_description.delete_at(i)
         else
           i = i + 1
         end
@@ -76,8 +76,8 @@ class ReservationsController < ApplicationController
 
       i=0
       while i<users.size #remove users that already live on said cell or are unsuitable for cell
-        if users[i].place.cell == cell or users[i].male && refuses_boys or users[i].male && users[i].same_sex_cell && has_girls or !users[i].male && refuses_girls or !users[i].male && users[i].same_sex_cell && has_boys 
-          users.remove_at(i)
+        if users[i].place&.cell == cell or users[i].male && refuses_boys or users[i].male && users[i].same_sex_cell && has_girls or !users[i].male && refuses_girls or !users[i].male && users[i].same_sex_cell && has_boys 
+          users.delete_at(i)
         else
           i = i+1
         end
@@ -90,9 +90,9 @@ class ReservationsController < ApplicationController
       i=0
       while i<users.size
         if users[i].male
-          users_description.push(1 + (users[i].same_sex_room ? 4 : 0)
+          users_description.push(1 + (users[i].same_sex_room ? 4 : 0))
         else
-          users_description.push(2 + (users[i].same_sex_room ? 8 : 0)
+          users_description.push(2 + (users[i].same_sex_room ? 8 : 0))
         end
         user_position.push(-1)
         i = i + 1
@@ -110,14 +110,14 @@ class ReservationsController < ApplicationController
         while users_placed < target #at most two iterations, because target for second iteration is best value from first
         best = 0
         user_tested = 0
-        while user.tested > -1  #And here goes backtracking
+        while user_tested > -1  #And here goes backtracking
           user_position[user_tested] = user_position[user_tested] + 1
           if user_position[user_tested] == @places_on_cell.size #We have checked all possible positions for user -- need to backtrack
             user_position[user_tested] == -1
             user_tested == user_tested - 1
             room_free[user_position[user_tested]] = true if user_tested != -1
             users_placed = users_placed - 1 if users_placed != 0
-          elsif room_free[user_position[user_tested]] && can_live?(users_description[user_tested],users[user_tested].room_type,place_description[user_position[user_tested]],@places_on_cell[user_position[user_tested]]) #We have found new suitable position for a user
+          elsif room_free[user_position[user_tested]] && can_live?(users_description[user_tested],users[user_tested].room_type,place_description[user_position[user_tested]],@places_on_cell[user_position[user_tested]].room_type) #We have found new suitable position for a user
             room_free[user_position[user_tested]] = false
             users_placed = users_placed + 1
             break if users_placed == target
@@ -182,6 +182,6 @@ class ReservationsController < ApplicationController
   end
 
   def can_live?(user,user_room_type,room,room_room_type) #takes description and room types, note that the descriptions were forged in a way that user can live on a place if their desription never has an one on the same position.
-    return user & room = 0 and user_room_type = room_room_type
+    ((user & room) == 0) and (user_room_type == room_room_type)
   end
 end
