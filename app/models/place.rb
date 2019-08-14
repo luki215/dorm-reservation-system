@@ -3,8 +3,9 @@ class Place < ApplicationRecord
   belongs_to :primary_claim, class_name: :User, optional: true
   belongs_to :secondary_claim, class_name: :User, optional: true
 
-  validate :sex_validation, :room_type_validation,
-  validate :round_validation, :unless => :skip_round_validation?
+  validate :sex_validation, :room_type_validation
+  validate :round_validation, unless: :skip_round_validation?
+
   attr_accessor :skip_round_validation
 
   scope :places_not_colliding_with_restriction, ->(current_user) do 

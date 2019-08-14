@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   
+  get 'set_language/english'
+  get 'set_language/czech'
+  
   resources :switch_rooms, only: [:index, :create, :destroy, :new] do 
     post "accept", on: :member
   end

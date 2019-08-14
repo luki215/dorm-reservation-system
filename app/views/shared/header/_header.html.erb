@@ -11,6 +11,14 @@
                 <%= render "shared/header/header_student_links" if !current_user.admin %>
             </ul>
             <ul class="navbar-nav">
+
+                <div class="form-inline">
+                    <%if I18n.locale == :en %>
+                        <%= link_to "Česky", set_language_czech_path, class: "btn btn-outline-primary" %>
+                    <% else %>
+                        <%= link_to "English", set_language_english_path, class: "btn btn-outline-primary" %>
+                    <% end %>
+                </div>
                 <li class="nav-item">
                     <%= link_to('Logout', destroy_user_session_path, method: :delete, class: 'nav-link') %>            
                 </li>
