@@ -3,7 +3,9 @@ class Place < ApplicationRecord
   belongs_to :primary_claim, class_name: :User, optional: true
   belongs_to :secondary_claim, class_name: :User, optional: true
 
-  validate :sex_validation, :room_type_validation, :round_validation
+  validate :sex_validation, :room_type_validation,
+  validate :round_validation, :unless => :skip_round_validation?
+  attr_accessor :skip_round_validation
 
   scope :places_not_colliding_with_restriction, ->(current_user) do 
     # no place on same cell/room with user having same sex as in parameter
@@ -111,6 +113,10 @@ class Place < ApplicationRecord
       true
     end
   end
+
+  def skip_round_validation?
+    @skip_round_validation
+  end 
 
   def room_type_validation
     unless self.user.nil? or  self.room_type == self.user.room_type
