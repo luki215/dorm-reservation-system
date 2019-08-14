@@ -1,16 +1,7 @@
 <%= form_with(model: aliance, local: true) do |form| %>
-  <% if aliance.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(aliance.errors.count, "error") %> prohibited this aliance from being saved:</h2>
-
-      <ul>
-      <% aliance.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+  
+  <%= render "shared/errors", object: aliance %>
+  
   <div class="form-group">
     <%= form.label t("alliance.name")+" "+t("general.public") %>
     <%= form.text_field :name, class: "form-control" %>

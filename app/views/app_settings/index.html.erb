@@ -4,17 +4,8 @@
       <h1>App Settings</h1>
 
       <%= form_with(model: @app_settings, local: true) do |form| %>
-        <% if @app_settings.errors.any? %>
-          <div id="error_explanation">
-            <h2><%= pluralize(app_setting.errors.count, "error") %> prohibited this app_setting from being saved:</h2>
+        <%= render "shared/errors", object: @app_setting %>
 
-            <ul>
-            <% @app_settings.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-            </ul>
-          </div>
-        <% end %>
 
         <div class="field">
           <%= form.label t("settings.first_round") %>

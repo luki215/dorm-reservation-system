@@ -1,15 +1,6 @@
 <%= form_with(model: switch_room, local: true) do |form| %>
-  <% if switch_room.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(switch_room.errors.count, "error") %> prohibited this switch_room from being saved:</h2>
+  <%= render "shared/errors", object: switch_room %>
 
-      <ul>
-      <% switch_room.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="form-group">
     <%= hidden_field_tag :place_id, @place.id, class: "form-control" %>

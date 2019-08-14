@@ -1,0 +1,11 @@
+<% if object.errors.any? %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= pluralize(object.errors.count, "error") %> occured:
+
+        <ul>
+        <% object.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+        </ul>
+    </div>
+<% end %>

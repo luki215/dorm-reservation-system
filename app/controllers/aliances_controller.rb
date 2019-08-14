@@ -71,6 +71,28 @@ class AliancesController < ApplicationController
     end
   end
 
+  def remove_member 
+    removed_user = User.find(params[:user_id])
+    if current_user.aliance == removed_user.aliance 
+      removed_user.aliance = nil
+      if removed_user.save 
+        respond_to do |format|
+          format.html { redirect_to aliances_url, notice: 'Member successfullly removed' }
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to aliances_url, error: 'Error during member removal' }
+        end
+      end
+    else 
+      respond_to do |format|
+        format.html { redirect_to aliances_url, alert: 'You must be member of the same aliance as user' }
+        format.json { head :no_content }
+      end
+    end
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_aliance

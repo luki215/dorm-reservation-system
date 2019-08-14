@@ -10,18 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_13_010449) do
+ActiveRecord::Schema.define(version: 2019_08_13_232346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "aliances", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.bigint "founder_id"
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["founder_id"], name: "index_aliances_on_founder_id"
+    t.index ["name"], name: "index_aliances_on_name", unique: true
   end
 
   create_table "alliance_membership_requests", force: :cascade do |t|
