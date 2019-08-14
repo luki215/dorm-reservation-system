@@ -23,8 +23,13 @@ class ReservationsController < ApplicationController
   def create_for_alliance
     @alliance = Aliance.find(params[:aliance_id])
     cell = params[:cell]
-    @places_on_cell = Place.where(cell: cell)
+    @places_on_cell = Place.where(cell: cell,user: nil).to_a
+    users = @alliance.users.joins(:place).where.not(place: {cell: cell} ).to_a
 
+
+    
+    
+    
     males = @alliance.users.where(male: true)
     females = @alliance.users.where(male: false)
     
