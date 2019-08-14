@@ -3,6 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable :registerable, :recoverable
   devise :database_authenticatable, :rememberable, :validatable, :recoverable
   scope :students, -> { where(:admin => false) }
+  validates_associated :place
 
   has_one :place, dependent: :nullify
   has_one :owned_alliance, foreign_key: "founder_id", class_name: :Aliance, dependent: :destroy

@@ -107,22 +107,36 @@ class ReservationsController < ApplicationController
       target = users.size < @places_on_cell.size ? users.size : @places_on_cell.size #Guess hhe maximal amount of people for which we can hope to find a spot
       users_placed = 0
       
-        while users_placed < target #at most two iterations, because target for second iteration is best value from first
+       while users_placed < target #at most two iterations, because target for second iteration is best value from first
         best = 0
         user_tested = 0
+        logger.debug room_free
+        logger.debug user_position
         while user_tested > -1  #And here goes backtracking
+          logger.debug user_tested.to_s + " pre  " + user_position[user_tested].to_s + " " + users_placed.to_s + " " + target.to_s + " " + best.to_s
           user_position[user_tested] = user_position[user_tested] + 1
-          if user_position[user_tested] == @places_on_cell.size #We have checked all possible positions for user -- need to backtrack
-            user_position[user_tested] == -1
-            user_tested == user_tested - 1
+          logger.debug user_tested.to_s + " post " + user_position[user_tested].to_s + " " + users_placed.to_s + " " + target.to_s + " " + best.to_s
+          if user_position[user_tested] > @places_on_cell.size #We have checked all possible positions for user -- need to backtrack
+            user_position[user_tested] = -1
+            user_tested = user_tested - 1
             room_free[user_position[user_tested]] = true if user_tested != -1
             users_placed = users_placed - 1 if users_placed != 0
+          elsif user_position[user_tested]== @places_on_cell.size and user_tested<users.size - 1 #try to find arrangment without said user
+            user_tested = user_tested + 1
+          elsif user_position[user_tested] == @places_on_cell.size
+            next
+            
           elsif room_free[user_position[user_tested]] && can_live?(users_description[user_tested],users[user_tested].room_type,place_description[user_position[user_tested]],@places_on_cell[user_position[user_tested]].room_type) #We have found new suitable position for a user
             room_free[user_position[user_tested]] = false
             users_placed = users_placed + 1
             break if users_placed == target
             best = users_placed if users_placed > best
             user_tested = user_tested + 1
+            if user_tested == users.size
+              user_tested = user_tested - 1
+              users_placed = users_placed - 1
+              room_free[user_position[user_tested]] = true
+            end
           end
         end        
         target = best
@@ -143,7 +157,7 @@ class ReservationsController < ApplicationController
       people_on_rooms = []
       i = 0
       while i<users.size
-        people_on_rooms.push(@places_on_cell[user_position[i]].room) if user_position[i]!= -1
+        people_on_rooms.push(@places_on_cell[user_position[i]].room) if user_position[i]!= -1 and user_position[i] < @places_on_cell.size
         users[i].same_sex_cell=false if user_position[i]!= -1 && need_reset_cell_preferences
         users[i].save if user_position[i]!= -1 && need_reset_cell_preferences
         people_on_rooms.push(-1) if user_position[i]== -1
@@ -153,9 +167,13 @@ class ReservationsController < ApplicationController
       i=0
       moved = 0
       while i<users.size # now for all users that dont have position=-1, that means we found a spot for them, we need to change their sex preferences and actually put them on their new spot.
+        if user_position[i] == -1 or user_position[i] >= @places_on_cell.size
+          i = i+1
+          next
+        end
         j = i+1
         while j < users.size
-          if people_on_rooms[i]!= -1 && people_on_rooms[i] == people_on_rooms[j] && (users[i].male != users[j].male)
+          if people_on_rooms[i] == people_on_rooms[j] && (users[i].male != users[j].male)
             users[i].same_sex_room = false
             users[j].same_sex_room = false
             users[i].save
@@ -164,11 +182,13 @@ class ReservationsController < ApplicationController
           j = j + 1
         end
         former_place = users[i].place
-        former_place.user = nil if user_position[i]!= -1
-        moved = moved + 1 if user_position[i]!= -1
-        former_place.save if user_position[i] != -1
-        @places_on_cell[user_position[i]].user = users[i] if user_position[i]!=-1
-        @places_on_cell[user_position[i]].save if user_position[i]!=-1
+        if !former_place.nil?
+          former_place.user = nil
+          former_place.save
+        end
+        moved = moved + 1 
+        @places_on_cell[user_position[i]].user = users[i]
+        @places_on_cell[user_position[i]].save
         i = i + 1
       end
     redirect_back(fallback_location: places_path, notice: t("reservation.alliance_moved") + " " + moved.to_s + " " + t("reservation.out_of") + " " + @alliance.users.size.to_s + " " + t("reservation.members"))
