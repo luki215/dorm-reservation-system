@@ -113,6 +113,9 @@ cs:
     edit_bed: Editace lůžka
     guest: Ubytovaný
     send_switch_room_request: Požádat o výměnu pokoje
+    alliance_moved: Úspěšně bylo přestěhováno
+    out_of: z
+    members: členů Vaší aliance.
 
   general:
     sex:

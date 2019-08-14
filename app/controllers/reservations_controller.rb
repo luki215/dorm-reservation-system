@@ -151,7 +151,8 @@ class ReservationsController < ApplicationController
       end
 
       i=0
-      while i<users.size
+      moved = 0
+      while i<users.size # now for all users that dont have position=-1, that means we found a spot for them, we need to change their sex preferences and actually put them on their new spot.
         j = i+1
         while j < users.size
           if people_on_rooms[i]!= -1 && people_on_rooms[i] == people_on_rooms[j] && (users[i].male != users[j].male)
@@ -162,10 +163,15 @@ class ReservationsController < ApplicationController
           end
           j = j + 1
         end
+        former_place = users[i].place
+        former_place.user = nil if user_position[i]!= -1
+        moved = moved + 1 if user_position[i]!= -1
+        former_place.save if user_position[i] != -1
         @places_on_cell[user_position[i]].user = users[i] if user_position[i]!=-1
         @places_on_cell[user_position[i]].save if user_position[i]!=-1
         i = i + 1
       end
+    redirect_back(fallback_location: places_path, notice: t("reservation.alliance_moved") + " " + moved.to_s + " " + t("reservation.out_of") + " " + @alliance.users.size.to_s + " " + t("reservation.members"))
     end
   end
 
