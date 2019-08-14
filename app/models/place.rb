@@ -131,7 +131,7 @@ class Place < ApplicationRecord
   end 
 
   def room_type_validation
-    unless self.user.nil? or  self.room_type == self.user.room_type
+    if !self.user.nil? && self.room_type != self.user.room_type
       self.errors.add(:round, "Wrong type of room")
       return false
     else

@@ -1,6 +1,11 @@
-<h1><%=t("reservation.edit_bed") %></h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-4">
+        
+        <h1><%=t("reservation.edit_bed") %></h1>
 
-<%= render 'form', place: @place %>
-
-<%= link_to 'Show', @place %> |
-<%= link_to 'Back', places_path %>
+        <%= render 'form', place: @place %>
+        
+        </div>
+    </div>
+</div>
