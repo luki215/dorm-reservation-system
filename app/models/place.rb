@@ -104,9 +104,8 @@ class Place < ApplicationRecord
   end
 
   def round_validation
-
     if !self.user.nil? && !self.correct_round?(self.users)
-      self.errors.add(:round, "You have not right to reserve this room in this round")
+      self.errors.add(:round, "You do not have right to reserve this room in this round")
       return false
     else
       true
@@ -114,6 +113,12 @@ class Place < ApplicationRecord
   end
 
   def room_type_validation
+    unless self.user.nil? or  self.room_type == self.user.room_type
+      self.errors.add(:round, "Wrong type of room")
+      return false
+    else
+      true
+    end
   end
 
 end
