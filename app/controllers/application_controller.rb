@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
     before_action :check_app_running
+    before_action :set_paper_trail_whodunnit
 
     def unauthorized 
         respond_to do |format|

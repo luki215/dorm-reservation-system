@@ -8,6 +8,10 @@ class Place < ApplicationRecord
 
   attr_accessor :skip_round_validation
 
+  
+  has_paper_trail only: [:user]
+
+
   scope :places_not_colliding_with_restriction, ->(current_user) do 
     # no place on same cell/room with user having same sex as in parameter
     query = "NOT EXISTS (
@@ -107,7 +111,7 @@ class Place < ApplicationRecord
   end
 
   def round_validation
-    if !self.user.nil? && !self.correct_round?(self.users)
+    if !self.user.nil? && !self.correct_round?(self.user)
       self.errors.add(:round, "You do not have right to reserve this room in this round")
       return false
     else
