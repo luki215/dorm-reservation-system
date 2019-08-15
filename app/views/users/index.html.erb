@@ -4,7 +4,7 @@
       <h1><%=t("header.users")%></h1>
       
       <%= form_tag users_path, class: "form-inline mb-3", :method => 'get' do %>
-        <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "email or name" %>
+        <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "email or name", autofocus: "true" %>
         <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
       <% end %>
       <div class="table-responsive">
@@ -38,6 +38,9 @@
                 <td><%= user.note %></td>
                 <td><%= link_to t("general.edit"), edit_user_path(user), class:"btn btn-info" %></td>
               </tr>
+            <% end %>
+            <% if @users.size == 0 %> 
+              <tr><td colspan="9" class="text-center"><%= t("general.no_records_found")%></td></tr>
             <% end %>
           </tbody>
         </table>

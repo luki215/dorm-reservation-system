@@ -132,6 +132,7 @@ cs:
     edit: Editovat
     destroy: Odstranit
     are_you_sure: Jste si jistí?
+    no_records_found: Žádný záznam nenalezen
     none: Žádné
 
   users:
