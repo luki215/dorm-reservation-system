@@ -2,7 +2,11 @@
   <div class="row">
     <div class="col-12">
       <h1><%=t("header.users")%></h1>
-
+      
+      <%= form_tag users_path, class: "form-inline mb-3", :method => 'get' do %>
+        <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "email or name" %>
+        <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
+      <% end %>
       <div class="table-responsive">
         <table class="table table-striped">
           <thead>

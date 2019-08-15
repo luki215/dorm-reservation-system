@@ -6,7 +6,9 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     admin_only
-    @users = User.students.order(:fullname).page params[:page]
+    @users = User.students.order(:fullname).includes(:primary_claim, :secondary_claim)
+    @users = @users.where('fullname ILIKE ? OR email ILIKE ?', "%#{params[:search]}%", "%#{params[:search]}%") if params[:search]
+    @users = @users.page params[:page]
   end
 
   # GET /users/1/edit
