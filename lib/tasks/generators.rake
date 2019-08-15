@@ -3,7 +3,7 @@ namespace :generators do
         puts "Generating rooms..."
 
         floors = {A: 20, B: 16}
-        roomsCount = {A: 26, B: 16}
+        roomsCount = {A: 24, B: 16}
         bedsInRoomCount = 2
 
         [:A, :B].each do | building | 
@@ -17,24 +17,26 @@ namespace :generators do
                                     floor: floor.to_s, 
                                     cell: "#{building}#{floor}#{room_1_str}/#{building}#{floor}#{room_2_str}",
                                     room: "#{room_1_str}",
-                                    bed: bedsInRoom.to_s
+                                    bed: bedsInRoom.to_s,
+                                    room_type: "bla"
                         )
                         
                         Place.create!(building: building, 
                             floor: floor.to_s, 
                             cell: "#{building}#{floor}#{room_1_str}/#{building}#{floor}#{room_2_str}",
                             room: "#{room_2_str}",
-                            bed: bedsInRoom.to_s
+                            bed: bedsInRoom.to_s,
+                            room_type: "bla"
                         )
                     end
                 end
             end
         end
-        puts "Gnerated successfully"
+        puts "Generated successfully"
     end
 
     task :generate_users => :environment do
-        puts "Gnerating users..."
+        puts "Generating users..."
        
         (1..1000).each do |i| 
             puts "generated #{i/10}%" if i % 10 == 0
@@ -46,7 +48,8 @@ namespace :generators do
                     fullname: "User #{i}",
                     male: rand() > 0.5,
                     primary_claim: Place.first,
-                    secondary_claim: Place.where(building: "A", floor:"12", room: "01").first
+                    secondary_claim: Place.where(building: "A", floor:"12", room: "01").first,
+                    room_type: "bla"
                 }
             )
         end
@@ -55,7 +58,7 @@ namespace :generators do
             password: "123456",
             admin: true,
         )
-        puts "Gnerated successfully"
+        puts "Generated successfully"
     end
 
 end
