@@ -1,5 +1,8 @@
 # README
 
+# Show all available tasks
+```rake -T```
+
 # Before release
 in config/environments/production.rb:
 config.action_mailer.default_url_options = { host: 'url', port: 80 }
