@@ -1,5 +1,7 @@
 class AppSetting < ApplicationRecord
 
+  enum dorm: [ :listopad, :kajka ]
+
     def current_round
         if DateTime.now < first_round_start
           return :before
