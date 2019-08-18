@@ -1,3 +1,4 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
   
   get 'set_language/english'
@@ -27,16 +28,22 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     authenticated :user do
-      root 'dashboard#index', as: :authenticated_root
+      root to: 'dashboard#index', as: :authenticated_root
     end
   
     unauthenticated do
-      root 'devise/sessions#new', as: :unauthenticated_root
+      root to: 'devise/sessions#new', as: :unauthenticated_root
     end
   end
 
 
   resources :users, only: [:index, :edit, :update] 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  root :to => 'dashboard#index'
+
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
 end

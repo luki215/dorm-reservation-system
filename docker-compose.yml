@@ -11,8 +11,12 @@ services:
     environment:
     - DEV_DATABASE_HOST=db
     - DEV_MAIL_HOST=mailcatcher
+    - HOST=localhost
+    - PORT=3000
+    - REDIS_URL=redis://redis:6379
     depends_on:
     - db
+    - redis
     stdin_open: true
     tty: true
   db:
@@ -24,13 +28,16 @@ services:
     - POSTGRES_USER=root
   delayed_job:
     build: .
-    command: rake jobs:work
+    command: bundle exec sidekiq -q default -q mailers
     volumes:
     - .:/app 
     env_file: .env
     environment:
     - DEV_DATABASE_HOST=db
     - DEV_MAIL_HOST=mailcatcher
+    - HOST=localhost
+    - PORT=3000
+    - REDIS_URL=redis://redis:6379
     depends_on:
     - db
     stdin_open: true
@@ -40,3 +47,5 @@ services:
     ports:
     - "1025:1025" 
     - "1080:1080"
+  redis: 
+    image: redis:alpine

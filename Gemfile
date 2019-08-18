@@ -34,6 +34,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise'
 # model history + whodunnit
 gem 'paper_trail'
+gem 'sidekiq'
 
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
