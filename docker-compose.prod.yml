@@ -2,7 +2,7 @@ version: '3.5'
 services:
   app:
     build: .
-    command: rails s -p 3000
+    command: rails s -b 0.0.0.0 -p 3000
     ports:
     - 3000:3000
     volumes:
