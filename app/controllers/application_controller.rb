@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
     before_action :check_app_running
     before_action :set_paper_trail_whodunnit
+    before_action :set_raven_context
 
     def unauthorized 
         respond_to do |format|
@@ -24,6 +25,11 @@ class ApplicationController < ActionController::Base
 
             redirect_to not_running_index_path 
         end
+    end
+
+    def set_raven_context
+        Raven.user_context(id: current_user.id, mail: current_user.email)
+        Raven.extra_context(params: params.to_unsafe_h, url: request.url)
     end
 
     def nonexistent_user
