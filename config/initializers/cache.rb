@@ -1,1 +1,1 @@
-config.cache_store = :mem_cache_store
+Rails.application.config.cache_store = :mem_cache_store

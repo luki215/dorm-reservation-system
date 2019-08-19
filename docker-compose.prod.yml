@@ -9,9 +9,6 @@ services:
     - .:/app
     env_file:
       - env/vars.env
-    depends_on:
-    - db
-    - redis
     stdin_open: true
     tty: true
     network_mode: "host"
@@ -22,8 +19,6 @@ services:
     - .:/app 
     env_file:
       - env/vars.env
-    depends_on:
-    - db
     stdin_open: true
     tty: true
     network_mode: "host"
