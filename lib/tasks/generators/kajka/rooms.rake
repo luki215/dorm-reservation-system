@@ -28,10 +28,11 @@ namespace :generators do
                         (:a..:b).each do |roomInCell|
                             (1..2).each do |bedInRoom|
                                 Place.create!(building: building,
-                                            floor: floor.to_s,
-                                            cell: "#{building}-#{floor}#{cell_str}",
-                                            room: "#{building}-#{floor}#{cell_str}#{roomInCell}",
-                                            bed: bedInRoom.to_s
+                                              floor: floor.to_s,
+                                              cell: "#{building}-#{floor}#{cell_str}",
+                                              room: "#{building}-#{floor}#{cell_str}#{roomInCell}",
+                                              bed: bedInRoom.to_s,
+                                              room_type: "KAJ 2LS"
                                 )
                             end
                         end
@@ -42,7 +43,8 @@ namespace :generators do
                                           floor: floor.to_s,
                                           cell: "#{building}-#{floor}#{cell_str}",
                                           room: "#{building}-#{floor}#{cell_str}",
-                                          bed: bedInRoom.to_s
+                                          bed: bedInRoom.to_s,
+                                          room_type: "KAJ 2LS"
                             )
                         end
                     end
@@ -70,7 +72,8 @@ namespace :generators do
                                           floor: floor.to_s,
                                           cell: "#{building}-#{floor}#{cell_str}",
                                           room: "#{building}-#{floor}#{cell_str}#{roomInCell}",
-                                          bed: bedInRoom.to_s
+                                          bed: bedInRoom.to_s,
+                                          room_type: "KAJ 2LS"
                             )
                         end
                     end
@@ -126,14 +129,16 @@ namespace :generators do
                                           floor: floor.to_s,
                                           cell: "#{building}-#{floor}#{cell}",
                                           room: "#{building}-#{floor}#{cell}/2",
-                                          bed: bedInRoom.to_s
+                                          bed: bedInRoom.to_s,
+                                          room_type: "KAJ 2LS"
                             )
                         end
                         Place.create!(building: building,
                                       floor: floor.to_s,
                                       cell: "#{building}-#{floor}#{cell}",
                                       room: "#{building}-#{floor}#{cell}/1",
-                                      bed: 1
+                                      bed: 1,
+                                      room_type: "KAJ 1LS"
                         )
                     end
                 end
