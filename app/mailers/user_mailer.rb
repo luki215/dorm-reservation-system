@@ -1,7 +1,10 @@
 class UserMailer < ApplicationMailer
  
-  def welcome_email(email,pw)
+  def welcome_email(usr_id,pw)
     @password=pw
-    mail(to: email, subject: 'Zámluvový systém / Reservation system')
+    user = User.find(usr_id)
+    mail(to: user.email, subject: 'Zámluvový systém / Reservation system')
+    user.welcome_mail_sent = true
+    user.save!
   end
 end

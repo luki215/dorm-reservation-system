@@ -4,7 +4,7 @@
       <h1>App Settings</h1>
 
       <%= form_with(model: @app_settings, local: true) do |form| %>
-        <%= render "shared/errors", object: @app_setting %>
+        <%= render "shared/errors", object: @app_settings %>
 
 
         <div class="field">
@@ -36,8 +36,20 @@
           <%= form.submit t("general.save"), class: 'btn btn-primary' %>
         </div>
       <% end %>
-
-
+    </div>
+    <div class="col-12">
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">Akce</div>
+            <div class="card-body">
+              <%= link_to "Poslat přivítací mail všem uživatelům", send_welcome_mails_app_settings_path, method: :post, class: "btn btn-primary" %>
+              <br>
+              Počet poslaných mailů: <%= @users_welcome_sent_count %>/<%= User.where(admin: false).size %>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class AppSettingsController < ApplicationController
   before_action :set_app_setting, only: [:show, :edit, :update, :destroy]
 
@@ -6,6 +8,8 @@ class AppSettingsController < ApplicationController
   def index
     admin_only
     @app_settings = AppSetting.first
+    @users_welcome_sent_count = User.where(welcome_mail_sent: true, admin: false).size
+
   end
 
   def update
@@ -16,6 +20,15 @@ class AppSettingsController < ApplicationController
       else
         format.html { render :index }
       end
+    end
+  end
+
+  def send_welcome_mails
+    SendWelcomeMailsWorker.perform_async
+
+    respond_to do |format|
+      format.html { redirect_to app_settings_url, notice: 'Emails are sending' }
+      format.json { head :no_content }
     end
   end
 

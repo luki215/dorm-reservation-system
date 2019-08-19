@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     end
 
     def admin_only
-        unless(current_user.admin)
+        unless(current_user&.admin)
             unauthorized
         end
     end

@@ -16,11 +16,6 @@ class UsersController < ApplicationController
     self_or_admin_only
   end
   
-  def welcome(passwd)
-    @user.password = passwd
-    UserMailer.welcome_email(@user.email,passwd).deliver_now
-  end
-  
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update

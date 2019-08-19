@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     post "accept", on: :member
   end
   resources :not_running, only: [:index]
-  resources :app_settings, only: [:index, :update]
+  resources :app_settings, only: [:index, :update] do 
+    post "send_welcome_mails", on: :collection
+  end
 
   resources :alliance_membership_requests, only: [:create, :destroy] do 
     post "accept", on: :member
