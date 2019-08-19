@@ -22,6 +22,13 @@ namespace :generators do
             floors.each do | floor |
                 cellCount[floor].each do | cell |
                     cell_str = cell.to_s.rjust(2, '0') # 1 -> 01
+                    unbound = true
+
+                    # Restrict lector rooms
+                    # K2 A - 213
+                    if floor == 2 and cell == 13
+                        unbound = false
+                    end
     
                     if cell != 13
                         # Cells 2+2
@@ -32,7 +39,7 @@ namespace :generators do
                                               cell: "#{building}-#{floor}#{cell_str}",
                                               room: "#{building}-#{floor}#{cell_str}#{roomInCell}",
                                               bed: bedInRoom.to_s,
-                                              room_type: "KAJ 2LS"
+                                              room_type: unbound ? "KAJ 2LS" : "KAJ RESERVED"
                                 )
                             end
                         end
@@ -44,7 +51,7 @@ namespace :generators do
                                           cell: "#{building}-#{floor}#{cell_str}",
                                           room: "#{building}-#{floor}#{cell_str}",
                                           bed: bedInRoom.to_s,
-                                          room_type: "KAJ 2LS"
+                                          room_type: unbound ? "KAJ 2LS" : "KAJ RESERVED"
                             )
                         end
                     end
@@ -123,22 +130,37 @@ namespace :generators do
             buildings.each do | building |
                 floors.each do | floor |
                     cellCount[building][floor].each do | cell |
+                        unbound = true
                         # Cells 2+1
+
+                        # Restrict lector rooms
+                        # K1 A – 24 a 26
+                        if building == "1A" and floor == 2 and [4,6].include? cell
+                            unbound = false
+                        end
+
                         (1..2).each do |bedInRoom|
                             Place.create!(building: building,
                                           floor: floor.to_s,
                                           cell: "#{building}-#{floor}#{cell}",
                                           room: "#{building}-#{floor}#{cell}/2",
                                           bed: bedInRoom.to_s,
-                                          room_type: "KAJ 2LS"
+                                          room_type: unbound ? "KAJ 2LS" : "KAJ RESERVED"
                             )
                         end
+
+                        # Restrict lector rooms
+                        # K1 A – 73/1, 74/1, 75/1, 77/1, 78/1
+                        if building == "1A" and floor == 7 and [3,4,5,7,8].include? cell
+                            unbound = false
+                        end
+
                         Place.create!(building: building,
                                       floor: floor.to_s,
                                       cell: "#{building}-#{floor}#{cell}",
                                       room: "#{building}-#{floor}#{cell}/1",
                                       bed: 1,
-                                      room_type: "KAJ 1LS"
+                                      room_type: unbound ? "KAJ 1LS" : "KAJ RESERVED"
                         )
                     end
                 end
