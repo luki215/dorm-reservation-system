@@ -69,6 +69,7 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_options = {from: "Zámluvy <noreply@#{ENV['HOST']}>"}
+  config.secret_key_base = ENV["SECRET_KEY_BASE"]
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
