@@ -9,7 +9,7 @@ namespace :generators do
     
                 User.create!(
                     {
-                        email: "user#{i}@example.com", 
+                        email: "zamluvy.kolejeuk+#{i}@gmail.com", 
                         password: "123456",
                         fullname: "User #{i}",
                         male: rand() > 0.5,
