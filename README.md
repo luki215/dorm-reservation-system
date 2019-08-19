@@ -1,5 +1,11 @@
 # README
 
+# How to run
+## Localhost
+1) ```cp env/localhost.env env/vars.env``` 
+
+## Production
+
 # Show all available tasks
 ```rake -T```
 

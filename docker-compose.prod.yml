@@ -14,13 +14,7 @@ services:
     - redis
     stdin_open: true
     tty: true
-  db:
-    image: postgres:latest
-    ports:
-    - 5432:5432
-    environment:
-    - POSTGRES_DB=database-dev
-    - POSTGRES_USER=root
+    network_mode: "host"
   sidekiq:
     build: .
     command: bundle exec sidekiq -q default -q mailers
@@ -32,10 +26,4 @@ services:
     - db
     stdin_open: true
     tty: true
-  mailcatcher:
-    image: zolweb/docker-mailcatcher:latest
-    ports:
-    - "1025:1025" 
-    - "1080:1080"
-  redis: 
-    image: redis:alpine
+    network_mode: "host"

@@ -23,16 +23,18 @@ default: &default
 
 development:
   <<: *default
-  database: app_development
-  host: db
+  database: <%= ENV["DB_NAME"] %>
+  host: <%= ENV["DB_HOST"] %>
+  username: <%= ENV["DB_USER"] %>
+  password: <%= ENV['DB_PASSWORD'] %>
 test:
   <<: *default
-  host: db
+  host: <%= ENV["DB_NAME"] %>
   database: app_test
 
 production:
   <<: *default
-  host: db
-  database: app_production
-  username: root
-  password: <%= ENV['APP_DATABASE_PASSWORD'] %>
+  host: <%= ENV["DB_HOST"] %>
+  database: <%= ENV["DB_NAME"] %>
+  username: <%= ENV["DB_USER"] %>
+  password: <%= ENV['DB_PASSWORD'] %>
