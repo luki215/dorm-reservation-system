@@ -120,22 +120,21 @@ namespace :generators do
             buildings.each do | building |
                 floors.each do | floor |
                     cellCount[building][floor].each do | cell |
-                            # Cells 2+1
-                            (1..2).each do |bedInRoom|
-                                Place.create!(building: building,
-                                              floor: floor.to_s,
-                                              cell: "#{building}-#{floor}#{cell}",
-                                              room: "#{building}-#{floor}#{cell}/2",
-                                              bed: bedInRoom.to_s
-                                )
-                            end
+                        # Cells 2+1
+                        (1..2).each do |bedInRoom|
                             Place.create!(building: building,
                                           floor: floor.to_s,
                                           cell: "#{building}-#{floor}#{cell}",
-                                          room: "#{building}-#{floor}#{cell}/1",
-                                          bed: 1
+                                          room: "#{building}-#{floor}#{cell}/2",
+                                          bed: bedInRoom.to_s
                             )
                         end
+                        Place.create!(building: building,
+                                      floor: floor.to_s,
+                                      cell: "#{building}-#{floor}#{cell}",
+                                      room: "#{building}-#{floor}#{cell}/1",
+                                      bed: 1
+                        )
                     end
                 end
             end
