@@ -8,7 +8,7 @@ class PlacesController < ApplicationController
     
     @buildings = Place.distinct.pluck(:building)
     @floors = Place.where(building:params[:building]).distinct.order(:floor).pluck(:floor) if @params[:building]
-
+    @current_user_place = current_user.place
     if @params[:building] && @params[:floor]
       @cells = Place.where(building: @params[:building], floor: @params[:floor]).order(:room, :id).includes(:user).group_by{|i| i.cell}
     end

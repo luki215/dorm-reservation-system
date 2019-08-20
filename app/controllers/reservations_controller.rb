@@ -16,7 +16,11 @@ class ReservationsController < ApplicationController
     
     # current_user.save!
     @place.touch
-    err_to_render = "Reservation not successfull - sex mismatch" if errors && errors[:sex]
+    err_to_render = ""
+    err_to_render += "Reservation not successfull - sex mismatch\n" if errors && errors[:sex]
+    err_to_render += "Reservation not successfull - You do not have right to reserve this room in this round\n" if errors && errors[:round]
+    err_to_render += "Reservation not successfull - Wrong type of room\n" if errors && errors[:room_type]
+    err_to_render += "Reservation not successfull - unknown error" unless errors.nil? && err_to_render == ""
     redirect_back(fallback_location: places_path, alert: err_to_render)
   end
 
