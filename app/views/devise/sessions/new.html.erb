@@ -21,6 +21,8 @@
             <%= f.label :remember_me, class:"form-check-label" %>
           </div>
         <% end %>
+
+        <%= csrf_meta_tags %>
       
         <div class="actions">
           <%= f.submit "Log in", class: "btn btn-primary" %>
