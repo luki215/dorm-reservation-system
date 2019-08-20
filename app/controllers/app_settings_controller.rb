@@ -1,7 +1,7 @@
 require 'securerandom'
 
 class AppSettingsController < ApplicationController
-  before_action :set_app_setting, only: [:show, :edit, :update, :destroy]
+  before_action :set_app_setting, only: [:edit, :update]
 
   # GET /app_settings
   # GET /app_settings.json
@@ -24,20 +24,12 @@ class AppSettingsController < ApplicationController
   end
 
   def send_welcome_mails
+    return admin_only
+    
     SendWelcomeMailsWorker.perform_async
 
     respond_to do |format|
       format.html { redirect_to app_settings_url, notice: 'Emails are sending' }
-      format.json { head :no_content }
-    end
-  end
-
-  # DELETE /app_settings/1
-  # DELETE /app_settings/1.json
-  def destroy
-    @app_setting.destroy
-    respond_to do |format|
-      format.html { redirect_to app_settings_url, notice: 'App setting was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
