@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+    protect_from_forgery prepend: true, with: :exception
     before_action :check_app_running
     before_action :set_paper_trail_whodunnit
     before_action :set_raven_context
