@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
             controller_name != "not_running" && 
             controller_name != "app_settings" && 
             controller_name != "sessions" &&
-            controller_name != "password"
+            controller_name != "passwords"
 
             redirect_to not_running_index_path 
         end
