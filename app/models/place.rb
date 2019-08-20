@@ -79,12 +79,12 @@ class Place < ApplicationRecord
 
 
   def name 
-    return self.building + self.floor.to_s + self.room + "#" + self.bed
+    return self.room + "#" + self.bed
   end
 
   
   def room_name 
-    return self.building + self.floor.to_s + self.room
+    self.room
   end
 
   def correct_round?(current_user)
