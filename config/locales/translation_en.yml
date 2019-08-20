@@ -23,9 +23,9 @@ en:
         building: Building  #g
         cell: Cell  #g
         floor: Floor  #g
-        primary_claim: :activerecord.models.primary_claim  #g
+        primary_claim: Primary right
         room: Room  #g
-        secondary_claim: :activerecord.models.secondary_claim  #g
+        secondary_claim: Secondary right
         user: :activerecord.models.user  #g
 
       user:
@@ -43,10 +43,138 @@ en:
         note: Note  #g
         owned_alliance: :activerecord.models.owned_alliance  #g
         place: :activerecord.models.place  #g
-        primary_claim: :activerecord.models.primary_claim  #g
+        primary_claim: Primary right  #g
         remember_created_at: Remember created at  #g
         reset_password_sent_at: Reset password sent at  #g
         reset_password_token: Reset password token  #g
-        same_sex_cell: Same sex cell  #g
-        same_sex_room: Same sex room  #g
-        secondary_claim: :activerecord.models.secondary_claim  #g
+        same_sex_cell: Same gender cell  #g
+        same_sex_room: Same gender room  #g
+        secondary_claim: Secondary right  #g
+        room_type: Room type
+
+  header:
+    appname: Rooms reservation
+    home: Home
+    reservations: Reservation
+    profile: My profile
+    alliance: :activerecord.models.aliance
+    users: Users
+    app_settings: App settings
+    switch_rooms: Switch rooms
+
+  alliance:
+    alliance: :activerecord.models.aliance
+    name: Name of alliance
+    description: Description
+    join: Join
+    edit: Edit alliance
+    editing: Editing alliance
+    destroy: Remove alliance
+    destroy_confirmation: Do you really want to remove the alliance?
+    pending_request_info: You have sent a request to join this alliance. Ask one of the members to accept the request. If you want to make a different request, first you need to
+    cancel_request: Cancel the pending request
+    cancel_request_confirm: Do you really want to cancel the request to join the alliance?
+    member_name: Name
+    remove_member: Remove from alliance
+    members: Members of the alliance
+    requests: Requests to join
+    no_requests: No pending requests
+    accept: Accept
+    dismiss: Dismiss
+    
+    purpose_info: If you want to move in with your friends, use an alliance. Each member of an alliance can move the other members to the room or cell he/she has already reserved.
+    disabled_alert: Usage of the alliances module is currently forbidden. To use it, you need to allow this
+    your_profile: in your profile.
+    you_can_join: If you have a friend who has already created an alliance, you can join it by pressing the following button.
+    you_can_also: You can also
+    create: Create a new alliance
+
+    creation: Create a new alliance
+    founder: Founder
+
+  reservation:
+    reservation: Reservation
+    building: Building
+    floor: Floor
+    cells: Cells
+    existing_reservation: You have a reservation for room
+    no_reservation: Currently, no room is reserved for you.
+    reserve: Reserve
+    cancel: Cancel reservation
+    wrong_sex: Available for the opposite gender only
+    wrong_round: Not available in this round
+    wrong_type: Wrong type of room
+    taken: Taken
+    taken_female: Taken by a female
+    taken_male: Taken by a male
+    confirm_change: Do you really want to change your reservation?
+    confirm_cancel: Do you really want to cancel your reservation?
+    move_alliance: Move the alliance here
+    edit_bed: Edit bed
+    guest: Accomodated person
+    send_switch_room_request: Send a request for room switch
+
+  general:
+    sex:
+      gender: Pohlaví
+      male: Male
+      female: Female
+
+    save: Save changes
+    public: (public)
+    cancel: Cancel
+    submit: Submit
+    ano: Yes
+    ne: No
+    edit: Edit
+    destroy: Remove
+    are_you_sure: Are you sure?
+    none: None
+
+  users:
+    edit: 
+      edit_user: Edit user
+      edit_profile: Edit profile
+    
+    update:
+      your_profile: Your profile
+  
+  settings:
+    first_round: First round starts
+    second_round: Second round starts
+    third_round: Third round starts
+    fourth_round: Fourth round starts
+    running: The system is running
+
+  switch:
+    requests_made: Your pending switch requests
+    no_outgoing_requests: No switch request made yet. You can make it in the module
+    incoming_requests: Incoming requests
+    note: Note by sender
+    no_incoming_requests: You have no incoming switch requests.
+    accept: Accept
+    decline: Decline
+
+  dashboard:
+    headers:
+      roundstarts: Schedule of rounds
+      rounds: Rounds
+      alliance: :activerecord.models.aliance
+      profile: Profile settings
+      dormitory_description: Dormitory description
+      faq: FAQ
+    dashboard: Reservation system
+    welcome_html: Welcome to the reservation system. You can use it to reserve a specific room in the dormitory. If you don't care about where and with whom you are going to live, you can ignore it &ndash; you will get a random spot. On this page you can get further information about the system, the description of the dormitory and other important information.
+    round: Round
+    start: Start
+    before: Before the first round starts
+    first: First
+    second: Second
+    third: Third
+    fourth: Fourth
+    current_round: Current round
+    rounds_explanation: The process of reservation is split in four rounds. The first round is available only for those who lived in the dorm over the summer (specifically, this year, by August 6th) and want to live in the same room. These persons should have a "primary right" for the room set in their profile. In the first round, they may reserve this room only. Similarly, the second round is available for those who lived in the dorm by June 15th, and they have a "secondary right" for the room. The third round is special: you can move your alliance to your room (more info on alliances follows). Finally, in the fourth round, anyone can reserve any room (if it is the appropriate type of room and gender limitations are not violated).
+    alliance_explanation_html: It is possible to create alliances. You should use this functionality if you want to live with your friends. If you are a member of an alliance, you can reserve a whole room or a cell for the alliance by yourself. <b>Beware, the gender limitations are not considered within the alliance, so it may happen that as a member of an alliance, you will live with a person of the opposite gender in the same room, although you prohibited this in settings.</b>
+    dormitory_description: The dormitory 17. listopadu has two buildings, "A" and "B". The label of each dorm room contains the letter A or B, marking the building, the last two numbers signify the position of the room within a single floor and the remaining one or two numbers in between is the floor number. The rooms with the same last two numbers are above each other. The building A has 20 floors and 24 rooms on each floor. The building B has 16 floors and 16 rooms on each floor. The building A has four elevators, the building B has three of them, however because of their sizes, elevators at B run more often. The building B has a dorm shop and a small common room, a gym and a room with a piano. The building A has a study room, a computer laboratory (will be closed soon), an ecumenical room, administration offices, a gym, a table-tennis room and an entrance to the canteen. Some parts of the dorm are used in a specific way. The lowest five floors in both buildings are used as a hotel during the summer season, so you cannot stay there by that time (you need to move to a different room). During the school year, most of these rooms are reserved for Erasmus students, so you typically don't get to this problem. The surroundings of these floor can be noisier than the rest of the dorms. The top floors of both buildings are served by a single elevator only. The 20th floor of the building A has a reputation for being a party floor, however, this is currently not justified. The columns 01-08 at the building B and the columns 01-12 at the building A (check the last two numbers) have the windows directed to the west, so they are hot in the afternoon from May to October. The other rooms are hot before the noon. The columns 14 and 15 at B and 18 and 19 at A are behind the elevators. Because of that, there is an additional small room. With some discomfort, it is possible to place there, for example, another wardrobe or two bikes.
+    profile: In the profile you can find some settings and information about you. We recommend you to check whether your gender and the primary and the secondary right are set correctly. You may set up here whether persons of the opposite gender can move into your room or cell. Keep in mind these settings limit you as well. For example, if you set you don't want to live with a person of the opposite gender, you are not allowed to move to the cell where such a person lives.
+    faq_html: TODO
