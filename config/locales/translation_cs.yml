@@ -139,6 +139,7 @@ cs:
     edit: 
       edit_user: "Úprava uživatele"
       edit_profile: "Úprava profilu"
+      reserved_place: "Zarezervované místo"
     
     update:
       your_profile: "Váš profil"
