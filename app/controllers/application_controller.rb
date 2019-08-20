@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+    protect_from_forgery prepend: true, with: :exception
     before_action :check_app_running
     before_action :set_paper_trail_whodunnit
     before_action :set_raven_context
@@ -21,7 +22,7 @@ class ApplicationController < ActionController::Base
             controller_name != "not_running" && 
             controller_name != "app_settings" && 
             controller_name != "sessions" &&
-            controller_name != "password"
+            controller_name != "passwords"
 
             redirect_to not_running_index_path 
         end

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     post "accept", on: :member
   end
 
-  resources :places, path: 'reservations' do 
+  resources :places, path: 'reservations', only: [:index, :edit, :update] do 
     post 'reservations/create'
     post 'reservations/create_for_alliance', on: :collection
     delete 'reservations/destroy'

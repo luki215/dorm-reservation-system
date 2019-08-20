@@ -17,20 +17,7 @@ File.open("tmp/users.csv", "r").each_line do |line|
                         room_type: data[3]
                     }
                 )
-    
-
-
-end
-       
-            (1..1000).each do |i| 
-                puts "generated #{i/10}%" if i % 10 == 0
-    
            end
-            User.create(
-                email: "admin@example.com",
-                password: "123456",
-                admin: true,
-            )
             puts "Generated successfully"
         end
     end

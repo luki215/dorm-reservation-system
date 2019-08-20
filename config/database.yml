@@ -29,7 +29,7 @@ development:
   password: <%= ENV['DB_PASSWORD'] %>
 test:
   <<: *default
-  host: <%= ENV["DB_NAME"] %>
+  host: <%= ENV["DB_HOST"] %>
   database: app_test
 
 production:
