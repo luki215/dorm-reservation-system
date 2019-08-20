@@ -6,6 +6,12 @@
 
 ## Production
 
+### Deploying new version
+1) change to correct dorm folder
+2) ```git pull```
+3) ```docker-compose restart```
+
+
 # Show all available tasks
 ```rake -T```
 
