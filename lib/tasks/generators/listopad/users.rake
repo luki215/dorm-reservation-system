@@ -4,7 +4,13 @@ namespace :generators do
         task :users => :environment do
             puts "Generating users..."
        
-            (1..1000).each do |i| 
+            User.create(
+                email: "admin@example.com",
+                password: "123456",
+                admin: true,
+            )
+
+            (1..20).each do |i| 
                 puts "generated #{i/10}%" if i % 10 == 0
     
                 User.create!(
@@ -19,11 +25,6 @@ namespace :generators do
                     }
                 )
             end
-            User.create(
-                email: "admin@example.com",
-                password: "123456",
-                admin: true,
-            )
             puts "Generated successfully"
         end
     end
