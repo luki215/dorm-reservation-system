@@ -20,6 +20,7 @@ namespace :generators do
                 rescue
                     puts "fail for #{data[0]}"
                     raise
+                end
             end
         end
         puts "Generated successfully"
