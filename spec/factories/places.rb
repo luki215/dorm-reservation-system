@@ -4,6 +4,7 @@ FactoryBot.define do
         floor { 14 }
         room { "01" }
         cell {"A1401"}
+        room_type {""}
         
         trait :on_cell do 
             room { "02" }
