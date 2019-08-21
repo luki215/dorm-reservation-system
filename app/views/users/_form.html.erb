@@ -28,12 +28,24 @@
 
 
   <div class="form-group">
-    <%= form.label t("activerecord.attributes.place.primary_claim")+": "+ (@user.primary_claim ? @user.primary_claim.room_name : t("general.none")) %>
+    <%= t("activerecord.attributes.place.primary_claim") +":" %>
+    <% if @user.primary_claim %>
+      <%= link_to @user.primary_claim.name, places_path({building: @user.primary_claim.building, floor: @user.primary_claim.floor})  %>
+    <% else %>
+      <%= t("general.none") %> 
+    <% end %>
   </div>
 
+
   <div class="form-group">
-    <%= form.label t("activerecord.attributes.place.secondary_claim")+": "+ (@user.secondary_claim ? @user.secondary_claim.room_name : t("general.none")) %>
+    <%= t("activerecord.attributes.place.secondary_claim") +":" %>
+    <% if @user.secondary_claim %>
+      <%= link_to @user.secondary_claim.name, places_path({building: @user.secondary_claim.building, floor: @user.secondary_claim.floor})  %>
+    <% else %>
+      <%= t("general.none") %> 
+    <% end %>
   </div>
+  
 
   <hr>
   <div class="form-group">
