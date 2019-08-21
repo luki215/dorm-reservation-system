@@ -1,7 +1,7 @@
 namespace :generators do
     namespace :listopad do 
-        desc "Generate Users for Listopad"
-        task :users => :environment do
+        desc "Generate some mashup users for Listopad"
+        task :users_mashup => :environment do
             puts "Generating users..."
        
             (1..1000).each do |i| 
