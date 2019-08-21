@@ -55,6 +55,7 @@ class Place < ApplicationRecord
   def availability_status(current_user)
     return :unavailable_reserved if !self.user.nil?
     return :unavailable_wrong_type if self.room_type != current_user.room_type
+    return :unavailable_round if !self.correct_round?(current_user)
     return :unavailable_different_sex if !self.available?(current_user)
     return :available
   end
