@@ -1,7 +1,7 @@
 # README
 
 # How to run
-## Localhost
+## Localhost
 1) ```cp env/localhost.env env/vars.env``` 
 
 ## Production
@@ -10,6 +10,12 @@
 1) change to correct dorm folder
 2) ```git pull```
 3) ```docker-compose restart```
+
+
+## Stress tests
+For strest testing we use [Locust](https://docs.locust.io/en/latest/what-is-locust.html). All needed files are located in `stress-tests/*`
+
+
 
 
 # Show all available tasks
