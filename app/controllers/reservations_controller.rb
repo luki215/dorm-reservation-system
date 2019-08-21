@@ -26,7 +26,7 @@ class ReservationsController < ApplicationController
 
   def create_for_alliance
     cell = params[:cell]
-    if AppSetting.first.current_round == :fourth or AppSetting.first.current_round == :third && curent_user.place&.cell == cell
+    if AppSetting.first.current_round == :fourth or AppSetting.first.current_round == :third && current_user.place&.cell == cell
       @alliance = Aliance.find(params[:aliance_id]) 
       @places_on_cell = Place.where(cell: cell).to_a
       users = @alliance.users.to_a
@@ -200,9 +200,9 @@ class ReservationsController < ApplicationController
   end
 
   def destroy
-    current_user.place&.touch
-    current_user.place = nil
-    current_user.save!
+    currrent_user.place&.touch
+    currrent_user.place = nil
+    currrent_user.save!
     redirect_back(fallback_location: places_path)
   end
 
