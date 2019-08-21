@@ -21,10 +21,13 @@ class PlacesController < ApplicationController
   # PATCH/PUT /places/1
   # PATCH/PUT /places/1.json
   def update
+    admin_only
+    
     respond_to do |format|
       params = place_params
       params = params.except(:room_type) if params[:room_type] == ""
       params[:user_id] = nil if params[:user_id] == ""
+      @place.skip_round_validation = true
   
       if @place.update(params)
         format.html { redirect_to places_path, notice: 'Place was successfully updated.' }

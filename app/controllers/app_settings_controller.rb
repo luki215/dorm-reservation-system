@@ -24,7 +24,7 @@ class AppSettingsController < ApplicationController
   end
 
   def send_welcome_mails
-    return admin_only
+    admin_only
     
     SendWelcomeMailsWorker.perform_async
 
