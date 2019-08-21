@@ -36,7 +36,7 @@
               <% for floor in @floors do %>
                 <%= link_to( 
                       @params.merge(floor: floor), 
-                      class: "btn btn#{'-outline' if !@params[:floor].nil? && @params[:floor].to_i == floor}-info mb-2"
+                      class: "btn btn#{'-outline' if @params[:floor].nil? || @params[:floor].to_i != floor}-info mb-2"
                     ) do
                 %>
                   <%= floor %>
