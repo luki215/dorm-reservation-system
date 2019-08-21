@@ -61,9 +61,9 @@ ActiveRecord::Schema.define(version: 2019_08_21_174237) do
     t.index ["building"], name: "index_places_on_building"
     t.index ["cell"], name: "index_places_on_cell"
     t.index ["floor"], name: "index_places_on_floor"
-    t.index ["primary_claim_id"], name: "index_places_on_primary_claim_id"
+    t.index ["primary_claim_id"], name: "index_places_on_primary_claim_id", unique: true
     t.index ["room"], name: "index_places_on_room"
-    t.index ["secondary_claim_id"], name: "index_places_on_secondary_claim_id"
+    t.index ["secondary_claim_id"], name: "index_places_on_secondary_claim_id", unique: true
     t.index ["user_id"], name: "index_places_on_user_id"
   end
 
@@ -94,13 +94,9 @@ ActiveRecord::Schema.define(version: 2019_08_21_174237) do
     t.boolean "admin", default: false
     t.string "room_type"
     t.boolean "welcome_mail_sent", default: false
-    t.bigint "primary_claim_id_id"
-    t.bigint "secondary_claim_id_id"
     t.index ["aliance_id"], name: "index_users_on_aliance_id"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["primary_claim_id_id"], name: "index_users_on_primary_claim_id_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["secondary_claim_id_id"], name: "index_users_on_secondary_claim_id_id"
   end
 
   create_table "versions", force: :cascade do |t|
@@ -121,6 +117,4 @@ ActiveRecord::Schema.define(version: 2019_08_21_174237) do
   add_foreign_key "places", "users", column: "secondary_claim_id"
   add_foreign_key "switch_rooms", "users", column: "user_requested_id"
   add_foreign_key "switch_rooms", "users", column: "user_requesting_id"
-  add_foreign_key "users", "users", column: "primary_claim_id_id"
-  add_foreign_key "users", "users", column: "secondary_claim_id_id"
 end
