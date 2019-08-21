@@ -3,7 +3,7 @@ namespace :generators do
     task :users_mocks => :environment do
         puts "Generating users..."
     
-        (1..1000).each do |i| 
+        (1..20).each do |i| 
             puts "generated #{i/10}%" if i % 10 == 0
 
             User.create!(
