@@ -16,13 +16,27 @@ namespace :generators do
                           room_type: data[1]
                       }
                 )
-                place_primary = find_place(data[4], :primary)
-                place_secondary = find_place(data[5], :secondary)
+
+                primary_room = data[4].strip
+                secondary_room = data[5].strip
+                
+                if primary_room == secondary_room
+                  place_primary = Place.where(primary_claim: nil, secondary_claim: nil, room: primary_room).first 
+                else  
+                  place_primary = Place.where(room: primary_room, primary_claim: nil).where.not(secondary_claim: nil).first
+                  place_primary ||= Place.where(room: primary_room, primary_claim: nil).first
+                  
+                  place_secondary = Place.where(room: secondary_room, secondary_claim: nil).where.not(primary_claim: nil).first
+                  place_secondary ||= Place.where(room: secondary_room, secondary_claim: nil).first
+                end
 
                 place_primary&.primary_claim = u 
                 place_primary&.save!
                 place_secondary&.secondary_claim = u 
                 place_secondary&.save!
+
+                puts "Not found primary #{primary_room}" if primary_room != "" && place_primary.nil?
+                puts "Not found secondary #{secondary_room}" if primary_room != secondary_room && secondary_room != "" && place_secondary.nil? 
 
               rescue
                 puts "fail for #{data[0]}"
@@ -33,23 +47,4 @@ namespace :generators do
         puts "Generated successfully"
     end
 
-    def find_place(room, claim)
-      if room.blank?
-        nil
-      else
-        case claim
-          when :primary
-            place = Place.where(room: room, primary_claim: nil).first
-          when :secondary
-            place = Place.where(room: room, secondary_claim: nil).first
-        end
-
-        if place.nil?
-          puts "Ignoring room #{room}"
-        else
-          puts "Found room #{room}"
-        end
-        place
-      end
-    end
 end
