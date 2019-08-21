@@ -200,9 +200,9 @@ class ReservationsController < ApplicationController
   end
 
   def destroy
-    currrent_user.place&.touch
-    currrent_user.place = nil
-    currrent_user.save!
+    current_user.place&.touch
+    current_user.place = nil
+    current_user.save!
     redirect_back(fallback_location: places_path)
   end
 
