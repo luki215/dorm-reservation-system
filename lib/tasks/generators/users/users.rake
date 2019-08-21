@@ -25,8 +25,8 @@ namespace :generators do
                         }
                   )
 
-                  primary_room = data[4].strip
-                  secondary_room = data[5].strip
+                  primary_room = data[5].strip
+                  secondary_room = data[4].strip
                   
                   if primary_room == secondary_room
                     place_primary = Place.where(primary_claim: nil, secondary_claim: nil, room: primary_room).first 
