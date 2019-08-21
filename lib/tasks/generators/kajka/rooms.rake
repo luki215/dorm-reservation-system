@@ -21,7 +21,7 @@ namespace :generators do
             }
             floors.each do | floor |
                 cellCount[floor].each do | cell |
-                    cell_str = cell.to_s.rjust(2, '0') # 1 -> 01
+                    cell_id = floor*100 + cell
                     unbound = true
 
                     # Restrict lector rooms
@@ -32,12 +32,12 @@ namespace :generators do
     
                     if cell != 13
                         # Cells 2+2
-                        (:a..:b).each do |roomInCell|
+                        (:A..:B).each do |roomInCell|
                             (1..2).each do |bedInRoom|
                                 Place.create!(building: building,
                                               floor: floor.to_s,
-                                              cell: "#{building}-#{floor}#{cell_str}",
-                                              room: "#{building}-#{floor}#{cell_str}#{roomInCell}",
+                                              cell: "#{building}-#{cell_id}",
+                                              room: "#{building}-#{cell_id}-#{roomInCell}",
                                               bed: bedInRoom.to_s,
                                               room_type: unbound ? "KAJ 2LS" : "KAJ RESERVED"
                                 )
@@ -48,8 +48,8 @@ namespace :generators do
                         (1..2).each do |bedInRoom|
                             Place.create!(building: building,
                                           floor: floor.to_s,
-                                          cell: "#{building}-#{floor}#{cell_str}",
-                                          room: "#{building}-#{floor}#{cell_str}",
+                                          cell: "#{building}-#{cell_id}",
+                                          room: "#{building}-#{cell_id}",
                                           bed: bedInRoom.to_s,
                                           room_type: unbound ? "KAJ 2LS" : "KAJ RESERVED"
                             )
@@ -70,15 +70,15 @@ namespace :generators do
             }
             floors.each do | floor |
                 cellCount[floor].each do | cell |
-                    cell_str = cell.to_s.rjust(2, '0') # 1 -> 01
+                    cell_id = floor*100 + cell
     
                     # Cells 2+2
-                    (:a..:b).each do |roomInCell|
+                    (:A..:B).each do |roomInCell|
                         (1..2).each do |bedInRoom|
                             Place.create!(building: building,
                                           floor: floor.to_s,
-                                          cell: "#{building}-#{floor}#{cell_str}",
-                                          room: "#{building}-#{floor}#{cell_str}#{roomInCell}",
+                                          cell: "#{building}-#{cell_id}",
+                                          room: "#{building}-#{cell_id}-#{roomInCell}",
                                           bed: bedInRoom.to_s,
                                           room_type: "KAJ 2LS"
                             )
@@ -112,7 +112,7 @@ namespace :generators do
                 "1B" => {
                     1 => [],
                     2 => [],
-                    3 => [],
+                    3 => [7],
                     4 => [*1..8],
                     5 => [*1..8],
                     6 => [*1..8],
@@ -143,7 +143,7 @@ namespace :generators do
                             Place.create!(building: building,
                                           floor: floor.to_s,
                                           cell: "#{building}-#{floor}#{cell}",
-                                          room: "#{building}-#{floor}#{cell}/2",
+                                          room: "#{building}-#{floor}#{cell}-2",
                                           bed: bedInRoom.to_s,
                                           room_type: unbound ? "KAJ 2LS" : "KAJ RESERVED"
                             )
@@ -158,7 +158,7 @@ namespace :generators do
                         Place.create!(building: building,
                                       floor: floor.to_s,
                                       cell: "#{building}-#{floor}#{cell}",
-                                      room: "#{building}-#{floor}#{cell}/1",
+                                      room: "#{building}-#{floor}#{cell}",
                                       bed: 1,
                                       room_type: unbound ? "KAJ 1LS" : "KAJ RESERVED"
                         )

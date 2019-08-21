@@ -79,12 +79,12 @@ class Place < ApplicationRecord
 
 
   def name 
-    return self.building + self.floor.to_s + self.room + "#" + self.bed
+    return self.room + "#" + self.bed
   end
 
   
   def room_name 
-    return self.building + self.floor.to_s + self.room
+    self.room
   end
 
   def correct_round?(current_user)
@@ -132,7 +132,7 @@ class Place < ApplicationRecord
 
   def room_type_validation
     if !self.user.nil? && self.room_type != self.user.room_type
-      self.errors.add(:round, "Wrong type of room")
+      self.errors.add(:room_type, "Wrong type of room")
       return false
     else
       true

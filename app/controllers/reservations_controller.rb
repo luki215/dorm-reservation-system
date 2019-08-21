@@ -16,13 +16,17 @@ class ReservationsController < ApplicationController
     
     # current_user.save!
     @place.touch
-    err_to_render = "Reservation not successfull - sex mismatch" if errors && errors[:sex]
+    err_to_render = ""
+    err_to_render += "Reservation not successfull - sex mismatch\n" if errors && errors[:sex]
+    err_to_render += "Reservation not successfull - You do not have right to reserve this room in this round\n" if errors && errors[:round]
+    err_to_render += "Reservation not successfull - Wrong type of room\n" if errors && errors[:room_type]
+    err_to_render += "Reservation not successfull - unknown error" unless errors.nil? && err_to_render == ""
     redirect_back(fallback_location: places_path, alert: err_to_render)
   end
 
   def create_for_alliance
     cell = params[:cell]
-    if AppSetting.first.current_round == :fourth or AppSettings.first.current_round == :third && curent_user.place&.cell == cell
+    if AppSetting.first.current_round == :fourth or AppSetting.first.current_round == :third && curent_user.place&.cell == cell
       @alliance = Aliance.find(params[:aliance_id]) 
       @places_on_cell = Place.where(cell: cell).to_a
       users = @alliance.users.to_a

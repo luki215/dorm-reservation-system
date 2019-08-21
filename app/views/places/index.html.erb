@@ -3,9 +3,9 @@
     <div class="col-12">
       <h1><%=t("reservation.reservation")%></h1>
 
-      <% if current_user.place and !current_user.admin%>
+      <% if @current_user_place and !current_user.admin%>
         <div class="alert alert-success" role="alert">
-          <%=t("reservation.existing_reservation")%> <%= room_full current_user.place %>.
+          <%=t("reservation.existing_reservation")%> <%= room_full @current_user_place %>.
         </div>
       <% elsif !current_user.admin %>
         <div class="alert alert-warning" role="alert">
@@ -54,12 +54,14 @@
     <div class="col-12">
       <h1><%=t("reservation.cells")%></h1>
       <div class="row">
+
         <% @cells.each do |cell, places| %>
           <div class="col-lg-4 col-sm-6">
             <div class="card mb-4">
               <h5 class="card-header"><%= cell %>
                   <%= render partial: "places_count", locals: {places_count: Place.places_count(current_user, @params[:building], @params[:floor], cell)} %>
-                  <% if AppSetting.first.current_round == :fourth or current_user.place && AppSetting.first.current_round == :third && current_user.place.cell.to_s == cell.to_s%>
+                  <% if  !current_user.admin? && (AppSetting.first.current_round == :fourth or @current_user_place && AppSetting.first.current_round == :third && @current_user_place.cell.to_s == cell.to_s)%>
+                    
                     <%= link_to t("reservation.move_alliance"), 
                         reservations_create_for_alliance_places_path(aliance_id: current_user.aliance.id, cell: cell), 
                         class: "btn btn-success",
@@ -80,7 +82,7 @@
                                place_reservations_create_path(place_id: place.id), 
                                class: "btn btn-success",
                                method: :post,
-                               data: current_user.place.nil? ? nil : {confirm: t("reservation.existing_reservation")+" #{room_full(current_user.place)}. "+ t("reservation.confirm_change") } 
+                               data: @current_user_place.nil? ? nil : {confirm: t("reservation.existing_reservation")+" #{room_full(@current_user_place)}. "+ t("reservation.confirm_change") } 
                            %>
                         <% else %>
                           <%= button_tag t("reservation.wrong_round"), 
@@ -112,7 +114,7 @@
                             <%= button_tag t("reservation.taken_" + (place.user.male ? "male" : "female")), 
                               class: "btn btn-danger",
                               disabled: true %>
-			                        <% if current_user.place.nil? and current_user.switch_room_requests_made.size === 0%>
+			                        <% if !@current_user_place.nil? and current_user.switch_room_requests_made.size === 0%>
                                   <%= link_to t("reservation.send_switch_room_request"), new_switch_room_path({place_id: place.id}), class: 'btn btn-info' %>
                               <% end %>
                         <%end%>
