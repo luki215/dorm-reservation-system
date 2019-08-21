@@ -34,6 +34,7 @@ namespace :generators do
     end
 
     def find_place(room, claim)
+      room = room.strip
       if room.blank?
         nil
       else
@@ -45,9 +46,7 @@ namespace :generators do
         end
 
         if place.nil?
-          puts "Ignoring room #{room}"
-        else
-          puts "Found room #{room}"
+          puts "W: Ignoring room #{room} #{claim}"
         end
         place
       end
