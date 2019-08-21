@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_19_175137) do
+ActiveRecord::Schema.define(version: 2019_08_21_174237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,9 +94,13 @@ ActiveRecord::Schema.define(version: 2019_08_19_175137) do
     t.boolean "admin", default: false
     t.string "room_type"
     t.boolean "welcome_mail_sent", default: false
+    t.bigint "primary_claim_id_id"
+    t.bigint "secondary_claim_id_id"
     t.index ["aliance_id"], name: "index_users_on_aliance_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["primary_claim_id_id"], name: "index_users_on_primary_claim_id_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["secondary_claim_id_id"], name: "index_users_on_secondary_claim_id_id"
   end
 
   create_table "versions", force: :cascade do |t|
@@ -117,4 +121,6 @@ ActiveRecord::Schema.define(version: 2019_08_19_175137) do
   add_foreign_key "places", "users", column: "secondary_claim_id"
   add_foreign_key "switch_rooms", "users", column: "user_requested_id"
   add_foreign_key "switch_rooms", "users", column: "user_requesting_id"
+  add_foreign_key "users", "users", column: "primary_claim_id_id"
+  add_foreign_key "users", "users", column: "secondary_claim_id_id"
 end
