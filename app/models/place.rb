@@ -62,13 +62,7 @@ class Place < ApplicationRecord
 
   def available_to_switch?(current_user)
     return false unless self.room_type == current_user.room_type
-
-    # Check sex restriction
-    place_orig_user = self.user
-    self.user = current_user
-    is_valid = self.valid?
-    self.user = place_orig_user
-    return is_valid
+    true
   end
 
   def places_on_same_room
