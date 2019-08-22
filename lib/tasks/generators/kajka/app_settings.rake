@@ -4,7 +4,7 @@ namespace :generators do
         task :app_settings => :environment do
             AppSetting.destroy_all
             AppSetting.create(
-                is_running: false, 
+                is_running: true, 
                 dorm: :kajka, 
                 first_round_start: Time.now,
                 second_round_start: Time.now,

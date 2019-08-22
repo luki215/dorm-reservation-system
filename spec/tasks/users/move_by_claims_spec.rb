@@ -29,6 +29,16 @@ describe "rake generators:users:move_by_claims", type: :task do
     expect(p1.user).to eq u
   end
 
+
+  it "moves to first claim if have both" do
+    u = create(:user_male)
+    p1 = create(:place, secondary_claim: u, primary_claim: u)
+
+    task.execute
+    p1.reload
+    expect(p1.user).to eq u
+  end
+
   it "doesnt move to secondary claim if place full and puts error" do
     u_origin = create(:user_male)
     u = create(:user_male)
