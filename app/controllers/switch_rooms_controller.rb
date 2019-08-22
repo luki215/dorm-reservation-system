@@ -68,7 +68,7 @@ class SwitchRoomsController < ApplicationController
     rescue ActiveRecord::RecordInvalid
       @errors = place_requesting.errors[:sex]
       @errors += place_requested.errors[:sex]
-      @errors << t("general.unknown_error") if @errors.empty? 
+      @errors << I18n.t("general.unknown_error") if @errors.empty? 
     end
 
 

@@ -48,7 +48,9 @@ class Place < ApplicationRecord
 
     place_orig_user = self.user
     self.user = current_user
-    is_valid = self.valid?
+    is_valid = self.valid? 
+    # hotfix - unique place validation per user
+    is_valid = true if self.errors.count == 1 && self.errors.first && self.errors.first.include?(:user)
     self.user = place_orig_user
     return is_valid
   end
