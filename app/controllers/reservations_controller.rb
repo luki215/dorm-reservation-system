@@ -188,10 +188,13 @@ class ReservationsController < ApplicationController
         former_place = users[i].place
         if !former_place.nil?
           former_place.user = nil
+          former_place.admin_claim = nil
           former_place.save
         end
         moved = moved + 1 
         @places_on_cell[user_position[i]].user = users[i]
+        @places_on_cell[user_position[i]].admin_claim = users[i]
+
         @places_on_cell[user_position[i]].save
         i = i + 1
       end
