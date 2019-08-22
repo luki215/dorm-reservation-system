@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_one :owned_alliance, foreign_key: "founder_id", class_name: :Aliance, dependent: :destroy
   has_one :primary_claim, foreign_key: "primary_claim_id", class_name: :Place, dependent: :nullify
   has_one :secondary_claim, foreign_key: "secondary_claim_id", class_name: :Place, dependent: :nullify
+  has_one :admin_claim, foreign_key: "admin_claim_id", class_name: :Place, dependent: :nullify
   has_many :switch_room_requests_made, foreign_key: 'user_requesting_id', class_name: :SwitchRoom, dependent: :destroy
   has_many :switch_room_requests_incoming, foreign_key: 'user_requested_id', class_name: :SwitchRoom, dependent: :destroy
   

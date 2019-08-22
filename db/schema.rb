@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_22_014406) do
+ActiveRecord::Schema.define(version: 2019_08_22_182450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,8 @@ ActiveRecord::Schema.define(version: 2019_08_22_014406) do
     t.bigint "primary_claim_id"
     t.bigint "secondary_claim_id"
     t.string "room_type"
+    t.bigint "admin_claim_id"
+    t.index ["admin_claim_id"], name: "index_places_on_admin_claim_id"
     t.index ["bed"], name: "index_places_on_bed"
     t.index ["building"], name: "index_places_on_building"
     t.index ["cell"], name: "index_places_on_cell"
@@ -113,6 +115,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_014406) do
   add_foreign_key "alliance_membership_requests", "aliances"
   add_foreign_key "alliance_membership_requests", "users"
   add_foreign_key "places", "users"
+  add_foreign_key "places", "users", column: "admin_claim_id"
   add_foreign_key "places", "users", column: "primary_claim_id"
   add_foreign_key "places", "users", column: "secondary_claim_id"
   add_foreign_key "switch_rooms", "users", column: "user_requested_id"
