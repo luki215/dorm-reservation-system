@@ -45,6 +45,13 @@
       <%= t("general.none") %> 
     <% end %>
   </div>
+
+  <% if @user.admin_claim && current_user.admin? %>
+    <div class="form-group">
+      <%= t("activerecord.attributes.place.admin_claim") +":" %>
+        <%= link_to @user.admin_claim.name, places_path({building: @user.admin_claim.building, floor: @user.admin_claim.floor})  %> 
+    </div>
+  <% end %>
   
 
   <hr>
