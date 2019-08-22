@@ -6,9 +6,7 @@ class Place < ApplicationRecord
   validates  :user, :secondary_claim, :primary_claim, uniqueness: true, allow_nil: true
 
   validate :sex_validation, :room_type_validation
-  validate :round_validation, unless: :skip_round_validation?
-
-  attr_accessor :skip_round_validation
+  validate :round_validation
 
   
   has_paper_trail only: [:user]
@@ -132,10 +130,6 @@ class Place < ApplicationRecord
       true
     end
   end
-
-  def skip_round_validation?
-    @skip_round_validation
-  end 
 
   def room_type_validation
     if !self.user.nil? && self.room_type != self.user.room_type
