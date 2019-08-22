@@ -30,9 +30,9 @@ class PlacesController < ApplicationController
       
       
       orig_place = Place.find_by(user_id: params[:user_id])
-      orig_place&.update(user: nil)
+      orig_place&.update(user: nil, admin_claim: nil)
       
-      @place.skip_round_validation = true
+      @place.admin_claim_id = params[:user_id]
 
       if @place.update(params)
         format.html { redirect_to places_path, notice: 'Place was successfully updated.' }
