@@ -13,28 +13,27 @@ namespace :generators do
                 # Primary claim
                 Place.preload(:user, primary_claim: [:place]).where.not(primary_claim: nil).each do | place |
                     begin
-                        unless place.primary_claim.nil?
-                          # We aware: place.secondary_claim.place == place always !!! be aware
-                          primary_claim_place = Place.find_by(user_id: place.primary_claim.id)
-                          if place.room_type == place.primary_claim.room_type
-                            puts "W: #{place.room} Rewriting bed with #{place.primary_claim.email}" if !primary_claim_place.nil? and place.id != primary_claim_place.id
-                            place.user = place.primary_claim
-                          else
-                            puts "W: #{place.room} Ignoring primary claim for user #{place.primary_claim.email} (change type #{place.room_type} -> #{place.primary_claim.room_type})"
-                          end
+                        # Be aware: place.secondary_claim.place == place always !!! be aware
+                        actual_place = Place.find_by(user_id: place.primary_claim.id)
+                        if place.room_type == place.primary_claim.room_type
+                          puts "W: #{place.room} Rewriting bed with #{place.primary_claim.email}" if !actual_place.nil? and place.id != actual_place.id
+                          place.user = place.primary_claim
+                        else
+                          puts "W: #{place.room} Ignoring primary claim for user #{place.primary_claim.email} (change type #{place.room_type} -> #{place.primary_claim.room_type})"
                         end
                     rescue
                       puts "#{place.room} Error; primary claim: #{place.primary_claim&.email}; secondary_claim: #{place.secondary_claim&.email}"
                       raise
                     end
+                    place.admin_claim=place.user unless place.user.nil?
                     place.save! unless place.user.nil?
                 end
 
                 # Secondary claim
                 Place.preload(:user, secondary_claim: [:place]).where.not(secondary_claim: nil).each do | place |
                     begin
-                        if !place.secondary_claim.nil? and place.user.nil?
-                          # We aware: place.secondary_claim.place == place always !!! be aware
+                        if place.user.nil?
+                          # Be aware: place.secondary_claim.place == place always !!! be aware
                           actual_place = Place.find_by(user_id: place.secondary_claim.id)
                           if actual_place.nil? && place.room_type == place.secondary_claim.room_type
                             place.user = place.secondary_claim
@@ -50,6 +49,7 @@ namespace :generators do
                       puts "#{place.room} Error; secondary claim: #{place.primary_claim&.email}; secondary_claim: #{place.secondary_claim&.email}"
                       raise
                     end
+                    place.admin_claim= place.user unless place.user.nil?
                     place.save! unless place.user.nil?
                 end
 
