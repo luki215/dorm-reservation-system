@@ -10,40 +10,47 @@ namespace :generators do
 
                 puts "Auto solving claims"
 
-                Place.preload(:user, primary_claim: [:place], secondary_claim: [:place]).each do | place |
+                # Primary claim
+                Place.preload(:user, primary_claim: [:place]).where.not(primary_claim: nil).each do | place |
                     begin
-                        # Primary claim
                         unless place.primary_claim.nil?
                           # We aware: place.secondary_claim.place == place always !!! be aware
                           primary_claim_place = Place.find_by(user_id: place.primary_claim.id)
                           if place.room_type == place.primary_claim.room_type
-                            puts "W: #{place.room} Rewriting bed with #{place.primary_claim.email}" if place != primary_claim_place
+                            puts "W: #{place.room} Rewriting bed with #{place.primary_claim.email}" if !primary_claim_place.nil? and place.id != primary_claim_place.id
                             place.user = place.primary_claim
                           else
                             puts "W: #{place.room} Ignoring primary claim for user #{place.primary_claim.email} (change type #{place.room_type} -> #{place.primary_claim.room_type})"
                           end
                         end
+                    rescue
+                      puts "#{place.room} Error; primary claim: #{place.primary_claim&.email}; secondary_claim: #{place.secondary_claim&.email}"
+                      raise
+                    end
+                    place.save! unless place.user.nil?
+                end
 
-                        # Secondary claim
+                # Secondary claim
+                Place.preload(:user, secondary_claim: [:place]).where.not(secondary_claim: nil).each do | place |
+                    begin
                         if !place.secondary_claim.nil? and place.user.nil?
                           # We aware: place.secondary_claim.place == place always !!! be aware
-                          secondary_claim_place = Place.find_by(user_id: place.secondary_claim.id)
-                          if secondary_claim_place.nil? && place.room_type == place.secondary_claim.room_type
+                          actual_place = Place.find_by(user_id: place.secondary_claim.id)
+                          if actual_place.nil? && place.room_type == place.secondary_claim.room_type
                             place.user = place.secondary_claim
                           else
-                            if secondary_claim_place.nil? && place.room_type != place.secondary_claim.room_type
+                            if actual_place.nil? && place.room_type != place.secondary_claim.room_type
                               puts "W: #{place.room} Ignoring secondary claim for user #{place.secondary_claim.email} (change type  #{place.room_type} -> #{place.secondary_claim.room_type})"
                             elsif place != place.secondary_claim.place
                               puts "V: #{place.room} Ignoring secondary claim for user #{place.secondary_claim.email} (has room #{place.secondary_claim.place.room})"
                             end
                           end
                         end
-
-                        place.save! unless place.user.nil?
                     rescue
-                        puts "#{place.room} Error; primary claim: #{place.primary_claim&.email}; secondary_claim: #{place.secondary_claim&.email}"
-                        raise
+                      puts "#{place.room} Error; secondary claim: #{place.primary_claim&.email}; secondary_claim: #{place.secondary_claim&.email}"
+                      raise
                     end
+                    place.save! unless place.user.nil?
                 end
 
                 puts "Restoring sex restrictions"
