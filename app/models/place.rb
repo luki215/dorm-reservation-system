@@ -2,8 +2,7 @@ class Place < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :primary_claim, class_name: :User, optional: true
   belongs_to :secondary_claim, class_name: :User, optional: true
-  validates :primary_claim, uniqueness: true, allow_nil: true
-  validates :secondary_claim, uniqueness: true, allow_nil: true
+  validates  :user, :secondary_claim, :primary_claim, uniqueness: true, allow_nil: true
 
   validate :sex_validation, :room_type_validation
   validate :round_validation, unless: :skip_round_validation?
