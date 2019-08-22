@@ -18,8 +18,8 @@
 
   <div class="form-group">
     <%= t("users.edit.reserved_place")+": " %> 
-    <% if current_user.place %>
-      <%= link_to current_user.place.name, places_path({building: current_user.place.building, floor: current_user.place.floor})  %>
+    <% if @user.place %>
+      <%= link_to @user.place.name, places_path({building: @user.place.building, floor: @user.place.floor})  %>
     <% else %>
       <%= t("general.none") %> 
     <% end %>
@@ -28,12 +28,24 @@
 
 
   <div class="form-group">
-    <%= form.label t("activerecord.attributes.place.primary_claim")+": "+ (current_user.primary_claim ? current_user.primary_claim.room_name : t("general.none")) %>
+    <%= t("activerecord.attributes.place.primary_claim") +":" %>
+    <% if @user.primary_claim %>
+      <%= link_to @user.primary_claim.name, places_path({building: @user.primary_claim.building, floor: @user.primary_claim.floor})  %>
+    <% else %>
+      <%= t("general.none") %> 
+    <% end %>
   </div>
 
+
   <div class="form-group">
-    <%= form.label t("activerecord.attributes.place.secondary_claim")+": "+ (current_user.secondary_claim ? current_user.secondary_claim.room_name : t("general.none")) %>
+    <%= t("activerecord.attributes.place.secondary_claim") +":" %>
+    <% if @user.secondary_claim %>
+      <%= link_to @user.secondary_claim.name, places_path({building: @user.secondary_claim.building, floor: @user.secondary_claim.floor})  %>
+    <% else %>
+      <%= t("general.none") %> 
+    <% end %>
   </div>
+  
 
   <hr>
   <div class="form-group">

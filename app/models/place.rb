@@ -2,6 +2,7 @@ class Place < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :primary_claim, class_name: :User, optional: true
   belongs_to :secondary_claim, class_name: :User, optional: true
+  validates  :user, :secondary_claim, :primary_claim, uniqueness: true, allow_nil: true
 
   validate :sex_validation, :room_type_validation
   validate :round_validation, unless: :skip_round_validation?
@@ -55,6 +56,7 @@ class Place < ApplicationRecord
   def availability_status(current_user)
     return :unavailable_reserved if !self.user.nil?
     return :unavailable_wrong_type if self.room_type != current_user.room_type
+    return :unavailable_round if !self.correct_round?(current_user)
     return :unavailable_different_sex if !self.available?(current_user)
     return :available
   end

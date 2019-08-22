@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_19_175137) do
+ActiveRecord::Schema.define(version: 2019_08_22_014406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,10 +61,10 @@ ActiveRecord::Schema.define(version: 2019_08_19_175137) do
     t.index ["building"], name: "index_places_on_building"
     t.index ["cell"], name: "index_places_on_cell"
     t.index ["floor"], name: "index_places_on_floor"
-    t.index ["primary_claim_id"], name: "index_places_on_primary_claim_id"
+    t.index ["primary_claim_id"], name: "index_places_on_primary_claim_id", unique: true
     t.index ["room"], name: "index_places_on_room"
-    t.index ["secondary_claim_id"], name: "index_places_on_secondary_claim_id"
-    t.index ["user_id"], name: "index_places_on_user_id"
+    t.index ["secondary_claim_id"], name: "index_places_on_secondary_claim_id", unique: true
+    t.index ["user_id"], name: "index_places_on_user_id", unique: true
   end
 
   create_table "switch_rooms", force: :cascade do |t|

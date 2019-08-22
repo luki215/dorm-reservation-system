@@ -50,7 +50,7 @@
 
 <h2> <%= t("dashboard.headers.dormitory_description") %> </h2>
 
-<p> <%= t("dashboard.dormitory_description") %> </p>
+<p> <%= t("dashboard." + AppSetting.first.dorm.to_s + ".dormitory_description_html") %> </p>
 
 <h2> <%= t("dashboard.headers.faq") %> </h2>
 

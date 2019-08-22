@@ -1,3 +1,4 @@
 {
-    "emmet.triggerExpansionOnTab": true
+    "emmet.triggerExpansionOnTab": true,
+    "python.pythonPath": "/Library/Frameworks/Python.framework/Versions/3.6/bin/python3"
 }

@@ -36,7 +36,7 @@
               <% for floor in @floors do %>
                 <%= link_to( 
                       @params.merge(floor: floor), 
-                      class: "btn btn#{'-outline' unless @params[:floor].to_i == floor}-info mb-2"
+                      class: "btn btn#{'-outline' if @params[:floor].nil? || @params[:floor].to_i != floor}-info mb-2"
                     ) do
                 %>
                   <%= floor %>
@@ -76,20 +76,14 @@
                     <!-- USER -->
                     <% if !current_user.admin %>
                       <!-- available -->
-                      <% if place.available?(current_user) %>
-                        <% if place.correct_round?(current_user) %>
-                           <%= link_to t("reservation.reserve"), 
-                               place_reservations_create_path(place_id: place.id), 
-                               class: "btn btn-success",
-                               method: :post,
-                               data: @current_user_place.nil? ? nil : {confirm: t("reservation.existing_reservation")+" #{room_full(@current_user_place)}. "+ t("reservation.confirm_change") } 
-                           %>
-                        <% else %>
-                          <%= button_tag t("reservation.wrong_round"), 
-                              class: "btn btn-danger",
-                              disabled: true %>
+                      <% if place.available?(current_user) %> 
+                        <%= link_to t("reservation.reserve"), 
+                            place_reservations_create_path(place_id: place.id), 
+                            class: "btn btn-success",
+                            method: :post,
+                            data: @current_user_place.nil? ? nil : {confirm: t("reservation.existing_reservation")+" #{room_full(@current_user_place)}. "+ t("reservation.confirm_change") } 
+                        %>
 
-                        <% end %>
                       <!-- reserved by me -->                     
                       <% elsif place.user === current_user %>
                         <%= link_to t("reservation.cancel"), 
@@ -98,26 +92,32 @@
                             method: :delete,
                             data: { confirm: t("reservation.confirm_cancel") }
                         %>
+
+                      <!-- wrong round -->               
+                      <% elsif place.availability_status(current_user) == :unavailable_round %>
+                        <%= button_tag t("reservation.wrong_round"), 
+                          class: "btn btn-danger",
+                          disabled: true %>
+
                       <!-- wrong room type -->                     
                       <% elsif place.availability_status(current_user) == :unavailable_wrong_type %>
                         <%= button_tag t("reservation.wrong_type"),  
                             class: "btn btn-danger",
                             disabled: true 
                         %>
-                      <!-- reserved by someone else / not matching sex -->                     
+                      <!-- not matching sex -->                  
+                      <% elsif place.availability_status(current_user) == :unavailable_different_sex %>
+                        <%= button_tag t("reservation.wrong_sex"), 
+                            class: "btn btn-danger",
+                            disabled: true %>
+                      <!-- reserved by someone else -->
                       <% else %>
-                        <% if place.availability_status(current_user) == :unavailable_different_sex %>
-                          <%= button_tag t("reservation.wrong_sex"), 
-                              class: "btn btn-danger",
-                              disabled: true %>
-                        <% else %>
-                            <%= button_tag t("reservation.taken_" + (place.user.male ? "male" : "female")), 
-                              class: "btn btn-danger",
-                              disabled: true %>
-			                        <% if !@current_user_place.nil? and current_user.switch_room_requests_made.size === 0%>
-                                  <%= link_to t("reservation.send_switch_room_request"), new_switch_room_path({place_id: place.id}), class: 'btn btn-info' %>
-                              <% end %>
-                        <%end%>
+                          <%= button_tag t("reservation.taken_" + (place.user.male ? "male" : "female")), 
+                            class: "btn btn-danger",
+                            disabled: true %>
+                          <% if !@current_user_place.nil? and current_user.switch_room_requests_made.size === 0%>
+                              <%= link_to t("reservation.send_switch_room_request"), new_switch_room_path({place_id: place.id}), class: 'btn btn-info' %>
+                          <% end %>
                       <% end %>
 
                     <!-- ADMIN -->

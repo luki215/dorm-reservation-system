@@ -26,7 +26,7 @@ class ReservationsController < ApplicationController
 
   def create_for_alliance
     cell = params[:cell]
-    if AppSetting.first.current_round == :fourth or AppSettings.first.current_round == :third && curent_user.place&.cell == cell
+    if AppSetting.first.current_round == :fourth or AppSetting.first.current_round == :third && current_user.place&.cell == cell
       @alliance = Aliance.find(params[:aliance_id]) 
       @places_on_cell = Place.where(cell: cell).to_a
       users = @alliance.users.to_a

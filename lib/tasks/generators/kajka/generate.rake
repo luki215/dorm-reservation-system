@@ -3,6 +3,6 @@ namespace :generators do
     task :kajka => :environment do 
         Rake::Task["generators:kajka:app_settings"].invoke
         Rake::Task["generators:kajka:rooms"].invoke
-        Rake::Task["generators:kajka:users"].invoke
+        Rake::Task["generators:users:users"].invoke
     end
 end

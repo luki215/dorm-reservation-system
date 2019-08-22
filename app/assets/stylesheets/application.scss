@@ -1,11 +1,19 @@
 
 @import "bootstrap";
 
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-flow: column;
+}
+
 .content {
     padding-top: 20px;
 }
 
-.note {
-    font-size: 75%;
-    color: #808080;
+footer {
+    color: rgba(0, 0, 0, 0.5);
+    a {
+        color: rgba(0, 0, 0, 0.7);
+    }
 }

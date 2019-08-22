@@ -5,7 +5,9 @@ FactoryBot.define do
         email { Faker::Internet.safe_email }
         password { Faker::Internet.password }
         admin { false }
-
+        room_type {""}
+        :same_sex_room
+        
         factory :user_male do 
             male {true}
         end
