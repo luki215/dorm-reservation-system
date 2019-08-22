@@ -4,8 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :rememberable, :validatable, :recoverable
   scope :students, -> { where(:admin => false) }
   validates_associated :place
-  validates :primary_claim, :secondary_claim, uniqueness: true, allow_nil: true
-
+  
   has_one :place, dependent: :nullify
   has_one :owned_alliance, foreign_key: "founder_id", class_name: :Aliance, dependent: :destroy
   has_one :primary_claim, foreign_key: "primary_claim_id", class_name: :Place, dependent: :nullify
