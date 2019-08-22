@@ -98,8 +98,8 @@ describe "rake generators:users:move_by_claims", type: :task do
     u1.reload
     u2.reload
 
-    expect(u1.same_sex_room).to eq true
-    expect(u2.same_sex_room).to eq true
+    expect(u1.same_sex_room).to eq false
+    expect(u2.same_sex_room).to eq false
   end
 
 end
