@@ -93,7 +93,7 @@ class Place < ApplicationRecord
   def correct_round?(current_user)
     if self.admin_claim == current_user
       return true 
-    if AppSetting.first.current_round == :fourth
+    elsif AppSetting.first.current_round == :fourth
        return true
     elsif  current_user.secondary_claim && AppSetting.first.current_round_numeric > 1 && current_user.secondary_claim.room_name == self.room_name
        return true
