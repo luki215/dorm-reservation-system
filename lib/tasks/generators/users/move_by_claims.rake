@@ -24,8 +24,9 @@ namespace :generators do
                         place.secondary_claim&.update(same_sex_room: true)
                         places_on_cell.each{|place| place.user&.update(same_sex_room: true)}
                     rescue
+                        # byebug
                         puts "error with processing place #{place.id}; primary claim: #{place.primary_claim&.email}; secondary_claim: #{place.secondary_claim&.email}"
-                        raise
+                        # raise
                     end
                 end
             end
