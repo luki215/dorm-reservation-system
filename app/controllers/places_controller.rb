@@ -27,8 +27,13 @@ class PlacesController < ApplicationController
       params = place_params
       params = params.except(:room_type) if params[:room_type] == ""
       params[:user_id] = nil if params[:user_id] == ""
+      
+      
+      orig_place = Place.find_by(user_id: params[:user_id])
+      orig_place&.update(user: nil)
+      
       @place.skip_round_validation = true
-  
+
       if @place.update(params)
         format.html { redirect_to places_path, notice: 'Place was successfully updated.' }
         format.json { render :show, status: :ok, location: @place }
