@@ -15,6 +15,24 @@ class UsersController < ApplicationController
   def edit
     self_or_admin_only
   end
+
+  def new
+    admin_only
+    @user =  User.new
+  end
+
+  def create
+    admin_only 
+    @user = User.new(user_params)
+
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to edit_user_path(@user), notice: 'User was successfully created.' }
+      else
+        format.html { render :new }
+      end
+    end
+  end
   
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
@@ -41,6 +59,14 @@ class UsersController < ApplicationController
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def destroy
+    admin_only
+    @user.destroy
+    respond_to do |format|
+      format.html { redirect_to users_path, notice: 'User was successfully destroyed.' }
     end
   end
 

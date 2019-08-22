@@ -2,11 +2,16 @@
   <div class="row">
     <div class="col-12">
       <h1><%=t("header.users")%></h1>
-      
-      <%= form_tag users_path, class: "form-inline mb-3", :method => 'get' do %>
-        <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "email or name", autofocus: "true" %>
-        <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
-      <% end %>
+
+      <div class="d-flex align-items-center mb-3">
+        <%= form_tag users_path, class: "form-inline", :method => 'get' do %>
+          <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "email or name", autofocus: "true" %>
+          <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
+        <% end %>
+
+        <%= link_to "New user", new_user_path, class:"btn btn-success ml-auto" %>
+      </div>
+
       <div class="table-responsive">
         <table class="table table-striped">
           <thead>
@@ -37,6 +42,10 @@
                 <td><%= user.secondary_claim&.room_name %></td>
                 <td><%= user.note %></td>
                 <td><%= link_to t("general.edit"), edit_user_path(user), class:"btn btn-info" %></td>
+                <td><%= link_to t("general.destroy"), user_path(user),
+                                 method: :delete, data: {confirm: "Are you sure?" }, class:"btn btn-danger" 
+                    %>
+                </td>
               </tr>
             <% end %>
             <% if @users.size == 0 %> 
