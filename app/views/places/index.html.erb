@@ -120,6 +120,11 @@
                           <% end %>
                       <% end %>
 
+                      <% if current_user.aliance_id == place.user&.aliance_id && current_user != place.user %>
+                        <br>
+                        <%= t("reservation.here_lives") %>: <%= place.user.fullname %> 
+                      <% end %>
+
                     <!-- ADMIN -->
                     <% else %>
                     <%= link_to t("general.edit"), edit_place_path(place), class:"btn btn-primary" %>
