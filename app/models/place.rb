@@ -43,15 +43,15 @@ class Place < ApplicationRecord
 
   def available?(current_user)
     return false unless self.user.nil? 
-    return false unless self.room_type == current_user.room_type
+    return available_eventhough_could_be_full?(current_user)
+  end
 
-    place_orig_user = self.user
-    self.user = current_user
-    is_valid = self.valid? 
-    # hotfix - unique place validation per user
-    is_valid = true if self.errors.count == 1 && self.errors.first && self.errors.first.include?(:user)
-    self.user = place_orig_user
-    return is_valid
+  def available_for_switch_with?(user)
+    return !user.place.nil? &&
+           !user.place == self &&
+           !self.user.nil? &&
+           current_user.switch_room_requests_made.size === 0 &&
+           available_eventhough_could_be_full?
   end
 
   def availability_status(current_user)
@@ -105,6 +105,26 @@ class Place < ApplicationRecord
   end
 
   private 
+
+
+  def available_eventhough_could_be_full?(current_user) 
+    return false unless self.room_type == current_user.room_type
+
+    ## Is place valid if we move user in ##
+    place_orig_user = self.user
+    self.user = current_user
+    is_valid = self.valid? 
+    # hotfix - unique place validation per user
+    is_valid = true if self.errors.count == 1 && self.errors.first && self.errors.first.include?(:user)
+    self.user = place_orig_user
+    return is_valid
+  end
+
+
+  ###
+  ### Validations
+  ###  
+
   def sex_validation
     if self.user 
       res = 
