@@ -57,6 +57,10 @@ class SwitchRoomsController < ApplicationController
       Place.transaction do
         SwitchRoom.transaction do 
           requests_to_destroy.destroy_all
+          place_requested.user = nil
+          place_requesting.user = nil
+          place_requested.save!
+          place_requesting.save!
           place_requested.user = @switch_room.user_requesting
           place_requesting.user = @switch_room.user_requested
           place_requested.save!
