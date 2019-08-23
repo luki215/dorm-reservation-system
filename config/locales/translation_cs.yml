@@ -123,6 +123,7 @@ cs:
       gender: Pohlaví
       male: "Muž"
       female: "Žena"
+      mismatch: "Změna porušila některou z podmínek na pohlaví"
 
     save: Uložit změny
     public: (veřejné)
@@ -160,6 +161,8 @@ cs:
     no_incoming_requests: Nemáte žádné příchozí čekající žádosti o prohození.
     accept: Přijmout
     decline: Odmítnout
+    request_successfully_created: Požadavek na výměnu pokoje vytvořen úspěšně
+    request_available_error: Podmínky pokojů (pohlaví, kolo, typ pokoje) se na jedné ze stran změnily tak, že výměnu nelze provést
 
   dashboard:
     headers:

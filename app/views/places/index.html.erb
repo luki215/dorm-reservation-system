@@ -115,10 +115,11 @@
                           <%= button_tag t("reservation.taken_" + (place.user.male ? "male" : "female")), 
                             class: "btn btn-danger",
                             disabled: true %>
-                          <% if false && !@current_user_place.nil? and current_user.switch_room_requests_made.size === 0%>
+                          <% if place.available_for_switch_with?(current_user)%>
                               <%= link_to t("reservation.send_switch_room_request"), new_switch_room_path({place_id: place.id}), class: 'btn btn-info' %>
                           <% end %>
                       <% end %>
+
 
                     <!-- ADMIN -->
                     <% else %>

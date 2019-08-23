@@ -43,15 +43,16 @@ class Place < ApplicationRecord
 
   def available?(current_user)
     return false unless self.user.nil? 
-    return false unless self.room_type == current_user.room_type
+    return available_eventhough_could_be_full?(current_user)
+  end
 
-    place_orig_user = self.user
-    self.user = current_user
-    is_valid = self.valid? 
-    # hotfix - unique place validation per user
-    is_valid = true if self.errors.count == 1 && self.errors.first && self.errors.first.include?(:user)
-    self.user = place_orig_user
-    return is_valid
+  def available_for_switch_with?(user)
+    return !user.place.nil? &&
+           user.place != self &&
+           !self.user.nil? &&
+           user.switch_room_requests_made.where.not(user_requested_id: self.user.id).size == 0 &&
+           user.switch_room_requests_incoming.where.not(user_requested_id: self.user.id).size == 0 &&
+           available_eventhough_could_be_full?(user)
   end
 
   def availability_status(current_user)
@@ -63,11 +64,11 @@ class Place < ApplicationRecord
   end
 
   def places_on_same_room
-    return Place.where(building: self.building, floor: self.floor, room: self.room).preload(:user)
+    return Place.where(building: self.building, floor: self.floor, room: self.room).where.not(id: self.id).preload(:user)
   end
 
   def places_on_same_cell
-    return Place.where(building: self.building, floor: self.floor, cell: self.cell).preload(:user)
+    return Place.where(building: self.building, floor: self.floor, cell: self.cell).where.not(id: self.id).preload(:user)
   end
 
   def self.places_count(current_user, building, floor = nil, cell = nil)
@@ -105,6 +106,27 @@ class Place < ApplicationRecord
   end
 
   private 
+
+
+  def available_eventhough_could_be_full?(current_user) 
+    return false unless self.room_type == current_user.room_type
+
+    ## Is place valid if we move user in ##
+    place_orig_user = self.user
+    self.user = current_user
+    is_valid = self.valid? 
+    # hotfix - unique place validation per user
+    is_valid = true if self.errors.count == 1 && self.errors.first && self.errors.first.include?(:user)
+
+    self.user = place_orig_user
+    return is_valid
+  end
+
+
+  ###
+  ### Validations
+  ###  
+
   def sex_validation
     if self.user 
       res = 
@@ -115,7 +137,7 @@ class Place < ApplicationRecord
       places_on_same_cell.all? {|place| place.user.nil? || !place.user.same_sex_cell || place.user.male == self.user.male } &&
       places_on_same_room.all? {|place| place.user.nil? || !place.user.same_sex_room || place.user.male == self.user.male }
       
-      self.errors.add(:sex, "Sex mismatch") unless res
+      self.errors.add(:sex, I18n.t("general.sex.mismatch")) unless res
       res
     else 
       true
