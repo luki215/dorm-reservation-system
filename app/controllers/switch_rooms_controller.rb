@@ -13,15 +13,18 @@ class SwitchRoomsController < ApplicationController
   end
 
   def create
-    #TODO check if not already created
-    place = Place.find(params[:place_id])
+    
+    @place = Place.find(params[:place_id])
 
-    @switch_room = SwitchRoom.new(user_requesting: current_user, user_requested: place.user, note: params[:switch_room][:note])
+    @switch_room = SwitchRoom.new(user_requesting: current_user, user_requested: @place.user, note: params[:switch_room][:note])
 
     respond_to do |format|
-      if @switch_room.save
-        format.html { redirect_to places_path, notice: 'Switch room request was successfully created.' }
+      if @place.available_for_switch_with?(current_user) && @switch_room.save
+        format.html { redirect_to places_path, notice: t('switch.request_successfully_created') }
+      elsif @switch_room.errors.size > 0
+        format.html { render :new }
       else
+        flash.now[:notice] = t('switch.request_available_error')
         format.html { render :new }
       end
     end

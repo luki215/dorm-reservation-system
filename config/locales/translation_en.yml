@@ -119,6 +119,7 @@ en:
       gender: Pohlaví
       male: Male
       female: Female
+      mismatch: Change violated one of the sex preferences
 
     save: Save changes
     public: (public)

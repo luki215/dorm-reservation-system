@@ -51,6 +51,7 @@ class Place < ApplicationRecord
            user.place != self &&
            !self.user.nil? &&
            user.switch_room_requests_made.where.not(user_requested_id: self.user.id).size == 0 &&
+           user.switch_room_requests_incoming.where.not(user_requested_id: self.user.id).size == 0 &&
            available_eventhough_could_be_full?(user)
   end
 
@@ -136,7 +137,7 @@ class Place < ApplicationRecord
       places_on_same_cell.all? {|place| place.user.nil? || !place.user.same_sex_cell || place.user.male == self.user.male } &&
       places_on_same_room.all? {|place| place.user.nil? || !place.user.same_sex_room || place.user.male == self.user.male }
       
-      self.errors.add(:sex, "Sex mismatch") unless res
+      self.errors.add(:sex, I18n.t("general.sex.mismatch")) unless res
       res
     else 
       true

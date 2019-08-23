@@ -118,7 +118,6 @@
                           <% if place.available_for_switch_with?(current_user)%>
                               <%= link_to t("reservation.send_switch_room_request"), new_switch_room_path({place_id: place.id}), class: 'btn btn-info' %>
                           <% end %>
-                          <%= place.available_for_switch_with?(current_user) %>
                       <% end %>
 
 
