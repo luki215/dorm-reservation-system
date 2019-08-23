@@ -51,6 +51,7 @@ cs:
         same_sex_room: Na pokoji pouze stejné pohlaví  #g
         secondary_claim: Sekundární právo  #g
         room_type: Typ pokoje
+        welcome_mail_sent: Už byl odeslán přivítací email s heslem
 
   header:
     appname: Rezervace pokojů

@@ -43,7 +43,7 @@
           <div class="card">
             <div class="card-header">Akce</div>
             <div class="card-body">
-              <%= link_to "Poslat přivítací mail všem uživatelům", send_welcome_mails_app_settings_path, method: :post, class: "btn btn-primary" %>
+              <%= link_to "Poslat přivítací mail všem neodeslaným uživatelům", send_welcome_mails_app_settings_path, method: :post, class: "btn btn-primary" %>
               <br>
               Počet poslaných mailů: <%= @users_welcome_sent_count %>/<%= User.where(admin: false).size %>
             </div>

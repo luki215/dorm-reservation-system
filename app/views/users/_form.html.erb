@@ -52,6 +52,13 @@
         <%= link_to @user.admin_claim.name, places_path({building: @user.admin_claim.building, floor: @user.admin_claim.floor})  %> 
     </div>
   <% end %>
+
+  <% if current_user.admin? %>
+    <div class="form-group form-check">
+      <%= form.check_box :welcome_mail_sent, class: "form-check-input" %>
+      <%= form.label :welcome_mail_sent, class: "form-check-label" %>
+    </div>
+  <% end %>
   
 
   <hr>
