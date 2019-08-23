@@ -12,6 +12,6 @@ class SetLanguageController < ApplicationController
       private
       def set_session_and_redirect
         session[:locale] = I18n.locale
-        redirect_back(fallback_location: "/")
+        redirect_back(fallback_location: "/", turbolinks: false)
       end
 end

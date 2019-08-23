@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
     before_action :check_app_running
     before_action :set_paper_trail_whodunnit
     before_action :set_raven_context
+    before_action :set_locale
 
     def unauthorized 
         respond_to do |format|
@@ -33,11 +34,17 @@ class ApplicationController < ActionController::Base
         Raven.extra_context(params: params.to_unsafe_h, url: request.url, dorm: AppSetting.first.dorm.to_s)
     end
 
+    def set_locale
+        I18n.locale = params[:locale] || session[:locale] || I18n.default_locale
+        session[:locale] = I18n.locale
+    end
+
     def nonexistent_user
         respond_to do |format|
             format.html { redirect_to "/", alert: "This user doesn't exist!" }
         end
     end
+
 
 
 end
