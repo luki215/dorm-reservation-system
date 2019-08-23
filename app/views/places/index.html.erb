@@ -120,7 +120,7 @@
                           <% end %>
                       <% end %>
 
-                      <% if current_user.aliance_id == place.user&.aliance_id && current_user != place.user %>
+                      <% if !current_user.aliance_id.nil? && current_user.aliance_id == place.user&.aliance_id && current_user != place.user %>
                         <br>
                         <%= t("reservation.here_lives") %>: <%= place.user&.fullname %> 
                       <% end %>
