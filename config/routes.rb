@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :not_running, only: [:index]
   resources :app_settings, only: [:index, :update] do 
     post "send_welcome_mails", on: :collection
+    post "send_apollogize_mails", on: :collection
   end
 
   resources :alliance_membership_requests, only: [:create, :destroy] do 

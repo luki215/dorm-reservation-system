@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_22_182450) do
+ActiveRecord::Schema.define(version: 2019_08_24_134405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,7 +96,9 @@ ActiveRecord::Schema.define(version: 2019_08_22_182450) do
     t.boolean "admin", default: false
     t.string "room_type"
     t.boolean "welcome_mail_sent", default: false
+    t.boolean "apollogize_mail_sent", default: false
     t.index ["aliance_id"], name: "index_users_on_aliance_id"
+    t.index ["apollogize_mail_sent"], name: "index_users_on_apollogize_mail_sent"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

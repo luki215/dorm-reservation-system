@@ -8,7 +8,9 @@ class AppSettingsController < ApplicationController
   def index
     admin_only
     @app_settings = AppSetting.first
+    @users_count = User.where(admin: false).size
     @users_welcome_sent_count = User.where(welcome_mail_sent: true, admin: false).size
+    @users_apollogize_sent_count = User.where(apollogize_mail_sent: true, admin: false).size
 
   end
 
@@ -28,6 +30,17 @@ class AppSettingsController < ApplicationController
     
     SendWelcomeMailsWorker.perform_async
 
+    respond_to do |format|
+      format.html { redirect_to app_settings_url, notice: 'Emails are sending' }
+      format.json { head :no_content }
+    end
+  end
+
+  def send_apollogize_mails
+    User.where(admin: false, apollogize_mail_sent: false).select(:id).each_with_index do |user, j|
+      ApollogizeMailWorker.perform_in( ((j / 200)*5).minutes, user.id)
+    end 
+    
     respond_to do |format|
       format.html { redirect_to app_settings_url, notice: 'Emails are sending' }
       format.json { head :no_content }

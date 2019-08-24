@@ -45,7 +45,12 @@
             <div class="card-body">
               <%= link_to "Poslat přivítací mail všem neodeslaným uživatelům", send_welcome_mails_app_settings_path, method: :post, class: "btn btn-primary" %>
               <br>
-              Počet poslaných mailů: <%= @users_welcome_sent_count %>/<%= User.where(admin: false).size %>
+              Počet poslaných mailů: <%= @users_welcome_sent_count %>/<%= @users_count %>
+              <hr>
+
+              <%= link_to "Poslat omlouvací mail všem neodeslaným uživatelům", send_apollogize_mails_app_settings_path, method: :post, class: "btn btn-primary" %>
+              <br>
+              Počet poslaných mailů: <%= @users_apollogize_sent_count %>/<%= @users_count %>
             </div>
           </div>
         </div>
