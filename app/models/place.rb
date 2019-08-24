@@ -8,6 +8,7 @@ class Place < ApplicationRecord
   validate :sex_validation, :room_type_validation
   validate :round_validation
 
+  after_commit :remove_user_switch_place_requests
   
   has_paper_trail only: [:user]
 
@@ -161,6 +162,16 @@ class Place < ApplicationRecord
       true
     end
   end
+
+  #
+  # Callbacks
+  #
+
+  def remove_user_switch_place_requests 
+    self.user.switch_room_requests_made.destroy_all if self.user
+    self.user.switch_room_requests_incoming.destroy_all if self.user
+  end
+
 
 end
 
