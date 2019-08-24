@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
             controller_name != "sessions" &&
             controller_name != "passwords"
 
-            redirect_to not_running_index_path 
+            redirect_to not_running_index_path if current_user.nil? || !current_user.admin
         end
     end
 
