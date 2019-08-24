@@ -11,6 +11,6 @@ class UserMailer < ApplicationMailer
   def apollogize_mail(user_id)
     user = User.find(user_id)
     mail(to: user.email, subject: 'Zámluvový systém / Reservation system')
-    user.update_attributes(apollogize_mail_sent: true)
+    user.update_attribute('apollogize_mail_sent', true)
   end
 end
